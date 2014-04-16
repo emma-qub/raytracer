@@ -1,0 +1,2 @@
+g++ -c -pipe -g -Wall -W -D_REENTRANT -fPIE -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/lib/qt/mkspecs/linux-g++ -I. -IBRDFs -IBRDFs -ICameras -IGeometricObjects -ILights -IMaterials -ITracers -IUserInterface -IUtilities -IWorld -I/usr/include/wx-2.8 -I/usr/lib/wx/include/gtk2-unicode-release-2.8 -I/usr/include/qt -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I. -o wxraytracer.o UserInterface/wxraytracer.cpp
+Makefile:970: recipe for target 'wxraytracer.o' failed
