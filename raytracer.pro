@@ -7,6 +7,7 @@ HEADERS += \
   GeometricObjects/GeometricObject.h \
   GeometricObjects/Plane.h \
   GeometricObjects/Sphere.h \
+  GeometricObjects/Torus.h \
   Lights/Ambient.h \
   Lights/Directional.h \
   Lights/Light.h \
@@ -28,7 +29,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -40,6 +41,7 @@ SOURCES += \
   GeometricObjects/GeometricObject.cpp \
   GeometricObjects/Plane.cpp \
   GeometricObjects/Sphere.cpp \
+  GeometricObjects/Torus.cpp \
   Lights/Ambient.cpp \
   Lights/Directional.cpp \
   Lights/Light.cpp \
@@ -60,6 +62,7 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
+    Utilities/Maths.cpp
 
 INCLUDEPATH += \
   BRDFs \

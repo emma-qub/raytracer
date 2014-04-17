@@ -14,6 +14,7 @@
 #include "Plane.h"
 #include "Pinhole.h"
 #include "Cylinder.h"
+#include "Torus.h"
 
 #define perso 1
 
@@ -88,9 +89,18 @@ void World::build(void) {
   matte_ptr->set_ka(ka);
   matte_ptr->set_kd(kd);
   matte_ptr->set_cd(yellow);
-  Cylinder* cylinder_ptr = new Cylinder(50, 0, -75);
+  Cylinder* cylinder_ptr = new Cylinder(30, 50, -5);
   cylinder_ptr->set_material(matte_ptr);	   							// yellow
   add_object(cylinder_ptr);
+
+  // Torus
+  Matte* matte_ptr5 = new Matte;
+  matte_ptr5->set_ka(ka);
+  matte_ptr5->set_kd(kd);
+  matte_ptr5->set_cd(green);
+  Torus*	torus_ptr = new Torus(75, 20);
+  torus_ptr->set_material(matte_ptr5);								// green
+  add_object(torus_ptr);
 #else
 
   // spheres
