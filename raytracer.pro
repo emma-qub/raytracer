@@ -3,6 +3,7 @@ HEADERS += \
   BRDFs/Lambertian.h \
   Cameras/Camera.h \
   Cameras/Pinhole.h \
+  GeometricObjects/Cylinder.h \
   GeometricObjects/GeometricObject.h \
   GeometricObjects/Plane.h \
   GeometricObjects/Sphere.h \
@@ -27,7 +28,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h
+  World/World.h \
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
   build/BuildShadedObjects.cpp \
   Cameras/Camera.cpp \
   Cameras/Pinhole.cpp \
+  GeometricObjects/Cylinder.cpp \
   GeometricObjects/GeometricObject.cpp \
   GeometricObjects/Plane.cpp \
   GeometricObjects/Sphere.cpp \
@@ -57,7 +59,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp
+  World/World.cpp \
 
 INCLUDEPATH += \
   BRDFs \
@@ -84,7 +86,8 @@ LIBS += \
 
 INCLUDEPATH += \
   /usr/include/wx-2.8/ \
-  /usr/lib/wx/include/gtk2-unicode-release-2.8/
+  /usr/lib/wx/include/gtk2-unicode-release-2.8/ \
+  /usr/lib/x86_64-linux-gnu/wx/include/gtk2-unicode-release-2.8/
 
 QMAKE_CXXFLAGS += \
   -D_FILE_OFFSET_BITS=64 \
