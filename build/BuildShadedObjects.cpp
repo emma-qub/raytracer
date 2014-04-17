@@ -13,6 +13,9 @@
 #include "Matte.h"
 #include "Plane.h"
 #include "Pinhole.h"
+#include "Cylinder.h"
+
+#define perso 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -73,6 +76,22 @@ void World::build(void) {
   float ka = 0.25;
   float kd = 0.75;
 
+#if perso
+  // camera
+  pinhole_ptr->set_eye(0, 500, 500);
+  pinhole_ptr->set_lookat(0.0);
+  pinhole_ptr->set_view_distance(600.0);
+  pinhole_ptr->compute_uvw();
+
+  // cylinder
+  Matte* matte_ptr = new Matte;
+  matte_ptr->set_ka(ka);
+  matte_ptr->set_kd(kd);
+  matte_ptr->set_cd(yellow);
+  Cylinder* cylinder_ptr = new Cylinder(50, 0, -75);
+  cylinder_ptr->set_material(matte_ptr);	   							// yellow
+  add_object(cylinder_ptr);
+#else
 
   // spheres
 
@@ -357,6 +376,7 @@ void World::build(void) {
   sphere_ptr35->set_material(matte_ptr35);							// light purple
   add_object(sphere_ptr35);
 
+#endif
 
   // vertical plane
 
