@@ -62,7 +62,8 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    Utilities/Maths.cpp
+  Utilities/Maths.cpp
+
 
 INCLUDEPATH += \
   BRDFs \

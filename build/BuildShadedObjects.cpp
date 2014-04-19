@@ -13,8 +13,6 @@
 #include "Matte.h"
 #include "Plane.h"
 #include "Pinhole.h"
-#include "Cylinder.h"
-#include "Torus.h"
 
 #define perso 1
 
