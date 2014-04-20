@@ -108,6 +108,17 @@ void World::build(void) {
   Annulus*	annulus_ptr = new Annulus(Point3D(0, 70, 0), Normal(0, 1, 0), 20, 30);
   annulus_ptr->set_material(matte_ptr4);								// orange
   add_object(annulus_ptr);
+
+  // Rectangle
+  Matte* matte_ptr15 = new Matte;
+  matte_ptr15->set_ka(ka);
+  matte_ptr15->set_kd(kd);
+  matte_ptr15->set_cd(brown);
+  Rectangle*	rectangle_ptr15 =
+    new Rectangle(Point3D(-80, 0, -80), Vector3D(0, 50, 0), Vector3D(70, 0, 0));
+  rectangle_ptr15->set_material(matte_ptr15); 							// brown
+  add_object(rectangle_ptr15);
+
 #else
 
   // spheres

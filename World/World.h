@@ -23,6 +23,7 @@
 #include "Torus.h"
 #include "Disk.h"
 #include "Annulus.h"
+#include "Rectangle.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 
