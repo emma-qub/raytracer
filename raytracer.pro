@@ -5,6 +5,7 @@ HEADERS += \
   Cameras/Pinhole.h \
   GeometricObjects/Annulus.h \
   GeometricObjects/ConvexPartCylinder.h \
+  GeometricObjects/ConcavePartCylinder.h \
   GeometricObjects/ConvexPartSphere.h \
   GeometricObjects/ConcavePartSphere.h \
   GeometricObjects/OpenPartSphere.h \
@@ -48,6 +49,7 @@ SOURCES += \
   Cameras/Pinhole.cpp \
   GeometricObjects/Annulus.cpp \
   GeometricObjects/ConvexPartCylinder.cpp \
+  GeometricObjects/ConcavePartCylinder.cpp \
   GeometricObjects/ConvexPartSphere.cpp \
   GeometricObjects/ConcavePartSphere.cpp \
   GeometricObjects/OpenPartSphere.cpp \

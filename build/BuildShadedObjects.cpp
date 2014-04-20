@@ -24,7 +24,8 @@
 #define convexpartsphere 0
 #define concavepartsphere 0
 #define openpartsphere 0
-#define convexpartcylinder 1
+#define convexpartcylinder 0
+#define concavepartcylinder 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -185,6 +186,17 @@ void World::build(void) {
     new ConvexPartCylinder(-25, 25, 50, 45, 325);
   convexPartCylinder->set_material(matte_ptr103);	   							// yellow
   add_object(convexPartCylinder);
+# endif
+
+# if concavepartcylinder
+  Matte* matte_ptr104 = new Matte;
+  matte_ptr104->set_ka(ka);
+  matte_ptr104->set_kd(kd);
+  matte_ptr104->set_cd(yellow);
+  ConcavePartCylinder* concavePartCylinder =
+    new ConcavePartCylinder(-25, 25, 50, 45, 325);
+  concavePartCylinder->set_material(matte_ptr104);	   							// yellow
+  add_object(concavePartCylinder);
 # endif
 
 #else
