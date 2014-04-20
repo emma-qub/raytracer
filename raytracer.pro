@@ -6,6 +6,7 @@ HEADERS += \
   GeometricObjects/Annulus.h \
   GeometricObjects/ConvexPartSphere.h \
   GeometricObjects/ConcavePartSphere.h \
+  GeometricObjects/OpenPartSphere.h \
   GeometricObjects/Disk.h \
   GeometricObjects/GeometricObject.h \
   GeometricObjects/OpenCone.h \
@@ -47,6 +48,7 @@ SOURCES += \
   GeometricObjects/Annulus.cpp \
   GeometricObjects/ConvexPartSphere.cpp \
   GeometricObjects/ConcavePartSphere.cpp \
+  GeometricObjects/OpenPartSphere.cpp \
   GeometricObjects/Disk.cpp \
   GeometricObjects/GeometricObject.cpp \
   GeometricObjects/OpenCone.cpp \

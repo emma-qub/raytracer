@@ -21,8 +21,9 @@
 #define rectangle 0
 #define annulus 0
 #define cone 0
-#define convexpartsphere 0
-#define concavepartsphere 1
+#define convexpartsphere 1
+#define concavepartsphere 0
+#define openpartsphere 0
 
 void World::build(void) {
   int num_samples = 1;
@@ -161,6 +162,17 @@ void World::build(void) {
     new ConcavePartSphere(Point3D(0, 0, 0), 50, 45, 325, 45, 135);
   concavePartSphere->set_material(matte_ptr101);	   							// yellow
   add_object(concavePartSphere);
+# endif
+
+# if openpartsphere
+  Matte* matte_ptr102 = new Matte;
+  matte_ptr102->set_ka(ka);
+  matte_ptr102->set_kd(kd);
+  matte_ptr102->set_cd(yellow);
+  OpenPartSphere* openPartSphere =
+    new OpenPartSphere(Point3D(0, 0, 0), 50, 45, 325, 45, 135);
+  openPartSphere->set_material(matte_ptr102);	   							// yellow
+  add_object(openPartSphere);
 # endif
 
 #else
