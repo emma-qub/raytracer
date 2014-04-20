@@ -28,6 +28,7 @@
 #include "ConvexPartSphere.h"
 #include "ConcavePartSphere.h"
 #include "OpenPartSphere.h"
+#include "ConvexPartCylinder.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 
