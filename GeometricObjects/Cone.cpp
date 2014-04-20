@@ -1,0 +1,113 @@
+#include "Cone.h"
+#include "Maths.h"
+#include <math.h>
+
+Cone::Cone(void):
+  GeometricObject(),
+  height(2.0),
+  radius(1.0),
+  hr(2.0),
+  h2r2(4.0) {
+}
+
+Cone::Cone(double h, double r):
+  GeometricObject(),
+  height(h),
+  radius(r),
+  hr(height / radius),
+  h2r2((height * height) / (radius * radius)) {
+}
+
+Cone::Cone(const Cone& cone):
+  GeometricObject(cone),
+  height(cone.height),
+  radius(cone.radius),
+  hr(cone.hr),
+  h2r2(cone.h2r2) {
+}
+
+Cone* Cone::clone(void) const {
+  return new Cone(*this);
+}
+
+Cone& Cone::operator=(const Cone& rhs) {
+  if (this == &rhs)
+    return *this;
+
+  GeometricObject::operator=(rhs);
+
+  height = rhs.height;
+  radius = rhs.radius;
+  hr = rhs.hr;
+  h2r2 = rhs.h2r2;
+
+  return *this;
+}
+
+Cone::~Cone(void) {
+}
+
+bool Cone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+  double t;
+  double ox = ray.o.x;
+  double oy = ray.o.y;
+  double oz = ray.o.z;
+  double dx = ray.d.x;
+  double dy = ray.d.y;
+  double dz = ray.d.z;
+
+  double a = h2r2 * (dx * dx + dz * dz) - dy * dy;
+  double b = 2 * (h2r2 * (ox * dx + oz * dz) + dy * (height - oy));
+  double c = h2r2 * (ox * ox + oz * oz) + 2 * oy * height - oy * oy - height * height;
+  double disc = b * b - 4.0 * a * c;
+
+  if (disc < 0.0)
+    return(false);
+  else {
+    double e = sqrt(disc);
+    double denom = 2.0 * a;
+    t = (-b - e) / denom;    // smaller root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (0 <= yhit && yhit <= height) {
+        tmin = t;
+        sr.normal = Normal(hr * (ox + t * dx), oy + t * dy - height, hr * (oz + t * dz));
+        sr.normal.normalize();
+
+        // test for hitting from inside
+
+        if (-ray.d * sr.normal < 0.0)
+          sr.normal = -sr.normal;
+
+        sr.local_hit_point = ray.o + tmin * ray.d;
+
+        return true;
+      }
+    }
+
+    t = (-b + e) / denom;    // larger root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (0 <= yhit && yhit <= height) {
+        tmin = t;
+        sr.normal = Normal(hr * (ox + t * dx), - oy - t * dy + height, hr * (oz + t * dz));
+        sr.normal.normalize();
+
+        // test for hitting inside surface
+
+        if (-ray.d * sr.normal < 0.0)
+          sr.normal = -sr.normal;
+
+        sr.local_hit_point = ray.o + tmin * ray.d;
+
+        return true;
+      }
+    }
+  }
+
+  return false;
+}

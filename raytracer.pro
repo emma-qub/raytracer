@@ -33,7 +33,8 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h
+  World/World.h \
+    GeometricObjects/Cone.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -70,7 +71,8 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp
+  World/World.cpp \
+    GeometricObjects/Cone.cpp
 
 
 INCLUDEPATH += \

@@ -20,6 +20,7 @@
 #include "GeometricObject.h"
 #include "Sphere.h"
 #include "OpenCylinder.h"
+#include "Cone.h"
 #include "Torus.h"
 #include "Disk.h"
 #include "Annulus.h"
