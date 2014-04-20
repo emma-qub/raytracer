@@ -2,6 +2,7 @@
 #define TORUS_H
 
 #include "GeometricObject.h"
+#include "BBox.h"
 
 class Torus: public GeometricObject {
 public:
@@ -17,7 +18,7 @@ public:
 private:
   double a;
   double b;
-
+  BBox bbox;
 };
 
 #endif // TORUS_H

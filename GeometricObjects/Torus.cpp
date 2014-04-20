@@ -4,19 +4,22 @@
 Torus::Torus() :
   GeometricObject(),
   a(2.0),
-  b(0.5) {
+  b(0.5),
+  bbox(-a - b, a + b, -b, b, -a - b, a + b) {
 }
 
 Torus::Torus(const double a, const double b):
   GeometricObject(),
   a(a),
-  b(b) {
+  b(b),
+  bbox(-a - b, a + b, -b, b, -a - b, a + b) {
 }
 
 Torus::Torus(const Torus& torus):
   GeometricObject(torus),
   a(torus.a),
-  b(torus.b) {
+  b(torus.b),
+  bbox(torus.bbox) {
 }
 
 Torus* Torus::clone(void) const {
@@ -34,6 +37,7 @@ Torus& Torus::operator=(const Torus& torus) {
 
   a = torus.a;
   b = torus.b;
+  bbox = torus.bbox;
 
   return *this;
 }
@@ -56,6 +60,8 @@ Normal Torus::compute_normal(const Point3D& p) const {
 }
 
 bool Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+  if (!bbox.hit(ray))
+    return false;
 
   double x1 = ray.o.x; double y1 = ray.o.y; double z1 = ray.o.z;
   double d1 = ray.d.x; double d2 = ray.d.y; double d3 = ray.d.z;
