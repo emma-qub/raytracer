@@ -100,14 +100,14 @@ void World::build(void) {
   torus_ptr->set_material(matte_ptr5);								// green
   add_object(torus_ptr);
 
-  // Disk
+  // Annulus
   Matte* matte_ptr4 = new Matte;
   matte_ptr4->set_ka(ka);
   matte_ptr4->set_kd(kd);
   matte_ptr4->set_cd(orange);
-  Disk*	disk_ptr = new Disk(Point3D(0, 70, 0), Normal(0, 1, 0), 30);
-  disk_ptr->set_material(matte_ptr4);								// orange
-  add_object(disk_ptr);
+  Annulus*	annulus_ptr = new Annulus(Point3D(0, 70, 0), Normal(0, 1, 0), 20, 30);
+  annulus_ptr->set_material(matte_ptr4);								// orange
+  add_object(annulus_ptr);
 #else
 
   // spheres

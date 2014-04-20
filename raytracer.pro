@@ -31,7 +31,8 @@ HEADERS += \
   World/ViewPlane.h \
   World/World.h \
     Utilities/BBox.h \
-    GeometricObjects/Disk.h
+    GeometricObjects/Disk.h \
+    GeometricObjects/Annulus.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -66,7 +67,8 @@ SOURCES += \
   World/World.cpp \
   Utilities/Maths.cpp \
     Utilities/BBox.cpp \
-    GeometricObjects/Disk.cpp
+    GeometricObjects/Disk.cpp \
+    GeometricObjects/Annulus.cpp
 
 
 INCLUDEPATH += \
