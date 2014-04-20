@@ -4,6 +4,8 @@ HEADERS += \
   Cameras/Camera.h \
   Cameras/Pinhole.h \
   GeometricObjects/Annulus.h \
+  GeometricObjects/ConvexPartSphere.h \
+  GeometricObjects/ConcavePartSphere.h \
   GeometricObjects/Disk.h \
   GeometricObjects/GeometricObject.h \
   GeometricObjects/OpenCone.h \
@@ -34,8 +36,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    GeometricObjects/ConvexPartSphere.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -44,6 +45,8 @@ SOURCES += \
   Cameras/Camera.cpp \
   Cameras/Pinhole.cpp \
   GeometricObjects/Annulus.cpp \
+  GeometricObjects/ConvexPartSphere.cpp \
+  GeometricObjects/ConcavePartSphere.cpp \
   GeometricObjects/Disk.cpp \
   GeometricObjects/GeometricObject.cpp \
   GeometricObjects/OpenCone.cpp \
@@ -73,8 +76,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    GeometricObjects/ConvexPartSphere.cpp
+  World/World.cpp
 
 
 INCLUDEPATH += \
