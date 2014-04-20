@@ -25,6 +25,7 @@
 #include "Disk.h"
 #include "Annulus.h"
 #include "Rectangle.h"
+#include "ConvexPartSphere.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 

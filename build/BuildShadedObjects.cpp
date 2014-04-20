@@ -20,7 +20,8 @@
 #define disk 0
 #define rectangle 0
 #define annulus 0
-#define cone 1
+#define cone 0
+#define convexpartsphere 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -83,7 +84,7 @@ void World::build(void) {
 
 #if perso
   // camera
-  pinhole_ptr->set_eye(0, -200, 500);
+  pinhole_ptr->set_eye(0, 0, 500);
   pinhole_ptr->set_lookat(0.0);
   pinhole_ptr->set_view_distance(600.0);
   pinhole_ptr->compute_uvw();
@@ -139,6 +140,17 @@ void World::build(void) {
   add_object(cone_ptr);
 # endif
 
+# if convexpartsphere
+
+# endif
+  Matte* matte_ptr101 = new Matte;
+  matte_ptr101->set_ka(ka);
+  matte_ptr101->set_kd(kd);
+  matte_ptr101->set_cd(yellow);
+  ConvexPartSphere* convexPartSphere =
+    new ConvexPartSphere(Point3D(0, 0, 0), 50, 45, 325, 45, 135);
+  convexPartSphere->set_material(matte_ptr101);	   							// yellow
+  add_object(convexPartSphere);
 #else
 
   // spheres
