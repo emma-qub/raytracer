@@ -21,6 +21,7 @@
 #include "Sphere.h"
 #include "Cylinder.h"
 #include "Torus.h"
+#include "Disk.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 

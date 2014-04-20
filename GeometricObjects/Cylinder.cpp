@@ -11,19 +11,19 @@ Cylinder::Cylinder(void):
   inv_radius(1.0) {
 }
 
-Cylinder::Cylinder(double r, double t, double b):
+Cylinder::Cylinder(double b, double t, double r):
   GeometricObject(),
-  radius(r),
-  top(t),
   bottom(b),
+  top(t),
+  radius(r),
   inv_radius(1.0 / radius) {
 }
 
 Cylinder::Cylinder(const Cylinder& cylinder):
   GeometricObject(cylinder),
-  radius(cylinder.radius),
-  top(cylinder.top),
   bottom(cylinder.bottom),
+  top(cylinder.top),
+  radius(cylinder.radius),
   inv_radius(cylinder.inv_radius) {
 }
 
@@ -40,9 +40,9 @@ Cylinder& Cylinder::operator=(const Cylinder& cylinder) {
 
   GeometricObject::operator=(cylinder);
 
-  radius = cylinder.radius;
-  top = cylinder.top;
   bottom = cylinder.bottom;
+  top = cylinder.top;
+  radius = cylinder.radius;
   inv_radius = cylinder.inv_radius;
 
   return *this;

@@ -30,7 +30,8 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    Utilities/BBox.h
+    Utilities/BBox.h \
+    GeometricObjects/Disk.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -64,7 +65,8 @@ SOURCES += \
   World/ViewPlane.cpp \
   World/World.cpp \
   Utilities/Maths.cpp \
-    Utilities/BBox.cpp
+    Utilities/BBox.cpp \
+    GeometricObjects/Disk.cpp
 
 
 INCLUDEPATH += \

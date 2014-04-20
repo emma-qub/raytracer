@@ -87,7 +87,7 @@ void World::build(void) {
   matte_ptr->set_ka(ka);
   matte_ptr->set_kd(kd);
   matte_ptr->set_cd(yellow);
-  Cylinder* cylinder_ptr = new Cylinder(30, 50, -5);
+  Cylinder* cylinder_ptr = new Cylinder(-5, 50, 30);
   cylinder_ptr->set_material(matte_ptr);	   							// yellow
   add_object(cylinder_ptr);
 
@@ -99,6 +99,15 @@ void World::build(void) {
   Torus*	torus_ptr = new Torus(75, 20);
   torus_ptr->set_material(matte_ptr5);								// green
   add_object(torus_ptr);
+
+  // Disk
+  Matte* matte_ptr4 = new Matte;
+  matte_ptr4->set_ka(ka);
+  matte_ptr4->set_kd(kd);
+  matte_ptr4->set_cd(orange);
+  Disk*	disk_ptr = new Disk(Point3D(0, 70, 0), Normal(0, 1, 0), 30);
+  disk_ptr->set_material(matte_ptr4);								// orange
+  add_object(disk_ptr);
 #else
 
   // spheres

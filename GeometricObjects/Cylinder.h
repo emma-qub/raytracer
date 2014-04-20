@@ -7,7 +7,7 @@ class Cylinder: public GeometricObject {
 
 public:
   Cylinder(void);
-  Cylinder(double r, double t, double b);
+  Cylinder(double b, double t, double r);
   Cylinder(const Cylinder& cylinder);
 
   virtual Cylinder* clone(void) const;
@@ -18,12 +18,12 @@ public:
 
   void set_radius(const double r);
 
-  virtual bool hit(const Ray& ray, double& t, ShadeRec& s) const;
+  virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
 
 private:
-  double radius;
-  double top;
   double bottom;
+  double top;
+  double radius;
   double inv_radius;
 
   static const double kEpsilon;
