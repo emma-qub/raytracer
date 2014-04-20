@@ -3,20 +3,21 @@ HEADERS += \
   BRDFs/Lambertian.h \
   Cameras/Camera.h \
   Cameras/Pinhole.h \
-  GeometricObjects/Annulus.h \
-  GeometricObjects/ConvexPartCylinder.h \
-  GeometricObjects/ConcavePartCylinder.h \
-  GeometricObjects/ConvexPartSphere.h \
-  GeometricObjects/ConcavePartSphere.h \
-  GeometricObjects/OpenPartSphere.h \
-  GeometricObjects/Disk.h \
   GeometricObjects/GeometricObject.h \
-  GeometricObjects/OpenCone.h \
-  GeometricObjects/OpenCylinder.h \
-  GeometricObjects/Plane.h \
-  GeometricObjects/Rectangle.h \
-  GeometricObjects/Sphere.h \
-  GeometricObjects/Torus.h \
+  GeometricObjects/PartObjects/ConvexPartCylinder.h \
+  GeometricObjects/PartObjects/ConcavePartCylinder.h \
+  GeometricObjects/PartObjects/ConvexPartSphere.h \
+  GeometricObjects/PartObjects/ConcavePartSphere.h \
+  GeometricObjects/PartObjects/OpenPartCylinder.h \
+  GeometricObjects/PartObjects/OpenPartSphere.h \
+  GeometricObjects/Primitives/Disk.h \
+  GeometricObjects/Primitives/Annulus.h \
+  GeometricObjects/Primitives/OpenCone.h \
+  GeometricObjects/Primitives/OpenCylinder.h \
+  GeometricObjects/Primitives/Plane.h \
+  GeometricObjects/Primitives/Rectangle.h \
+  GeometricObjects/Primitives/Sphere.h \
+  GeometricObjects/Primitives/Torus.h \
   Lights/Ambient.h \
   Lights/Directional.h \
   Lights/Light.h \
@@ -39,8 +40,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    GeometricObjects/OpenPartCylinder.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -48,20 +48,21 @@ SOURCES += \
   build/BuildShadedObjects.cpp \
   Cameras/Camera.cpp \
   Cameras/Pinhole.cpp \
-  GeometricObjects/Annulus.cpp \
-  GeometricObjects/ConvexPartCylinder.cpp \
-  GeometricObjects/ConcavePartCylinder.cpp \
-  GeometricObjects/ConvexPartSphere.cpp \
-  GeometricObjects/ConcavePartSphere.cpp \
-  GeometricObjects/OpenPartSphere.cpp \
-  GeometricObjects/Disk.cpp \
   GeometricObjects/GeometricObject.cpp \
-  GeometricObjects/OpenCone.cpp \
-  GeometricObjects/OpenCylinder.cpp \
-  GeometricObjects/Plane.cpp \
-  GeometricObjects/Rectangle.cpp \
-  GeometricObjects/Sphere.cpp \
-  GeometricObjects/Torus.cpp \
+  GeometricObjects/PartObjects/ConvexPartCylinder.cpp \
+  GeometricObjects/PartObjects/ConcavePartCylinder.cpp \
+  GeometricObjects/PartObjects/ConvexPartSphere.cpp \
+  GeometricObjects/PartObjects/ConcavePartSphere.cpp \
+  GeometricObjects/PartObjects/OpenPartCylinder.cpp \
+  GeometricObjects/PartObjects/OpenPartSphere.cpp \
+  GeometricObjects/Primitives/Disk.cpp \
+  GeometricObjects/Primitives/Annulus.cpp \
+  GeometricObjects/Primitives/OpenCone.cpp \
+  GeometricObjects/Primitives/OpenCylinder.cpp \
+  GeometricObjects/Primitives/Plane.cpp \
+  GeometricObjects/Primitives/Rectangle.cpp \
+  GeometricObjects/Primitives/Sphere.cpp \
+  GeometricObjects/Primitives/Torus.cpp \
   Lights/Ambient.cpp \
   Lights/Directional.cpp \
   Lights/Light.cpp \
@@ -83,15 +84,15 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    GeometricObjects/OpenPartCylinder.cpp
-
+  World/World.cpp
 
 INCLUDEPATH += \
   BRDFs \
   BRDFs \
   Cameras \
   GeometricObjects \
+  GeometricObjects/PartObjects \
+  GeometricObjects/Primitives \
   Lights \
   Materials \
   Tracers \
