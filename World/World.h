@@ -19,7 +19,7 @@
 #include "Tracer.h"
 #include "GeometricObject.h"
 #include "Sphere.h"
-#include "Cylinder.h"
+#include "OpenCylinder.h"
 #include "Torus.h"
 #include "Disk.h"
 #include "Annulus.h"

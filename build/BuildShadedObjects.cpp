@@ -87,7 +87,7 @@ void World::build(void) {
   matte_ptr->set_ka(ka);
   matte_ptr->set_kd(kd);
   matte_ptr->set_cd(yellow);
-  Cylinder* cylinder_ptr = new Cylinder(-5, 50, 30);
+  OpenCylinder* cylinder_ptr = new OpenCylinder(-5, 50, 30);
   cylinder_ptr->set_material(matte_ptr);	   							// yellow
   add_object(cylinder_ptr);
 
@@ -115,7 +115,7 @@ void World::build(void) {
   matte_ptr15->set_kd(kd);
   matte_ptr15->set_cd(brown);
   Rectangle*	rectangle_ptr15 =
-    new Rectangle(Point3D(-80, 0, -80), Vector3D(0, 50, 0), Vector3D(70, 0, 0));
+    new Rectangle(Point3D(-80, 0, -80), Vector3D(70, 0, 0), Vector3D(0, 50, 0));
   rectangle_ptr15->set_material(matte_ptr15); 							// brown
   add_object(rectangle_ptr15);
 

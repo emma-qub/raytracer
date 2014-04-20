@@ -3,9 +3,12 @@ HEADERS += \
   BRDFs/Lambertian.h \
   Cameras/Camera.h \
   Cameras/Pinhole.h \
-  GeometricObjects/Cylinder.h \
+  GeometricObjects/Annulus.h \
+  GeometricObjects/Disk.h \
   GeometricObjects/GeometricObject.h \
+  GeometricObjects/OpenCylinder.h \
   GeometricObjects/Plane.h \
+  GeometricObjects/Rectangle.h \
   GeometricObjects/Sphere.h \
   GeometricObjects/Torus.h \
   Lights/Ambient.h \
@@ -18,6 +21,7 @@ HEADERS += \
   Tracers/Tracer.h \
   Tracers/SingleSphere.h \
   UserInterface/wxraytracer.h \
+  Utilities/BBox.h \
   Utilities/Constants.h \
   Utilities/Maths.h \
   Utilities/Matrix.h \
@@ -29,11 +33,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    Utilities/BBox.h \
-    GeometricObjects/Disk.h \
-    GeometricObjects/Annulus.h \
-    GeometricObjects/Rectangle.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -41,9 +41,12 @@ SOURCES += \
   build/BuildShadedObjects.cpp \
   Cameras/Camera.cpp \
   Cameras/Pinhole.cpp \
-  GeometricObjects/Cylinder.cpp \
+  GeometricObjects/Annulus.cpp \
+  GeometricObjects/Disk.cpp \
   GeometricObjects/GeometricObject.cpp \
+  GeometricObjects/OpenCylinder.cpp \
   GeometricObjects/Plane.cpp \
+  GeometricObjects/Rectangle.cpp \
   GeometricObjects/Sphere.cpp \
   GeometricObjects/Torus.cpp \
   Lights/Ambient.cpp \
@@ -56,6 +59,8 @@ SOURCES += \
   Tracers/SingleSphere.cpp \
   Tracers/Tracer.cpp \
   UserInterface/wxraytracer.cpp \
+  Utilities/BBox.cpp \
+  Utilities/Maths.cpp \
   Utilities/Matrix.cpp \
   Utilities/Normal.cpp \
   Utilities/Point2D.cpp \
@@ -65,12 +70,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-  Utilities/Maths.cpp \
-    Utilities/BBox.cpp \
-    GeometricObjects/Disk.cpp \
-    GeometricObjects/Annulus.cpp \
-    GeometricObjects/Rectangle.cpp
+  World/World.cpp
 
 
 INCLUDEPATH += \
