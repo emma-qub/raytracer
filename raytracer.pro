@@ -6,6 +6,7 @@ HEADERS += \
   GeometricObjects/Annulus.h \
   GeometricObjects/Disk.h \
   GeometricObjects/GeometricObject.h \
+  GeometricObjects/OpenCone.h \
   GeometricObjects/OpenCylinder.h \
   GeometricObjects/Plane.h \
   GeometricObjects/Rectangle.h \
@@ -33,8 +34,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    GeometricObjects/Cone.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -45,6 +45,7 @@ SOURCES += \
   GeometricObjects/Annulus.cpp \
   GeometricObjects/Disk.cpp \
   GeometricObjects/GeometricObject.cpp \
+  GeometricObjects/OpenCone.cpp \
   GeometricObjects/OpenCylinder.cpp \
   GeometricObjects/Plane.cpp \
   GeometricObjects/Rectangle.cpp \
@@ -71,8 +72,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    GeometricObjects/Cone.cpp
+  World/World.cpp
 
 
 INCLUDEPATH += \

@@ -15,6 +15,12 @@
 #include "Pinhole.h"
 
 #define perso 1
+#define cylinder 0
+#define torus 0
+#define disk 0
+#define rectangle 0
+#define annulus 0
+#define cone 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -82,51 +88,56 @@ void World::build(void) {
   pinhole_ptr->set_view_distance(600.0);
   pinhole_ptr->compute_uvw();
 
-//  // cylinder
-//  Matte* matte_ptr = new Matte;
-//  matte_ptr->set_ka(ka);
-//  matte_ptr->set_kd(kd);
-//  matte_ptr->set_cd(yellow);
-//  OpenCylinder* cylinder_ptr = new OpenCylinder(-5, 50, 30);
-//  cylinder_ptr->set_material(matte_ptr);	   							// yellow
-//  add_object(cylinder_ptr);
-
-//  // Torus
-//  Matte* matte_ptr5 = new Matte;
-//  matte_ptr5->set_ka(ka);
-//  matte_ptr5->set_kd(kd);
-//  matte_ptr5->set_cd(green);
-//  Torus*	torus_ptr = new Torus(75, 20);
-//  torus_ptr->set_material(matte_ptr5);								// green
-//  add_object(torus_ptr);
-
-//  // Annulus
-//  Matte* matte_ptr4 = new Matte;
-//  matte_ptr4->set_ka(ka);
-//  matte_ptr4->set_kd(kd);
-//  matte_ptr4->set_cd(orange);
-//  Annulus*	annulus_ptr = new Annulus(Point3D(0, 70, 0), Normal(0, 1, 0), 20, 30);
-//  annulus_ptr->set_material(matte_ptr4);								// orange
-//  add_object(annulus_ptr);
-
-//  // Rectangle
-//  Matte* matte_ptr15 = new Matte;
-//  matte_ptr15->set_ka(ka);
-//  matte_ptr15->set_kd(kd);
-//  matte_ptr15->set_cd(brown);
-//  Rectangle*	rectangle_ptr15 =
-//    new Rectangle(Point3D(-80, 0, -80), Vector3D(70, 0, 0), Vector3D(0, 50, 0));
-//  rectangle_ptr15->set_material(matte_ptr15); 							// brown
-//  add_object(rectangle_ptr15);
-
-  // cylinder
+# if cylinder
   Matte* matte_ptr = new Matte;
   matte_ptr->set_ka(ka);
   matte_ptr->set_kd(kd);
   matte_ptr->set_cd(yellow);
-  Cone* cone_ptr = new Cone(50, 30);
+  OpenCylinder* cylinder_ptr = new OpenCylinder(-5, 50, 30);
+  cylinder_ptr->set_material(matte_ptr);	   							// yellow
+  add_object(cylinder_ptr);
+# endif
+
+#if torus
+  Matte* matte_ptr5 = new Matte;
+  matte_ptr5->set_ka(ka);
+  matte_ptr5->set_kd(kd);
+  matte_ptr5->set_cd(green);
+  Torus*	torus_ptr = new Torus(75, 20);
+  torus_ptr->set_material(matte_ptr5);								// green
+  add_object(torus_ptr);
+# endif
+
+#if annulus
+  Matte* matte_ptr4 = new Matte;
+  matte_ptr4->set_ka(ka);
+  matte_ptr4->set_kd(kd);
+  matte_ptr4->set_cd(orange);
+  Annulus*	annulus_ptr = new Annulus(Point3D(0, 70, 0), Normal(0, 1, 0), 20, 30);
+  annulus_ptr->set_material(matte_ptr4);								// orange
+  add_object(annulus_ptr);
+# endif
+
+#if rectangle
+  Matte* matte_ptr15 = new Matte;
+  matte_ptr15->set_ka(ka);
+  matte_ptr15->set_kd(kd);
+  matte_ptr15->set_cd(brown);
+  Rectangle*	rectangle_ptr15 =
+    new Rectangle(Point3D(-80, 0, -80), Vector3D(70, 0, 0), Vector3D(0, 50, 0));
+  rectangle_ptr15->set_material(matte_ptr15); 							// brown
+  add_object(rectangle_ptr15);
+# endif
+
+#if cone
+  Matte* matte_ptr = new Matte;
+  matte_ptr->set_ka(ka);
+  matte_ptr->set_kd(kd);
+  matte_ptr->set_cd(yellow);
+  OpenCone* cone_ptr = new OpenCone(50, 30);
   cone_ptr->set_material(matte_ptr);	   							// yellow
   add_object(cone_ptr);
+# endif
 
 #else
 

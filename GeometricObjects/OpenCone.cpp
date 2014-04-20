@@ -1,8 +1,8 @@
-#include "Cone.h"
+#include "OpenCone.h"
 #include "Maths.h"
 #include <math.h>
 
-Cone::Cone(void):
+OpenCone::OpenCone(void):
   GeometricObject(),
   height(2.0),
   radius(1.0),
@@ -10,7 +10,7 @@ Cone::Cone(void):
   h2r2(4.0) {
 }
 
-Cone::Cone(double h, double r):
+OpenCone::OpenCone(double h, double r):
   GeometricObject(),
   height(h),
   radius(r),
@@ -18,19 +18,19 @@ Cone::Cone(double h, double r):
   h2r2((height * height) / (radius * radius)) {
 }
 
-Cone::Cone(const Cone& cone):
-  GeometricObject(cone),
-  height(cone.height),
-  radius(cone.radius),
-  hr(cone.hr),
-  h2r2(cone.h2r2) {
+OpenCone::OpenCone(const OpenCone& openCone):
+  GeometricObject(openCone),
+  height(openCone.height),
+  radius(openCone.radius),
+  hr(openCone.hr),
+  h2r2(openCone.h2r2) {
 }
 
-Cone* Cone::clone(void) const {
-  return new Cone(*this);
+OpenCone* OpenCone::clone(void) const {
+  return new OpenCone(*this);
 }
 
-Cone& Cone::operator=(const Cone& rhs) {
+OpenCone& OpenCone::operator=(const OpenCone& rhs) {
   if (this == &rhs)
     return *this;
 
@@ -44,10 +44,10 @@ Cone& Cone::operator=(const Cone& rhs) {
   return *this;
 }
 
-Cone::~Cone(void) {
+OpenCone::~OpenCone(void) {
 }
 
-bool Cone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+bool OpenCone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   double t;
   double ox = ray.o.x;
   double oy = ray.o.y;
