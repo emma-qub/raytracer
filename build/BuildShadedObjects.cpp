@@ -30,7 +30,8 @@
 #define convexparttorus 0
 #define concaveparttorus 0
 #define openparttorus 0
-#define partannulus 1
+#define partannulus 0
+#define genericsphere 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -265,6 +266,23 @@ void World::build(void) {
     new PartAnnulus(0, 40, 60, 45, 325);
   partAnnulus2->set_material(matte_ptr110);	   							// orange
   add_object(partAnnulus2);
+# endif
+
+# if genericsphere
+  // camera
+  pinhole_ptr->set_eye(0, 0, 10);
+  pinhole_ptr->set_lookat(0.0);
+  pinhole_ptr->set_view_distance(600.0);
+  pinhole_ptr->compute_uvw();
+  // generic sphere
+  Matte* matte_ptr111 = new Matte;
+  matte_ptr111->set_ka(ka);
+  matte_ptr111->set_kd(kd);
+  matte_ptr111->set_cd(yellow);
+  GenericSphere* genericSphere =
+    new GenericSphere;
+  genericSphere->set_material(matte_ptr111);	   							// yellow
+  add_object(genericSphere);
 # endif
 
 #else

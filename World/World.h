@@ -35,6 +35,7 @@
 #include "ConcavePartTorus.h"
 #include "OpenPartTorus.h"
 #include "PartAnnulus.h"
+#include "GenericSphere.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 
