@@ -44,7 +44,8 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    GeometricObjects/CompoundObjects/Compound.h
+    GeometricObjects/CompoundObjects/Compound.h \
+    GeometricObjects/PartObjects/PartAnnulus.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -92,7 +93,8 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    GeometricObjects/CompoundObjects/Compound.cpp
+    GeometricObjects/CompoundObjects/Compound.cpp \
+    GeometricObjects/PartObjects/PartAnnulus.cpp
 
 INCLUDEPATH += \
   BRDFs \

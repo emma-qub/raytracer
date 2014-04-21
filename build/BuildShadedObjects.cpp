@@ -29,7 +29,8 @@
 #define openpartcylinder 0
 #define convexparttorus 0
 #define concaveparttorus 0
-#define openparttorus 1
+#define openparttorus 0
+#define partannulus 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -245,6 +246,25 @@ void World::build(void) {
     new OpenPartTorus(60, 20, 45, 325, 90, 360);
   openPartTorus->set_material(matte_ptr108);	   							// yellow
   add_object(openPartTorus);
+# endif
+
+# if partannulus
+  Matte* matte_ptr109 = new Matte;
+  matte_ptr109->set_ka(ka);
+  matte_ptr109->set_kd(kd);
+  matte_ptr109->set_cd(yellow);
+  Matte* matte_ptr110 = new Matte;
+  matte_ptr110->set_ka(ka);
+  matte_ptr110->set_kd(kd);
+  matte_ptr110->set_cd(orange);
+  PartAnnulus* partAnnulus =
+    new PartAnnulus(50, 40, 60, 45, 325);
+  partAnnulus->set_material(matte_ptr109);	   							// yellow
+  add_object(partAnnulus);
+  PartAnnulus* partAnnulus2 =
+    new PartAnnulus(0, 40, 60, 45, 325);
+  partAnnulus2->set_material(matte_ptr110);	   							// orange
+  add_object(partAnnulus2);
 # endif
 
 #else
