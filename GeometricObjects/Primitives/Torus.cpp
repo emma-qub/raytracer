@@ -1,5 +1,6 @@
 #include "Torus.h"
 #include "Maths.h"
+#include <iostream>
 
 Torus::Torus() :
   GeometricObject(),
@@ -27,6 +28,7 @@ Torus* Torus::clone(void) const {
 }
 
 Torus::~Torus(void) {
+  std::cerr << "Delete Torus" << std::endl;
 }
 
 Torus& Torus::operator=(const Torus& torus) {

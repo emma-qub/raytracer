@@ -211,7 +211,9 @@ World::delete_objects(void) {
   int num_objects = objects.size();
 
   for (int j = 0; j < num_objects; j++) {
+    std::cerr << "World delete_objects #" << j << std::endl;
     delete objects[j];
+    std::cerr << "World object deleted" << j << std::endl;
     objects[j] = NULL;
   }
 

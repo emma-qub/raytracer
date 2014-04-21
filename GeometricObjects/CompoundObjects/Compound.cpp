@@ -6,19 +6,24 @@
 
 #include "Constants.h"
 #include "Compound.h"
+#include "Material.h"
+#include <iostream>
 
 
 // ----------------------------------------------------------------  default constructor
 
 Compound::Compound (void)
   : 	GeometricObject()
-{}
+{
+  std::cerr << "Compound constructor" << std::endl;
+}
 
 
 // ---------------------------------------------------------------- clone
 
 Compound*
 Compound::clone(void) const {
+  std::cerr << "Compound clone" << std::endl;
   return (new Compound(*this));
 }
 
@@ -28,6 +33,7 @@ Compound::clone(void) const {
 Compound::Compound (const Compound& c)
   : GeometricObject(c) {
 
+  std::cerr << "Compound copy constructor" << std::endl;
   copy_objects(c.objects);
 }
 
@@ -35,8 +41,9 @@ Compound::Compound (const Compound& c)
 
 // ---------------------------------------------------------------- assignment operator
 
-Compound&
-Compound::operator= (const Compound& rhs) {
+Compound& Compound::operator= (const Compound& rhs) {
+  std::cerr << "Compound operator=" << std::endl;
+
   if (this == &rhs)
     return (*this);
 
@@ -51,6 +58,8 @@ Compound::operator= (const Compound& rhs) {
 // ---------------------------------------------------------------- destructor
 
 Compound::~Compound(void) {
+  std::cerr << "Compound destructor" << std::endl;
+
   delete_objects();
 }
 
@@ -59,6 +68,7 @@ Compound::~Compound(void) {
 
 void
 Compound::add_object(GeometricObject* object_ptr) {
+  std::cerr << "Compound add_object" << std::endl;
   objects.push_back(object_ptr);
 }
 
@@ -68,10 +78,14 @@ Compound::add_object(GeometricObject* object_ptr) {
 
 void
 Compound::set_material(Material* material_ptr) {
+  std::cerr << "Compound set_material" << std::endl;
   int num_objects = objects.size();
 
   for (int j = 0; j < num_objects; j++)
-    objects[j]->set_material(material_ptr);
+    objects[j]->set_material(material_ptr->clone());
+
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 
@@ -79,16 +93,19 @@ Compound::set_material(Material* material_ptr) {
 // Deletes the objects in the objects array, and erases the array.
 // The array still exists, because it'ss an automatic variable, but it's empty
 
-void
-Compound::delete_objects(void) {
+void Compound::delete_objects(void) {
+  std::cerr << "Compound delete_objects" << std::endl;
   int num_objects = objects.size();
 
   for (int j = 0; j < num_objects; j++) {
+    std::cerr << "Compound delete object #" << j << std::endl;
     delete objects[j];
     objects[j] = NULL;
   }
 
+  std::cerr << "Compound objects deleted" << std::endl;
   objects.erase(objects.begin(), objects.end());
+  std::cerr << "Compound array erased" << std::endl;
 }
 
 
@@ -96,6 +113,7 @@ Compound::delete_objects(void) {
 
 void
 Compound::copy_objects(const std::vector<GeometricObject*>& rhs_ojects) {
+  std::cerr << "Compound copy_objects" << std::endl;
   delete_objects();
   int num_objects = rhs_ojects.size();
 

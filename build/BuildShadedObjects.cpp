@@ -321,15 +321,26 @@ void World::build(void) {
   matte_ptr113->set_cd(yellow);
   ConcavePartSphere* bowl_interior =
     new ConcavePartSphere(Point3D(), 50, 0, 360, 90, 180);
-  bowl_interior->set_material(matte_ptr113);	   							// yellow
-  add_object(bowl_interior);
+  std::cerr << "before1" << std::endl;
+  //bowl_interior->set_material(matte_ptr113);	   							// yellow
+  std::cerr << "after1" << std::endl;
+  //add_object(bowl_interior);
   ConvexPartSphere* bowl_exterior =
     new ConvexPartSphere(Point3D(), 60, 0, 360, 90, 180);
-  bowl_exterior->set_material(matte_ptr113->clone());	   							// yellow
-  add_object(bowl_exterior);
+  std::cerr << "before2" << std::endl;
+  //bowl_exterior->set_material(matte_ptr113->clone());	   							// yellow
+  std::cerr << "after3" << std::endl;
+  //add_object(bowl_exterior);
   Torus* edge = new Torus(55, 5);
-  edge->set_material(matte_ptr113->clone());	   							// yellow
-  add_object(edge);
+  std::cerr << "before3" << std::endl;
+  //edge->set_material(matte_ptr113->clone());	   							// yellow
+  std::cerr << "after3" << std::endl;
+  Compound* compound = new Compound;
+  compound->add_object(bowl_interior);
+  compound->add_object(bowl_exterior);
+  compound->add_object(edge);
+  compound->set_material(matte_ptr113);
+  add_object(compound);
 # endif
 
 #else
