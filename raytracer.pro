@@ -41,7 +41,8 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    GeometricObjects/PartObjects/ConvexPartTorus.h
+    GeometricObjects/PartObjects/ConvexPartTorus.h \
+    GeometricObjects/PartObjects/ConcavePartTorus.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -86,7 +87,8 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    GeometricObjects/PartObjects/ConvexPartTorus.cpp
+    GeometricObjects/PartObjects/ConvexPartTorus.cpp \
+    GeometricObjects/PartObjects/ConcavePartTorus.cpp
 
 INCLUDEPATH += \
   BRDFs \
