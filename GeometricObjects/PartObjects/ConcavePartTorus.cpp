@@ -145,8 +145,14 @@ bool ConcavePartTorus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         if (theta < 0.0)
           theta += TWO_PI;
 
-        if (phi_min <= phi && phi <= phi_max
-         && theta_min <= theta && theta <= theta_max) {
+        bool good_theta;
+        if (theta_max < theta_min) {
+          good_theta = ((theta_min <= theta && theta <= 360)
+                     || (0 <= theta && theta <= theta_max));
+        } else {
+          good_theta = (theta_min <= theta && theta <= theta_max);
+        }
+        if (phi_min <= phi && phi <= phi_max && good_theta) {
           intersected = true;
           t = roots[j];
         }
