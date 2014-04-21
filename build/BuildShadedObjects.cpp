@@ -31,7 +31,10 @@
 #define concaveparttorus 0
 #define openparttorus 0
 #define partannulus 0
-#define genericsphere 1
+#define genericsphere 0
+#define compoundobject 0
+#define bowlthickobject 0
+#define bowlroundedobject 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -114,7 +117,7 @@ void World::build(void) {
   matte_ptr5->set_ka(ka);
   matte_ptr5->set_kd(kd);
   matte_ptr5->set_cd(green);
-  Torus*	torus_ptr = new Torus(75, 20);
+  Torus* torus_ptr = new Torus(75, 20);
   torus_ptr->set_material(matte_ptr5);								// green
   add_object(torus_ptr);
 # endif
@@ -124,7 +127,7 @@ void World::build(void) {
   matte_ptr4->set_ka(ka);
   matte_ptr4->set_kd(kd);
   matte_ptr4->set_cd(orange);
-  Annulus*	annulus_ptr = new Annulus(Point3D(0, 70, 0), Normal(0, 1, 0), 20, 30);
+  Annulus* annulus_ptr = new Annulus(Point3D(0, 70, 0), Normal(0, 1, 0), 20, 30);
   annulus_ptr->set_material(matte_ptr4);								// orange
   add_object(annulus_ptr);
 # endif
@@ -262,8 +265,7 @@ void World::build(void) {
     new PartAnnulus(50, 40, 60, 45, 325);
   partAnnulus->set_material(matte_ptr109);	   							// yellow
   add_object(partAnnulus);
-  PartAnnulus* partAnnulus2 =
-    new PartAnnulus(0, 40, 60, 45, 325);
+  PartAnnulus* partAnnulus2 = new PartAnnulus(0, 40, 60, 45, 325);
   partAnnulus2->set_material(matte_ptr110);	   							// orange
   add_object(partAnnulus2);
 # endif
@@ -279,10 +281,55 @@ void World::build(void) {
   matte_ptr111->set_ka(ka);
   matte_ptr111->set_kd(kd);
   matte_ptr111->set_cd(yellow);
-  GenericSphere* genericSphere =
-    new GenericSphere;
+  GenericSphere* genericSphere = new GenericSphere;
   genericSphere->set_material(matte_ptr111);	   							// yellow
   add_object(genericSphere);
+# endif
+
+# if compoundobject
+  Matte* matte_ptr112 = new Matte;
+  matte_ptr112->set_ka(ka);
+  matte_ptr112->set_kd(kd);
+  matte_ptr112->set_cd(yellow);
+  Compound* compound = new Compound;
+  compound->set_material(matte_ptr112);	   							// yellow
+  add_object(compound);
+# endif
+
+# if bowlthickobject
+  Matte* matte_ptr113 = new Matte;
+  matte_ptr113->set_ka(ka);
+  matte_ptr113->set_kd(kd);
+  matte_ptr113->set_cd(yellow);
+  ConcavePartSphere* bowl_interior =
+    new ConcavePartSphere(Point3D(), 50, 0, 360, 90, 180);
+  bowl_interior->set_material(matte_ptr113);	   							// yellow
+  add_object(bowl_interior);
+  ConvexPartSphere* bowl_exterior =
+    new ConvexPartSphere(Point3D(), 60, 0, 360, 90, 180);
+  bowl_exterior->set_material(matte_ptr113->clone());	   							// yellow
+  add_object(bowl_exterior);
+  Annulus* edge = new Annulus(Point3D(), Normal(0.0, 1.0, 0.0), 50, 60);
+  edge->set_material(matte_ptr113->clone());	   							// yellow
+  add_object(edge);
+# endif
+
+# if bowlroundedobject
+  Matte* matte_ptr113 = new Matte;
+  matte_ptr113->set_ka(ka);
+  matte_ptr113->set_kd(kd);
+  matte_ptr113->set_cd(yellow);
+  ConcavePartSphere* bowl_interior =
+    new ConcavePartSphere(Point3D(), 50, 0, 360, 90, 180);
+  bowl_interior->set_material(matte_ptr113);	   							// yellow
+  add_object(bowl_interior);
+  ConvexPartSphere* bowl_exterior =
+    new ConvexPartSphere(Point3D(), 60, 0, 360, 90, 180);
+  bowl_exterior->set_material(matte_ptr113->clone());	   							// yellow
+  add_object(bowl_exterior);
+  Torus* edge = new Torus(55, 5);
+  edge->set_material(matte_ptr113->clone());	   							// yellow
+  add_object(edge);
 # endif
 
 #else
