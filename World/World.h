@@ -33,6 +33,7 @@
 #include "OpenPartCylinder.h"
 #include "ConvexPartTorus.h"
 #include "ConcavePartTorus.h"
+#include "OpenPartTorus.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 

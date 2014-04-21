@@ -28,7 +28,8 @@
 #define concavepartcylinder 0
 #define openpartcylinder 0
 #define convexparttorus 0
-#define concaveparttorus 1
+#define concaveparttorus 0
+#define openparttorus 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -233,6 +234,17 @@ void World::build(void) {
     new ConcavePartTorus(60, 20, 45, 325, 90, 360);
   concavePartTorus->set_material(matte_ptr107);	   							// yellow
   add_object(concavePartTorus);
+# endif
+
+# if openparttorus
+  Matte* matte_ptr108 = new Matte;
+  matte_ptr108->set_ka(ka);
+  matte_ptr108->set_kd(kd);
+  matte_ptr108->set_cd(yellow);
+  OpenPartTorus* openPartTorus =
+    new OpenPartTorus(60, 20, 45, 325, 90, 360);
+  openPartTorus->set_material(matte_ptr108);	   							// yellow
+  add_object(openPartTorus);
 # endif
 
 #else
