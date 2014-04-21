@@ -155,6 +155,7 @@ bool ConvexPartTorus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         if (phi_min <= phi && phi <= phi_max && good_theta) {
           intersected = true;
           t = roots[j];
+        }
       }
     }
   }

@@ -5,11 +5,14 @@ HEADERS += \
   Cameras/Pinhole.h \
   GeometricObjects/GeometricObject.h \
   GeometricObjects/PartObjects/ConvexPartCylinder.h \
-  GeometricObjects/PartObjects/ConcavePartCylinder.h \
   GeometricObjects/PartObjects/ConvexPartSphere.h \
+  GeometricObjects/PartObjects/ConvexPartTorus.h \
+  GeometricObjects/PartObjects/ConcavePartCylinder.h \
   GeometricObjects/PartObjects/ConcavePartSphere.h \
+  GeometricObjects/PartObjects/ConcavePartTorus.h \
   GeometricObjects/PartObjects/OpenPartCylinder.h \
   GeometricObjects/PartObjects/OpenPartSphere.h \
+  GeometricObjects/PartObjects/OpenPartTorus.h \
   GeometricObjects/Primitives/Disk.h \
   GeometricObjects/Primitives/Annulus.h \
   GeometricObjects/Primitives/OpenCone.h \
@@ -41,9 +44,7 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    GeometricObjects/PartObjects/ConvexPartTorus.h \
-    GeometricObjects/PartObjects/ConcavePartTorus.h \
-    GeometricObjects/PartObjects/OpenPartTorus.h
+    GeometricObjects/CompoundObjects/Compound.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -53,11 +54,14 @@ SOURCES += \
   Cameras/Pinhole.cpp \
   GeometricObjects/GeometricObject.cpp \
   GeometricObjects/PartObjects/ConvexPartCylinder.cpp \
-  GeometricObjects/PartObjects/ConcavePartCylinder.cpp \
   GeometricObjects/PartObjects/ConvexPartSphere.cpp \
+  GeometricObjects/PartObjects/ConvexPartTorus.cpp \
+  GeometricObjects/PartObjects/ConcavePartCylinder.cpp \
   GeometricObjects/PartObjects/ConcavePartSphere.cpp \
+  GeometricObjects/PartObjects/ConcavePartTorus.cpp \
   GeometricObjects/PartObjects/OpenPartCylinder.cpp \
   GeometricObjects/PartObjects/OpenPartSphere.cpp \
+  GeometricObjects/PartObjects/OpenPartTorus.cpp \
   GeometricObjects/Primitives/Disk.cpp \
   GeometricObjects/Primitives/Annulus.cpp \
   GeometricObjects/Primitives/OpenCone.cpp \
@@ -88,9 +92,7 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    GeometricObjects/PartObjects/ConvexPartTorus.cpp \
-    GeometricObjects/PartObjects/ConcavePartTorus.cpp \
-    GeometricObjects/PartObjects/OpenPartTorus.cpp
+    GeometricObjects/CompoundObjects/Compound.cpp
 
 INCLUDEPATH += \
   BRDFs \
@@ -99,6 +101,7 @@ INCLUDEPATH += \
   GeometricObjects \
   GeometricObjects/PartObjects \
   GeometricObjects/Primitives \
+  GeometricObjects/CompoundObjects \
   Lights \
   Materials \
   Tracers \
