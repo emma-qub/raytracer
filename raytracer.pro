@@ -40,7 +40,8 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h
+  World/World.h \
+    GeometricObjects/PartObjects/ConvexPartTorus.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -84,7 +85,8 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp
+  World/World.cpp \
+    GeometricObjects/PartObjects/ConvexPartTorus.cpp
 
 INCLUDEPATH += \
   BRDFs \

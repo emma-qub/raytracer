@@ -26,7 +26,8 @@
 #define openpartsphere 0
 #define convexpartcylinder 0
 #define concavepartcylinder 0
-#define openpartcylinder 1
+#define openpartcylinder 0
+#define convexparttorus 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -89,7 +90,7 @@ void World::build(void) {
 
 #if perso
   // camera
-  pinhole_ptr->set_eye(0, 0, 500);
+  pinhole_ptr->set_eye(0, 200, 500);
   pinhole_ptr->set_lookat(0.0);
   pinhole_ptr->set_view_distance(600.0);
   pinhole_ptr->compute_uvw();
@@ -209,6 +210,17 @@ void World::build(void) {
     new OpenPartCylinder(-25, 25, 50, 45, 325);
   openPartCylinder->set_material(matte_ptr105);	   							// yellow
   add_object(openPartCylinder);
+# endif
+
+# if convexparttorus
+  Matte* matte_ptr106 = new Matte;
+  matte_ptr106->set_ka(ka);
+  matte_ptr106->set_kd(kd);
+  matte_ptr106->set_cd(yellow);
+  ConvexPartTorus* convexPartTorus =
+    new ConvexPartTorus(75, 20, 45, 325, 90, 360);
+  convexPartTorus->set_material(matte_ptr106);	   							// yellow
+  add_object(convexPartTorus);
 # endif
 
 #else
