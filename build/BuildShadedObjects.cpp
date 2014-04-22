@@ -17,7 +17,7 @@
 #define perso 1
 #define sphere 0
 #define cylinder 0
-#define torus 0
+#define torus 1
 #define disk 0
 #define rectangle 0
 #define annulus 0
@@ -35,7 +35,7 @@
 #define genericsphere 0
 #define compoundobject 0
 #define bowlthickobject 0
-#define bowlroundedobject 1
+#define bowlroundedobject 0
 
 void World::build(void) {
   int num_samples = 1;
