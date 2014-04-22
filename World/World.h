@@ -38,6 +38,7 @@
 #include "GenericSphere.h"
 #include "Compound.h"
 #include "SolidCylinder.h"
+#include "SolidCone.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 

@@ -16,7 +16,7 @@
 
 #define perso 1
 #define sphere 0
-#define cylinder 1
+#define cylinder 0
 #define torus 0
 #define disk 0
 #define rectangle 0
@@ -37,6 +37,7 @@
 #define bowlthickobject 0
 #define bowlroundedobject 0
 #define solidcylinder 0
+#define solidcone 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -99,7 +100,7 @@ void World::build(void) {
 
 #if perso
   // camera
-  pinhole_ptr->set_eye(0, 200, 500);
+  pinhole_ptr->set_eye(0, -200, 500);
   pinhole_ptr->set_lookat(0.0);
   pinhole_ptr->set_view_distance(600.0);
   pinhole_ptr->compute_uvw();
@@ -330,9 +331,9 @@ void World::build(void) {
 
 # if bowlroundedobject
   Matte* matte_ptr113 = new Matte;
-  matte_ptr113->set_ka(ka);
-  matte_ptr113->set_kd(kd);
-  matte_ptr113->set_cd(yellow);
+  matte_ptr114->set_ka(ka);
+  matte_ptr114->set_kd(kd);
+  matte_ptr114->set_cd(yellow);
   ConcavePartSphere* bowl_interior =
     new ConcavePartSphere(Point3D(), 50, 0, 360, 90, 180);
   ConvexPartSphere* bowl_exterior =
@@ -342,18 +343,28 @@ void World::build(void) {
   compound->add_object(bowl_interior);
   compound->add_object(bowl_exterior);
   compound->add_object(edge);
-  compound->set_material(matte_ptr113);
+  compound->set_material(matte_ptr114);
   add_object(compound);
 # endif
 
 # if solidcylinder
-  Matte* matte_ptr112 = new Matte;
-  matte_ptr112->set_ka(ka);
-  matte_ptr112->set_kd(kd);
-  matte_ptr112->set_cd(yellow);
+  Matte* matte_ptr115 = new Matte;
+  matte_ptr115->set_ka(ka);
+  matte_ptr115->set_kd(kd);
+  matte_ptr115->set_cd(yellow);
   SolidCylinder* solidCylinder = new SolidCylinder(-5, 50, 30);
-  solidCylinder->set_material(matte_ptr112);	   							// yellow
+  solidCylinder->set_material(matte_ptr115);	   							// yellow
   add_object(solidCylinder);
+# endif
+
+# if solidcone
+  Matte* matte_ptr116 = new Matte;
+  matte_ptr116->set_ka(ka);
+  matte_ptr116->set_kd(kd);
+  matte_ptr116->set_cd(yellow);
+  SolidCone* solidCone = new SolidCone(50, 30);
+  solidCone->set_material(matte_ptr116);	   							// yellow
+  add_object(solidCone);
 # endif
 
 #else

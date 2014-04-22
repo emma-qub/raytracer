@@ -4,6 +4,9 @@ HEADERS += \
   Cameras/Camera.h \
   Cameras/Pinhole.h \
   GeometricObjects/GeometricObject.h \
+  GeometricObjects/CompoundObjects/Compound.h \
+  GeometricObjects/CompoundObjects/SolidCone.h \
+  GeometricObjects/CompoundObjects/SolidCylinder.h \
   GeometricObjects/PartObjects/ConvexPartCylinder.h \
   GeometricObjects/PartObjects/ConvexPartSphere.h \
   GeometricObjects/PartObjects/ConvexPartTorus.h \
@@ -13,8 +16,10 @@ HEADERS += \
   GeometricObjects/PartObjects/OpenPartCylinder.h \
   GeometricObjects/PartObjects/OpenPartSphere.h \
   GeometricObjects/PartObjects/OpenPartTorus.h \
-  GeometricObjects/Primitives/Disk.h \
+  GeometricObjects/PartObjects/PartAnnulus.h \
   GeometricObjects/Primitives/Annulus.h \
+  GeometricObjects/Primitives/Disk.h \
+  GeometricObjects/Primitives/GenericSphere.h \
   GeometricObjects/Primitives/OpenCone.h \
   GeometricObjects/Primitives/OpenCylinder.h \
   GeometricObjects/Primitives/Plane.h \
@@ -44,10 +49,6 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    GeometricObjects/CompoundObjects/Compound.h \
-    GeometricObjects/PartObjects/PartAnnulus.h \
-    GeometricObjects/Primitives/GenericSphere.h \
-    GeometricObjects/CompoundObjects/SolidCylinder.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -56,6 +57,9 @@ SOURCES += \
   Cameras/Camera.cpp \
   Cameras/Pinhole.cpp \
   GeometricObjects/GeometricObject.cpp \
+  GeometricObjects/CompoundObjects/Compound.cpp \
+  GeometricObjects/CompoundObjects/SolidCone.cpp \
+  GeometricObjects/CompoundObjects/SolidCylinder.cpp \
   GeometricObjects/PartObjects/ConvexPartCylinder.cpp \
   GeometricObjects/PartObjects/ConvexPartSphere.cpp \
   GeometricObjects/PartObjects/ConvexPartTorus.cpp \
@@ -65,8 +69,10 @@ SOURCES += \
   GeometricObjects/PartObjects/OpenPartCylinder.cpp \
   GeometricObjects/PartObjects/OpenPartSphere.cpp \
   GeometricObjects/PartObjects/OpenPartTorus.cpp \
-  GeometricObjects/Primitives/Disk.cpp \
+  GeometricObjects/PartObjects/PartAnnulus.cpp \
   GeometricObjects/Primitives/Annulus.cpp \
+  GeometricObjects/Primitives/Disk.cpp \
+  GeometricObjects/Primitives/GenericSphere.cpp \
   GeometricObjects/Primitives/OpenCone.cpp \
   GeometricObjects/Primitives/OpenCylinder.cpp \
   GeometricObjects/Primitives/Plane.cpp \
@@ -94,11 +100,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    GeometricObjects/CompoundObjects/Compound.cpp \
-    GeometricObjects/PartObjects/PartAnnulus.cpp \
-    GeometricObjects/Primitives/GenericSphere.cpp \
-    GeometricObjects/CompoundObjects/SolidCylinder.cpp
+  World/World.cpp
 
 INCLUDEPATH += \
   BRDFs \
