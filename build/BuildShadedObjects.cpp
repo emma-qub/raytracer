@@ -15,6 +15,7 @@
 #include "Pinhole.h"
 
 #define perso 1
+#define sphere 0
 #define cylinder 0
 #define torus 0
 #define disk 0
@@ -102,6 +103,16 @@ void World::build(void) {
   pinhole_ptr->set_view_distance(600.0);
   pinhole_ptr->compute_uvw();
 
+# if sphere
+  Matte* matte_ptr = new Matte;
+  matte_ptr->set_ka(ka);
+  matte_ptr->set_kd(kd);
+  matte_ptr->set_cd(yellow);
+  Sphere* sphere_ptr = new Sphere(Point3D(), 50);
+  sphere_ptr->set_material(matte_ptr);	   							// yellow
+  add_object(sphere_ptr);
+# endif
+
 # if cylinder
   Matte* matte_ptr = new Matte;
   matte_ptr->set_ka(ka);
@@ -116,31 +127,41 @@ void World::build(void) {
   Matte* matte_ptr5 = new Matte;
   matte_ptr5->set_ka(ka);
   matte_ptr5->set_kd(kd);
-  matte_ptr5->set_cd(green);
-  Torus* torus_ptr = new Torus(75, 20);
-  torus_ptr->set_material(matte_ptr5);								// green
+  matte_ptr5->set_cd(yellow);
+  Torus* torus_ptr = new Torus(60, 20);
+  torus_ptr->set_material(matte_ptr5);								// yellow
   add_object(torus_ptr);
 # endif
 
-#if annulus
-  Matte* matte_ptr4 = new Matte;
-  matte_ptr4->set_ka(ka);
-  matte_ptr4->set_kd(kd);
-  matte_ptr4->set_cd(orange);
-  Annulus* annulus_ptr = new Annulus(Point3D(0, 70, 0), Normal(0, 1, 0), 20, 30);
-  annulus_ptr->set_material(matte_ptr4);								// orange
-  add_object(annulus_ptr);
+#if disk
+  Matte* matte_ptr5 = new Matte;
+  matte_ptr5->set_ka(ka);
+  matte_ptr5->set_kd(kd);
+  matte_ptr5->set_cd(yellow);
+  Disk* disk_ptr = new Disk(Point3D(), Normal(0.0, 1.0, 1.0), 50.0);
+  disk_ptr->set_material(matte_ptr5);								// yellow
+  add_object(disk_ptr);
 # endif
 
 #if rectangle
   Matte* matte_ptr15 = new Matte;
   matte_ptr15->set_ka(ka);
   matte_ptr15->set_kd(kd);
-  matte_ptr15->set_cd(brown);
+  matte_ptr15->set_cd(yellow);
   Rectangle*	rectangle_ptr15 =
-    new Rectangle(Point3D(-80, 0, -80), Vector3D(70, 0, 0), Vector3D(0, 50, 0));
-  rectangle_ptr15->set_material(matte_ptr15); 							// brown
+    new Rectangle(Point3D(-40, 0, -20), Vector3D(70, 0, 0), Vector3D(0, 50, 0));
+  rectangle_ptr15->set_material(matte_ptr15); 							// yellow
   add_object(rectangle_ptr15);
+# endif
+
+#if annulus
+  Matte* matte_ptr4 = new Matte;
+  matte_ptr4->set_ka(ka);
+  matte_ptr4->set_kd(kd);
+  matte_ptr4->set_cd(yellow);
+  Annulus* annulus_ptr = new Annulus(Point3D(0, 0, 0), Normal(0, 1, 0), 50, 60);
+  annulus_ptr->set_material(matte_ptr4);								// yellow
+  add_object(annulus_ptr);
 # endif
 
 #if cone
@@ -257,17 +278,9 @@ void World::build(void) {
   matte_ptr109->set_ka(ka);
   matte_ptr109->set_kd(kd);
   matte_ptr109->set_cd(yellow);
-  Matte* matte_ptr110 = new Matte;
-  matte_ptr110->set_ka(ka);
-  matte_ptr110->set_kd(kd);
-  matte_ptr110->set_cd(orange);
-  PartAnnulus* partAnnulus =
-    new PartAnnulus(50, 40, 60, 45, 325);
+  PartAnnulus* partAnnulus = new PartAnnulus(0, 50, 60, 45, 325);
   partAnnulus->set_material(matte_ptr109);	   							// yellow
   add_object(partAnnulus);
-  PartAnnulus* partAnnulus2 = new PartAnnulus(0, 40, 60, 45, 325);
-  partAnnulus2->set_material(matte_ptr110);	   							// orange
-  add_object(partAnnulus2);
 # endif
 
 # if genericsphere
