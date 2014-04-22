@@ -32,6 +32,10 @@ OpenPartTorus::OpenPartTorus (const double i_r,
   phi_max(azimuth_max * PI_ON_180),			// in radians
   theta_min(polar_min * PI_ON_180),			// in radians measured from xz plane
   theta_max(polar_max * PI_ON_180) {		// in radians measured from xz plane
+
+  // Authorize negative value for theta_min, but deal with values € [0, 2Pi]
+  if (theta_min < 0)
+    theta_min += TWO_PI;
 }
 
 
