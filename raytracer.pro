@@ -46,7 +46,8 @@ HEADERS += \
   World/World.h \
     GeometricObjects/CompoundObjects/Compound.h \
     GeometricObjects/PartObjects/PartAnnulus.h \
-    GeometricObjects/Primitives/GenericSphere.h
+    GeometricObjects/Primitives/GenericSphere.h \
+    GeometricObjects/CompoundObjects/SolidCylinder.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -96,7 +97,8 @@ SOURCES += \
   World/World.cpp \
     GeometricObjects/CompoundObjects/Compound.cpp \
     GeometricObjects/PartObjects/PartAnnulus.cpp \
-    GeometricObjects/Primitives/GenericSphere.cpp
+    GeometricObjects/Primitives/GenericSphere.cpp \
+    GeometricObjects/CompoundObjects/SolidCylinder.cpp
 
 INCLUDEPATH += \
   BRDFs \

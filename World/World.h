@@ -37,6 +37,7 @@
 #include "PartAnnulus.h"
 #include "GenericSphere.h"
 #include "Compound.h"
+#include "SolidCylinder.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 

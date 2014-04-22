@@ -16,7 +16,7 @@
 
 #define perso 1
 #define sphere 0
-#define cylinder 0
+#define cylinder 1
 #define torus 0
 #define disk 0
 #define rectangle 0
@@ -35,7 +35,8 @@
 #define genericsphere 0
 #define compoundobject 0
 #define bowlthickobject 0
-#define bowlroundedobject 1
+#define bowlroundedobject 0
+#define solidcylinder 0
 
 void World::build(void) {
   int num_samples = 1;
@@ -343,6 +344,16 @@ void World::build(void) {
   compound->add_object(edge);
   compound->set_material(matte_ptr113);
   add_object(compound);
+# endif
+
+# if solidcylinder
+  Matte* matte_ptr112 = new Matte;
+  matte_ptr112->set_ka(ka);
+  matte_ptr112->set_kd(kd);
+  matte_ptr112->set_cd(yellow);
+  SolidCylinder* solidCylinder = new SolidCylinder(-5, 50, 30);
+  solidCylinder->set_material(matte_ptr112);	   							// yellow
+  add_object(solidCylinder);
 # endif
 
 #else
