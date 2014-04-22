@@ -39,6 +39,7 @@
 #include "Compound.h"
 #include "SolidCylinder.h"
 #include "SolidCone.h"
+#include "ThickRing.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 
@@ -46,8 +47,6 @@
 #include "Light.h"
 #include "Ambient.h"
 
-
-using namespace std;
 
 class RenderThread; 	//part of skeleton - wxRaytracer.h
 
@@ -61,8 +60,8 @@ class World {
     Light*   					ambient_ptr;
     Camera*						camera_ptr;
     Sphere 						sphere;		// for Chapter 3 only
-    vector<GeometricObject*>	objects;
-    vector<Light*> 				lights;
+    std::vector<GeometricObject*>	objects;
+    std::vector<Light*> 				lights;
 
     RenderThread* 				paintArea; 	//connection to skeleton - wxRaytracer.h
 

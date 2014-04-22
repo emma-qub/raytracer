@@ -49,6 +49,7 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
+    GeometricObjects/CompoundObjects/ThickRing.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -100,7 +101,8 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp
+  World/World.cpp \
+    GeometricObjects/CompoundObjects/ThickRing.cpp
 
 INCLUDEPATH += \
   BRDFs \

@@ -37,7 +37,8 @@
 #define bowlthickobject 0
 #define bowlroundedobject 0
 #define solidcylinder 0
-#define solidcone 1
+#define solidcone 0
+#define thickring 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -100,7 +101,7 @@ void World::build(void) {
 
 #if perso
   // camera
-  pinhole_ptr->set_eye(0, -200, 500);
+  pinhole_ptr->set_eye(0, 200, 500);
   pinhole_ptr->set_lookat(0.0);
   pinhole_ptr->set_view_distance(600.0);
   pinhole_ptr->compute_uvw();
@@ -365,6 +366,16 @@ void World::build(void) {
   SolidCone* solidCone = new SolidCone(50, 30);
   solidCone->set_material(matte_ptr116);	   							// yellow
   add_object(solidCone);
+# endif
+
+# if thickring
+  Matte* matte_ptr116 = new Matte;
+  matte_ptr116->set_ka(ka);
+  matte_ptr116->set_kd(kd);
+  matte_ptr116->set_cd(yellow);
+  ThickRing* thickRing = new ThickRing(-10, 20, 40, 50);
+  thickRing->set_material(matte_ptr116);	   							// yellow
+  add_object(thickRing);
 # endif
 
 #else
