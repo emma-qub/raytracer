@@ -83,7 +83,6 @@ ConvexPartTorus& ConvexPartTorus::operator= (const ConvexPartTorus& rhs) {
 
 ConvexPartTorus::~ConvexPartTorus(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

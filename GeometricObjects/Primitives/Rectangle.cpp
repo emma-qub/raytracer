@@ -127,7 +127,6 @@ Rectangle::operator= (const Rectangle& rhs) {
 
 Rectangle::~Rectangle (void) {
   delete material_ptr;
-  material_ptr = NULL;
 
 //  if (sampler_ptr) {
 //    delete sampler_ptr;

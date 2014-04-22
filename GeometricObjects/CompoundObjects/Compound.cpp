@@ -52,8 +52,6 @@ Compound& Compound::operator= (const Compound& rhs) {
 
 Compound::~Compound(void) {
   delete_objects();
-  delete material_ptr;
-  material_ptr = NULL;
 }
 
 
@@ -85,8 +83,6 @@ Compound::set_material(Material* mPtr) {
 // The array still exists, because it'ss an automatic variable, but it's empty
 
 void Compound::delete_objects(void) {
-  material_ptr = NULL;
-
   int num_objects = objects.size();
 
   for (int j = 0; j < num_objects; j++) {

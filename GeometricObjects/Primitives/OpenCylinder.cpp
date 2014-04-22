@@ -74,7 +74,6 @@ OpenCylinder::operator= (const OpenCylinder& rhs)
 
 OpenCylinder::~OpenCylinder(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

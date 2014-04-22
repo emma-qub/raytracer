@@ -92,7 +92,6 @@ ConvexPartCylinder& ConvexPartCylinder::operator= (const ConvexPartCylinder& rhs
 
 ConvexPartCylinder::~ConvexPartCylinder(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

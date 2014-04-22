@@ -83,7 +83,6 @@ ConcavePartTorus& ConcavePartTorus::operator= (const ConcavePartTorus& rhs) {
 
 ConcavePartTorus::~ConcavePartTorus(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

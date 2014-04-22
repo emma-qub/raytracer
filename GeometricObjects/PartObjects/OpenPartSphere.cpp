@@ -112,7 +112,6 @@ OpenPartSphere::operator= (const OpenPartSphere& rhs)
 
 OpenPartSphere::~OpenPartSphere(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

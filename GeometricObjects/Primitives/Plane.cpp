@@ -61,7 +61,6 @@ Plane::operator= (const Plane& rhs)	{
 
 Plane::~Plane(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

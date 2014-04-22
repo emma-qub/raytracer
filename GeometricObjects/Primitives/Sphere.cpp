@@ -63,7 +63,6 @@ Sphere::operator= (const Sphere& rhs)
 
 Sphere::~Sphere(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

@@ -112,7 +112,6 @@ ConcavePartSphere::operator= (const ConcavePartSphere& rhs)
 
 ConcavePartSphere::~ConcavePartSphere(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

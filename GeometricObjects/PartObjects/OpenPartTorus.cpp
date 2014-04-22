@@ -83,7 +83,6 @@ OpenPartTorus& OpenPartTorus::operator= (const OpenPartTorus& rhs) {
 
 OpenPartTorus::~OpenPartTorus(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

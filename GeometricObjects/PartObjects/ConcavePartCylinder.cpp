@@ -92,7 +92,6 @@ ConcavePartCylinder& ConcavePartCylinder::operator= (const ConcavePartCylinder& 
 
 ConcavePartCylinder::~ConcavePartCylinder(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 

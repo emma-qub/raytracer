@@ -48,7 +48,6 @@ Disk& Disk::operator=(const Disk& rhs) {
 
 Disk::~Disk(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 bool Disk::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {

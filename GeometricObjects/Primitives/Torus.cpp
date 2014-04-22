@@ -29,7 +29,6 @@ Torus* Torus::clone(void) const {
 
 Torus::~Torus(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 Torus& Torus::operator=(const Torus& torus) {

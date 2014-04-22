@@ -47,7 +47,6 @@ OpenCone& OpenCone::operator=(const OpenCone& rhs) {
 
 OpenCone::~OpenCone(void) {
   delete material_ptr;
-  material_ptr = NULL;
 }
 
 bool OpenCone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {

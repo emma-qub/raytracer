@@ -37,7 +37,7 @@ class GeometricObject {
 	
 	protected:
 	
-		mutable Material*   material_ptr;   	// mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
+    mutable Material*   material_ptr;   	// mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
 	
 		GeometricObject&						// assignment operator
 		operator= (const GeometricObject& rhs);
