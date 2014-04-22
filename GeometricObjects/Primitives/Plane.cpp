@@ -1,4 +1,5 @@
 #include "Plane.h"
+#include "Material.h"
 
 const double Plane::kEpsilon = 0.001;
 
@@ -58,8 +59,10 @@ Plane::operator= (const Plane& rhs)	{
 
 // ---------------------------------------------------------------- destructor
 
-Plane::~Plane(void)				
-{}
+Plane::~Plane(void) {
+  delete material_ptr;
+  material_ptr = NULL;
+}
 
 
 // ----------------------------------------------------------------- hit

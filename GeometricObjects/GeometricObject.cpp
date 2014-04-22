@@ -1,18 +1,14 @@
 // this file contains the definition of the class GeometricObject
 
-#include "Constants.h"
 #include "Material.h"
 #include "GeometricObject.h"
-#include <iostream>
 
 
 // ---------------------------------------------------------------------- default constructor
 
 
-GeometricObject::GeometricObject(void)
-  : material_ptr(NULL)
-{
-  std::cerr << "GeometricObject default constructor" << std::endl;
+GeometricObject::GeometricObject(void):
+  material_ptr(NULL) {
 }
 
 
@@ -22,8 +18,6 @@ GeometricObject::GeometricObject (const GeometricObject& object) {
   if(object.material_ptr)
     material_ptr = object.material_ptr->clone();
   else  material_ptr = NULL;
-
-  std::cerr << "GeometricObject copy constructor" << std::endl;
 }
 
 
@@ -49,10 +43,6 @@ GeometricObject::operator= (const GeometricObject& rhs) {
 // ---------------------------------------------------------------------- destructor
 
 GeometricObject::~GeometricObject (void) {
-  if (material_ptr) {
-    delete material_ptr;
-    material_ptr = NULL;
-  }
 }
 
 
@@ -60,7 +50,6 @@ GeometricObject::~GeometricObject (void) {
 
 void
 GeometricObject::set_material(Material* mPtr) {
-  std::cerr << "GeometricObject set_material" << std::endl;
   material_ptr = mPtr;
 }
 

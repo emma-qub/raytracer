@@ -29,7 +29,7 @@ class Compound: public GeometricObject {
     operator= (const Compound& c);
 
     virtual void
-    set_material(Material* material_ptr);
+    set_material(Material* mPtr);
 
     virtual void
     add_object(GeometricObject* object_ptr);

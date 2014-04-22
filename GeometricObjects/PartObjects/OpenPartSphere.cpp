@@ -6,6 +6,7 @@
 
 #include "Constants.h"
 #include "OpenPartSphere.h"
+#include "Material.h"
 #include <math.h>
 
 // ----------------------------------------------------------------  default constructor
@@ -109,7 +110,10 @@ OpenPartSphere::operator= (const OpenPartSphere& rhs)
 
 // ---------------------------------------------------------------- destructor
 
-OpenPartSphere::~OpenPartSphere(void) {}
+OpenPartSphere::~OpenPartSphere(void) {
+  delete material_ptr;
+  material_ptr = NULL;
+}
 
 
 // ------------------------------------------------------------------------------ hit

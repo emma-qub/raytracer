@@ -59,11 +59,11 @@ class Rectangle: public GeometricObject {
     Vector3D		b;				// side
     double			a_len_squared;	// square of the length of side a
     double			b_len_squared;	// square of the length of side b
-    Normal			normal;
 
     float			area;			// for rectangular lights
     float			inv_area;		// for rectangular lights
     //Sampler*		sampler_ptr;	// for rectangular lights
+    Normal			normal;
 
     static const double kEpsilon;
 };

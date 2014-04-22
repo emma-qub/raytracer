@@ -43,7 +43,6 @@
 #include "Camera.h"
 #include "Light.h"
 #include "Ambient.h"
-#include <iostream>
 
 
 using namespace std;
@@ -117,7 +116,6 @@ class World {
 
 inline void
 World::add_object(GeometricObject* object_ptr) {
-  std::cerr << "World add_object" << std::endl;
   objects.push_back(object_ptr);
 }
 

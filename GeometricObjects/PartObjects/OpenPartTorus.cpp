@@ -1,7 +1,7 @@
 #include "Maths.h"
 #include "OpenPartTorus.h"
+#include "Material.h"
 #include <math.h>
-#include <iostream>
 
 // ----------------------------------------------------------------  default constructor
 // a default OpenPartTorus is a whole torus
@@ -82,6 +82,8 @@ OpenPartTorus& OpenPartTorus::operator= (const OpenPartTorus& rhs) {
 // ---------------------------------------------------------------- destructor
 
 OpenPartTorus::~OpenPartTorus(void) {
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 

@@ -2,10 +2,11 @@
 #define __GEOMETRIC_OBJECT__
 
 class Material;
-	
+
 #include "Point3D.h"
 #include "Ray.h"
 #include "ShadeRec.h"
+#include "Constants.h"
 
 
 //----------------------------------------------------------------------------------------------------- Class GeometricObject

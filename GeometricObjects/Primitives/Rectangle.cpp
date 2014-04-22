@@ -6,6 +6,7 @@
 
 #include "Rectangle.h"
 #include "Maths.h"
+#include "Material.h"
 
 const double Rectangle::kEpsilon = 0.001;
 
@@ -14,13 +15,14 @@ const double Rectangle::kEpsilon = 0.001;
 Rectangle::Rectangle(void)
   : 	GeometricObject(),
     p0(-1, 0, -1),
-    a(0, 0, 2), b(2, 0, 0),
+    a(0, 0, 2),
+    b(2, 0, 0),
     a_len_squared(4.0),
     b_len_squared(4.0),
-    normal(0, 1, 0),
     area(4.0),
-    inv_area(0.25)//,
+    inv_area(0.25),//,
     //sampler_ptr(NULL)
+    normal(0, 1, 0)
 {}
 
 
@@ -55,8 +57,8 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b,
     b_len_squared(b.len_squared()),
     area(a.length() * b.length()),
     inv_area(1.0 / area),
-    normal(n)//,
-    //sampler_ptr(NULL)
+    //sampler_ptr(NULL),
+    normal(n)
 {
   normal.normalize();
 }
@@ -80,9 +82,9 @@ Rectangle::Rectangle (const Rectangle& r)
     b(r.b),
     a_len_squared(r.a_len_squared),
     b_len_squared(r.b_len_squared),
-    normal(r.normal),
     area(r.area),
-    inv_area(r.inv_area)
+    inv_area(r.inv_area),
+    normal(r.normal)
 {
 //  if(r.sampler_ptr)
 //    sampler_ptr	= r.sampler_ptr->clone();
@@ -124,6 +126,8 @@ Rectangle::operator= (const Rectangle& rhs) {
 // ---------------------------------------------------------------- destructor
 
 Rectangle::~Rectangle (void) {
+  delete material_ptr;
+  material_ptr = NULL;
 
 //  if (sampler_ptr) {
 //    delete sampler_ptr;
@@ -195,7 +199,7 @@ Rectangle::sample(void) {
 //------------------------------------------------------------------ get_normal
 
 Normal
-Rectangle::get_normal(const Point3D& p) {
+Rectangle::get_normal(const Point3D& /*p*/) {
   return (normal);
 }
 
@@ -203,6 +207,6 @@ Rectangle::get_normal(const Point3D& p) {
 // ---------------------------------------------------------------- pdf
 
 float
-Rectangle::pdf(ShadeRec& sr) {
+Rectangle::pdf(ShadeRec& /*sr*/) {
   return (inv_area);
 }

@@ -2,6 +2,7 @@
 
 #include "GenericSphere.h"
 #include "Maths.h"
+#include "Material.h"
 #include <math.h>
 
 GenericSphere::GenericSphere(void):
@@ -27,6 +28,8 @@ GenericSphere& GenericSphere::operator=(const GenericSphere& rhs)
 }
 
 GenericSphere::~GenericSphere(void) {
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 BBox GenericSphere::get_bounding_box(void) const {

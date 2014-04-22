@@ -1,5 +1,6 @@
 #include "Constants.h"
 #include "ConvexPartCylinder.h"
+#include "Material.h"
 #include <math.h>
 
 // ----------------------------------------------------------------  default constructor
@@ -89,7 +90,10 @@ ConvexPartCylinder& ConvexPartCylinder::operator= (const ConvexPartCylinder& rhs
 
 // ---------------------------------------------------------------- destructor
 
-ConvexPartCylinder::~ConvexPartCylinder(void) {}
+ConvexPartCylinder::~ConvexPartCylinder(void) {
+  delete material_ptr;
+  material_ptr = NULL;
+}
 
 
 // ------------------------------------------------------------------------------ hit

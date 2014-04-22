@@ -6,6 +6,7 @@
 
 #include "OpenCylinder.h"
 #include "Maths.h"
+#include "Material.h"
 #include <math.h>
 
 // This uses the value of kEpsilon defined in Constants.h
@@ -71,7 +72,10 @@ OpenCylinder::operator= (const OpenCylinder& rhs)
 
 // ---------------------------------------------------------------- destructor
 
-OpenCylinder::~OpenCylinder(void) {}
+OpenCylinder::~OpenCylinder(void) {
+  delete material_ptr;
+  material_ptr = NULL;
+}
 
 
 // ----------------------------------------------------------------------------- hit

@@ -1,5 +1,6 @@
 #include "Annulus.h"
 #include "Constants.h"
+#include "Material.h"
 
 Annulus::Annulus(void):
   GeometricObject(),
@@ -54,6 +55,8 @@ Annulus& Annulus::operator=(const Annulus& rhs) {
 }
 
 Annulus::~Annulus(void) {
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 bool Annulus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {

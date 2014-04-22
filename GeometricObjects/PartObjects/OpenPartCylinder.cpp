@@ -1,5 +1,6 @@
 #include "Constants.h"
 #include "OpenPartCylinder.h"
+#include "Material.h"
 #include <math.h>
 
 // ----------------------------------------------------------------  default constructor
@@ -89,7 +90,10 @@ OpenPartCylinder& OpenPartCylinder::operator= (const OpenPartCylinder& rhs) {
 
 // ---------------------------------------------------------------- destructor
 
-OpenPartCylinder::~OpenPartCylinder(void) {}
+OpenPartCylinder::~OpenPartCylinder(void) {
+  delete material_ptr;
+  material_ptr = NULL;
+}
 
 
 // ------------------------------------------------------------------------------ hit

@@ -2,6 +2,7 @@
 
 #include "Sphere.h"
 #include "math.h"
+#include "Material.h"
 
 const double Sphere::kEpsilon = 0.001;
 
@@ -60,7 +61,10 @@ Sphere::operator= (const Sphere& rhs)
 
 // ---------------------------------------------------------------- destructor
 
-Sphere::~Sphere(void) {}
+Sphere::~Sphere(void) {
+  delete material_ptr;
+  material_ptr = NULL;
+}
 
 
 BBox Sphere::get_bounding_box(void) const {

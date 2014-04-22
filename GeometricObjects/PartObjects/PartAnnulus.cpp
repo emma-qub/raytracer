@@ -1,5 +1,6 @@
 #include "PartAnnulus.h"
 #include "Constants.h"
+#include "Material.h"
 #include <math.h>
 
 PartAnnulus::PartAnnulus(void):
@@ -60,6 +61,8 @@ PartAnnulus& PartAnnulus::operator=(const PartAnnulus& rhs) {
 }
 
 PartAnnulus::~PartAnnulus(void) {
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 bool PartAnnulus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {

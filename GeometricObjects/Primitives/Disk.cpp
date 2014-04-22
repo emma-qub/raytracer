@@ -1,5 +1,6 @@
 #include "Disk.h"
 #include "Constants.h"
+#include "Material.h"
 
 Disk::Disk(void):
   GeometricObject(),
@@ -46,6 +47,8 @@ Disk& Disk::operator=(const Disk& rhs) {
 }
 
 Disk::~Disk(void) {
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 bool Disk::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {

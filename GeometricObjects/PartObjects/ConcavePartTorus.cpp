@@ -1,7 +1,7 @@
 #include "Maths.h"
 #include "ConcavePartTorus.h"
+#include "Material.h"
 #include <math.h>
-#include <iostream>
 
 // ----------------------------------------------------------------  default constructor
 // a default ConcavePartTorus is a whole torus
@@ -82,6 +82,8 @@ ConcavePartTorus& ConcavePartTorus::operator= (const ConcavePartTorus& rhs) {
 // ---------------------------------------------------------------- destructor
 
 ConcavePartTorus::~ConcavePartTorus(void) {
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 

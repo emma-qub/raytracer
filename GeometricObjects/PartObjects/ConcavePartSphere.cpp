@@ -6,8 +6,8 @@
 
 #include "Constants.h"
 #include "ConcavePartSphere.h"
+#include "Material.h"
 #include <math.h>
-#include <iostream>
 
 // ----------------------------------------------------------------  default constructor
 // a default ConcavePartSphere is a whole sphere
@@ -111,7 +111,8 @@ ConcavePartSphere::operator= (const ConcavePartSphere& rhs)
 // ---------------------------------------------------------------- destructor
 
 ConcavePartSphere::~ConcavePartSphere(void) {
-  std::cerr << "Delete ConcavePartSphere" << std::endl;
+  delete material_ptr;
+  material_ptr = NULL;
 }
 
 
