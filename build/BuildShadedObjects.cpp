@@ -13,6 +13,7 @@
 #include "Matte.h"
 #include "Plane.h"
 #include "Pinhole.h"
+#include "Maths.h"
 
 #define perso 1
 #define sphere 0
@@ -38,9 +39,10 @@
 #define bowlroundedobject 0
 #define solidcylinder 0
 #define solidcone 0
-#define thickring 1
+#define thickring 0
 #define convexcylinder 0
 #define concavecylinder 0
+#define instance 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -398,6 +400,32 @@ void World::build(void) {
   ConcaveCylinder* concaveCylinder = new ConcaveCylinder(-5, 50, 30);
   concaveCylinder->set_material(matte_ptr118);	   							// yellow
   add_object(concaveCylinder);
+# endif
+
+# if instance
+  pinhole_ptr->set_eye(300, 200, 300);
+  pinhole_ptr->set_lookat(0.0);
+  pinhole_ptr->set_view_distance(600.0);
+  pinhole_ptr->compute_uvw();
+  set_camera(pinhole_ptr);
+
+  GenericSphere* solidCylinder = new GenericSphere;
+  for (int i = -40; i <= 40; i += 20) {
+    for (int j = -40; j <= 40; j += 20) {
+
+      Matte* matte = new Matte;
+      matte->set_ka(ka);
+      matte->set_kd(kd);
+      matte->set_cd(RGBColor(rand_float(), rand_float(), rand_float()));
+
+      Instance* instance_ptr = new Instance(solidCylinder);
+      float h = rand_float(5.0, 20.0);
+      instance_ptr->scale(7.0, h, 7.0);
+      instance_ptr->translate(i, 0.0, j);
+      instance_ptr->set_material(matte);
+      add_object(instance_ptr);
+    }
+  }
 # endif
 
 #else

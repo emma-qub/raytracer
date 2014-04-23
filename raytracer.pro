@@ -4,6 +4,7 @@ HEADERS += \
   Cameras/Camera.h \
   Cameras/Pinhole.h \
   GeometricObjects/GeometricObject.h \
+  GeometricObjects/Instance.h \
   GeometricObjects/CompoundObjects/Compound.h \
   GeometricObjects/CompoundObjects/SolidCone.h \
   GeometricObjects/CompoundObjects/SolidCylinder.h \
@@ -60,6 +61,7 @@ SOURCES += \
   Cameras/Camera.cpp \
   Cameras/Pinhole.cpp \
   GeometricObjects/GeometricObject.cpp \
+  GeometricObjects/Instance.cpp \
   GeometricObjects/CompoundObjects/Compound.cpp \
   GeometricObjects/CompoundObjects/SolidCone.cpp \
   GeometricObjects/CompoundObjects/SolidCylinder.cpp \

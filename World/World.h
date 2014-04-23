@@ -42,6 +42,7 @@
 #include "ThickRing.h"
 #include "ConvexCylinder.h"
 #include "ConcaveCylinder.h"
+#include "Instance.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 
