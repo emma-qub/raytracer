@@ -20,6 +20,7 @@ HEADERS += \
   GeometricObjects/PartObjects/PartAnnulus.h \
   GeometricObjects/Primitives/Annulus.h \
   GeometricObjects/Primitives/ConvexCylinder.h \
+  GeometricObjects/Primitives/ConcaveCylinder.h \
   GeometricObjects/Primitives/Disk.h \
   GeometricObjects/Primitives/GenericSphere.h \
   GeometricObjects/Primitives/OpenCone.h \
@@ -75,6 +76,7 @@ SOURCES += \
   GeometricObjects/PartObjects/PartAnnulus.cpp \
   GeometricObjects/Primitives/Annulus.cpp \
   GeometricObjects/Primitives/ConvexCylinder.cpp \
+  GeometricObjects/Primitives/ConcaveCylinder.cpp \
   GeometricObjects/Primitives/Disk.cpp \
   GeometricObjects/Primitives/GenericSphere.cpp \
   GeometricObjects/Primitives/OpenCone.cpp \

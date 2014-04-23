@@ -39,7 +39,8 @@
 #define solidcylinder 0
 #define solidcone 0
 #define thickring 0
-#define convexcylinder 1
+#define convexcylinder 0
+#define concavecylinder 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -387,6 +388,16 @@ void World::build(void) {
   ConvexCylinder* convexCylinder = new ConvexCylinder(-5, 50, 30);
   convexCylinder->set_material(matte_ptr117);	   							// yellow
   add_object(convexCylinder);
+# endif
+
+# if concavecylinder
+  Matte* matte_ptr118 = new Matte;
+  matte_ptr118->set_ka(ka);
+  matte_ptr118->set_kd(kd);
+  matte_ptr118->set_cd(yellow);
+  ConcaveCylinder* concaveCylinder = new ConcaveCylinder(-5, 50, 30);
+  concaveCylinder->set_material(matte_ptr118);	   							// yellow
+  add_object(concaveCylinder);
 # endif
 
 #else
