@@ -38,9 +38,9 @@
 #define bowlroundedobject 0
 #define solidcylinder 0
 #define solidcone 0
-#define thickring 0
+#define thickring 1
 #define convexcylinder 0
-#define concavecylinder 1
+#define concavecylinder 0
 
 void World::build(void) {
   int num_samples = 1;
