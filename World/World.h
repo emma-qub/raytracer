@@ -40,6 +40,7 @@
 #include "SolidCylinder.h"
 #include "SolidCone.h"
 #include "ThickRing.h"
+#include "ConvexCylinder.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 

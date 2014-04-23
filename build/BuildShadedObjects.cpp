@@ -38,7 +38,8 @@
 #define bowlroundedobject 0
 #define solidcylinder 0
 #define solidcone 0
-#define thickring 1
+#define thickring 0
+#define convexcylinder 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -376,6 +377,16 @@ void World::build(void) {
   ThickRing* thickRing = new ThickRing(-10, 20, 40, 50);
   thickRing->set_material(matte_ptr116);	   							// yellow
   add_object(thickRing);
+# endif
+
+# if convexcylinder
+  Matte* matte_ptr117 = new Matte;
+  matte_ptr117->set_ka(ka);
+  matte_ptr117->set_kd(kd);
+  matte_ptr117->set_cd(yellow);
+  ConvexCylinder* convexCylinder = new ConvexCylinder(-5, 50, 30);
+  convexCylinder->set_material(matte_ptr117);	   							// yellow
+  add_object(convexCylinder);
 # endif
 
 #else

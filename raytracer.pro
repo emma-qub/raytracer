@@ -7,6 +7,7 @@ HEADERS += \
   GeometricObjects/CompoundObjects/Compound.h \
   GeometricObjects/CompoundObjects/SolidCone.h \
   GeometricObjects/CompoundObjects/SolidCylinder.h \
+  GeometricObjects/CompoundObjects/ThickRing.h \
   GeometricObjects/PartObjects/ConvexPartCylinder.h \
   GeometricObjects/PartObjects/ConvexPartSphere.h \
   GeometricObjects/PartObjects/ConvexPartTorus.h \
@@ -18,6 +19,7 @@ HEADERS += \
   GeometricObjects/PartObjects/OpenPartTorus.h \
   GeometricObjects/PartObjects/PartAnnulus.h \
   GeometricObjects/Primitives/Annulus.h \
+  GeometricObjects/Primitives/ConvexCylinder.h \
   GeometricObjects/Primitives/Disk.h \
   GeometricObjects/Primitives/GenericSphere.h \
   GeometricObjects/Primitives/OpenCone.h \
@@ -48,8 +50,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    GeometricObjects/CompoundObjects/ThickRing.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -61,6 +62,7 @@ SOURCES += \
   GeometricObjects/CompoundObjects/Compound.cpp \
   GeometricObjects/CompoundObjects/SolidCone.cpp \
   GeometricObjects/CompoundObjects/SolidCylinder.cpp \
+  GeometricObjects/CompoundObjects/ThickRing.cpp \
   GeometricObjects/PartObjects/ConvexPartCylinder.cpp \
   GeometricObjects/PartObjects/ConvexPartSphere.cpp \
   GeometricObjects/PartObjects/ConvexPartTorus.cpp \
@@ -72,6 +74,7 @@ SOURCES += \
   GeometricObjects/PartObjects/OpenPartTorus.cpp \
   GeometricObjects/PartObjects/PartAnnulus.cpp \
   GeometricObjects/Primitives/Annulus.cpp \
+  GeometricObjects/Primitives/ConvexCylinder.cpp \
   GeometricObjects/Primitives/Disk.cpp \
   GeometricObjects/Primitives/GenericSphere.cpp \
   GeometricObjects/Primitives/OpenCone.cpp \
@@ -101,8 +104,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    GeometricObjects/CompoundObjects/ThickRing.cpp
+  World/World.cpp
 
 INCLUDEPATH += \
   BRDFs \
