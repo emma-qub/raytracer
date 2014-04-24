@@ -87,11 +87,12 @@ Matrix::operator/ (const double d) {
 
 void
 Matrix::set_identity(void) {
-    for (int x = 0; x < 4; x++)
+  for (int x = 0; x < 4; x++) {
     for (int y = 0; y < 4; y++) {
       if (x == y)
         m[x][y] = 1.0;
       else
         m[x][y] = 0.0;
     }
+  }
 }
