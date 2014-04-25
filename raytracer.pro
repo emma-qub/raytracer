@@ -52,7 +52,8 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h
+  World/World.h \
+    Samplers/Sampler.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -108,7 +109,8 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp
+  World/World.cpp \
+    Samplers/Sampler.cpp
 
 INCLUDEPATH += \
   BRDFs \
@@ -120,6 +122,7 @@ INCLUDEPATH += \
   GeometricObjects/CompoundObjects \
   Lights \
   Materials \
+  Samplers \
   Tracers \
   UserInterface \
   Utilities \
