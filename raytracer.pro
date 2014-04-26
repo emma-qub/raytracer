@@ -53,7 +53,8 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    Samplers/Sampler.h
+    Samplers/Sampler.h \
+    Samplers/Regular.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -110,7 +111,8 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    Samplers/Sampler.cpp
+    Samplers/Sampler.cpp \
+    Samplers/Regular.cpp
 
 INCLUDEPATH += \
   BRDFs \
