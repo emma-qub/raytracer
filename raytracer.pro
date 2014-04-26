@@ -56,7 +56,8 @@ HEADERS += \
     Samplers/Sampler.h \
     Samplers/Regular.h \
     Samplers/PureRandom.h \
-    Samplers/Jittered.h
+    Samplers/Jittered.h \
+    Samplers/NRooks.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -116,7 +117,8 @@ SOURCES += \
     Samplers/Sampler.cpp \
     Samplers/Regular.cpp \
     Samplers/PureRandom.cpp \
-    Samplers/Jittered.cpp
+    Samplers/Jittered.cpp \
+    Samplers/NRooks.cpp
 
 INCLUDEPATH += \
   BRDFs \
