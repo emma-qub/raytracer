@@ -55,64 +55,43 @@ class RenderThread; 	//part of skeleton - wxRaytracer.h
 
 
 class World {
-  public:
+public:
 
-    ViewPlane					vp;
-    RGBColor					background_color;
-    Tracer*						tracer_ptr;
-    Light*   					ambient_ptr;
-    Camera*						camera_ptr;
-    Sphere 						sphere;		// for Chapter 3 only
-    std::vector<GeometricObject*>	objects;
-    std::vector<Light*> 				lights;
+  ViewPlane					vp;
+  RGBColor					background_color;
+  Tracer*						tracer_ptr;
+  Light*   					ambient_ptr;
+  Camera*						camera_ptr;
+  Sphere 						sphere;		// for Chapter 3 only
+  std::vector<GeometricObject*>	objects;
+  std::vector<Light*> 				lights;
 
-    RenderThread* 				paintArea; 	//connection to skeleton - wxRaytracer.h
-
-
-  public:
-
-    World(void);
-
-    ~World();
-
-    void
-    add_object(GeometricObject* object_ptr);
-
-    void
-    add_light(Light* light_ptr);
-
-    void
-    set_ambient_light(Light* light_ptr);
-
-    void
-    set_camera(Camera* c_ptr);
-
-    void
-    build(void);
-
-    void
-    render_scene(void) const;
-
-    RGBColor
-    max_to_one(const RGBColor& c) const;
-
-    RGBColor
-    clamp_to_color(const RGBColor& c) const;
-
-    void
-    display_pixel(const int row, const int column, const RGBColor& pixel_color) const;
-
-    ShadeRec
-    hit_objects(const Ray& ray);
+  RenderThread* 				paintArea; 	//connection to skeleton - wxRaytracer.h
 
 
-  private:
+public:
+  World(void);
+  ~World();
 
-    void
-    delete_objects(void);
+  void add_object(GeometricObject* object_ptr);
+  void add_light(Light* light_ptr);
 
-    void
-    delete_lights(void);
+  void set_ambient_light(Light* light_ptr);
+  void set_camera(Camera* c_ptr);
+
+  void build(void);
+
+  void render_scene(void) const;
+
+  RGBColor max_to_one(const RGBColor& c) const;
+  RGBColor clamp_to_color(const RGBColor& c) const;
+  void display_pixel(const int row, const int column, const RGBColor& pixel_color) const;
+  ShadeRec hit_objects(const Ray& ray);
+
+private:
+
+  void delete_objects(void);
+  void delete_lights(void);
 };
 
 

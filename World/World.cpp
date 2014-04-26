@@ -87,9 +87,7 @@ World::~World(void) {
 
 // This uses orthographic viewing along the zw axis
 
-void
-World::render_scene(void) const {
-
+void World::render_scene(void) const {
   RGBColor	pixel_color;
   Ray			ray;
   int 		hres 	= vp.hres;

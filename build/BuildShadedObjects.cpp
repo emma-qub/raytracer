@@ -13,6 +13,7 @@
 #include "Matte.h"
 #include "Plane.h"
 #include "Pinhole.h"
+#include "ThinLens.h"
 #include "Maths.h"
 
 #define perso 1
@@ -42,7 +43,8 @@
 #define thickring 0
 #define convexcylinder 0
 #define concavecylinder 0
-#define instance 1
+#define instance 0
+#define thinlenscamera 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -426,6 +428,59 @@ void World::build(void) {
       add_object(instance_ptr);
     }
   }
+# endif
+
+# if thinlenscamera
+  num_samples = 100;
+  vp.set_hres(400);
+  vp.set_vres(300);
+  vp.set_pixel_size(0.05);
+  vp.set_sampler(new MultiJittered(num_samples));
+
+  tracer_ptr = new RayCast(this);
+  background_color = white;
+
+  ambient_ptr->scale_radiance(0.5);
+
+  ThinLens* thin_lens_ptr = new ThinLens;
+  thin_lens_ptr->set_sampler(new MultiJittered(num_samples));
+  thin_lens_ptr->set_eye(0, 6, 50);
+  thin_lens_ptr->set_lookat(0, 6, 0);
+  thin_lens_ptr->set_view_distance(40.0);
+  thin_lens_ptr->set_focal_distance(140.0);
+  thin_lens_ptr->set_lens_radius(1.0);
+  thin_lens_ptr->compute_uvw();
+  set_camera(thin_lens_ptr);
+
+  // Yellow rectangle
+  Matte* matte_ptr_1 = new Matte;
+  matte_ptr_1->set_ka(ka);
+  matte_ptr_1->set_kd(kd);
+  matte_ptr_1->set_cd(yellow);
+  Rectangle* rectangle_ptr1 =
+    new Rectangle(Point3D(-15, 0, -40), Vector3D(12, 0, 0), Vector3D(0, 20, 0));
+  rectangle_ptr1->set_material(matte_ptr_1); 							// yellow
+  add_object(rectangle_ptr1);
+
+  // Green rectangle
+  Matte* matte_ptr_2 = new Matte;
+  matte_ptr_2->set_ka(ka);
+  matte_ptr_2->set_kd(kd);
+  matte_ptr_2->set_cd(green);
+  Rectangle* rectangle_ptr2 =
+    new Rectangle(Point3D(-2, 0, -90), Vector3D(12, 0, 0), Vector3D(0, 20, 0));
+  rectangle_ptr2->set_material(matte_ptr_2); 							// green
+  add_object(rectangle_ptr2);
+
+  // Orange rectangle
+  Matte* matte_ptr_3 = new Matte;
+  matte_ptr_3->set_ka(ka);
+  matte_ptr_3->set_kd(kd);
+  matte_ptr_3->set_cd(orange);
+  Rectangle* rectangle_ptr3 =
+    new Rectangle(Point3D(15, 0, -140), Vector3D(12, 0, 0), Vector3D(0, 20, 0));
+  rectangle_ptr3->set_material(matte_ptr_3); 							// orange
+  add_object(rectangle_ptr3);
 # endif
 
 #else

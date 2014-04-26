@@ -39,6 +39,13 @@ HEADERS += \
   Tracers/RayCast.h \
   Tracers/Tracer.h \
   Tracers/SingleSphere.h \
+  Samplers/Hammersley.h \
+  Samplers/Jittered.h \
+  Samplers/MultiJittered.h \
+  Samplers/NRooks.h \
+  Samplers/PureRandom.h \
+  Samplers/Regular.h \
+  Samplers/Sampler.h \
   UserInterface/wxraytracer.h \
   Utilities/BBox.h \
   Utilities/Constants.h \
@@ -53,13 +60,7 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    Samplers/Sampler.h \
-    Samplers/Regular.h \
-    Samplers/PureRandom.h \
-    Samplers/Jittered.h \
-    Samplers/NRooks.h \
-    Samplers/MultiJittered.h \
-    Samplers/Hammersley.h
+    Cameras/ThinLens.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -99,6 +100,13 @@ SOURCES += \
   Lights/Light.cpp \
   Materials/Material.cpp \
   Materials/Matte.cpp \
+  Samplers/Hammersley.cpp \
+  Samplers/Jittered.cpp \
+  Samplers/MultiJittered.cpp \
+  Samplers/NRooks.cpp \
+  Samplers/PureRandom.cpp \
+  Samplers/Regular.cpp \
+  Samplers/Sampler.cpp \
   Tracers/MultipleObjects.cpp \
   Tracers/RayCast.cpp \
   Tracers/SingleSphere.cpp \
@@ -116,13 +124,7 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    Samplers/Sampler.cpp \
-    Samplers/Regular.cpp \
-    Samplers/PureRandom.cpp \
-    Samplers/Jittered.cpp \
-    Samplers/NRooks.cpp \
-    Samplers/MultiJittered.cpp \
-    Samplers/Hammersley.cpp
+    Cameras/ThinLens.cpp
 
 INCLUDEPATH += \
   BRDFs \
