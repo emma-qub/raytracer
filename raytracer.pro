@@ -55,7 +55,8 @@ HEADERS += \
   World/World.h \
     Samplers/Sampler.h \
     Samplers/Regular.h \
-    Samplers/PureRandom.h
+    Samplers/PureRandom.h \
+    Samplers/Jittered.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -114,7 +115,8 @@ SOURCES += \
   World/World.cpp \
     Samplers/Sampler.cpp \
     Samplers/Regular.cpp \
-    Samplers/PureRandom.cpp
+    Samplers/PureRandom.cpp \
+    Samplers/Jittered.cpp
 
 INCLUDEPATH += \
   BRDFs \
