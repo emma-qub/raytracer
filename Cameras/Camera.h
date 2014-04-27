@@ -12,60 +12,62 @@ class World;  // can't #include "World" here because World contains a camera poi
 //--------------------------------------------------------------------- class Camera
 
 class Camera {
-	public:
-	
-		Camera();   							// default constructor
+  public:
 
-		Camera(const Camera& camera);			// copy constructor
-		
-		virtual Camera*							// virtual copy constructor
-		clone(void) const = 0;
-		
-		virtual
-		~Camera();   							
+    Camera();   							// default constructor
 
-		virtual void 																		
-		render_scene(const World& w) = 0;
-		
-		void
-		set_eye(const Point3D& p);
+    Camera(const Camera& camera);			// copy constructor
 
-		void
-		set_eye(const float x, const float y, const float z);
-		
-		void
-		set_lookat(const Point3D& p);
+    virtual Camera*							// virtual copy constructor
+    clone(void) const = 0;
 
-		void
-		set_lookat(const float x, const float y, const float z);
+    virtual
+    ~Camera();
 
-		void
-		set_up_vector(const Vector3D& u);
+    virtual void
+    render_scene(const World& w) = 0;
 
-		void
-		set_up_vector(const float x, const float y, const float z);
+    virtual void render_stereo(const World& w, float x, int offset);
 
-		void
-		set_roll(const float ra);
-		
-		void
-		set_exposure_time(const float exposure);
-		
-		void									
-		compute_uvw(void);
-		
-		
-	protected:		
-	
-		Point3D			eye;				// eye point
-		Point3D			lookat; 			// lookat point
-		float			ra;					// roll angle
-		Vector3D		u, v, w;			// orthonormal basis vectors
-		Vector3D		up;					// up vector
-		float			exposure_time;
-		
-		Camera& 							// assignment operator
-		operator= (const Camera& camera);
+    void
+    set_eye(const Point3D& p);
+
+    void
+    set_eye(const float x, const float y, const float z);
+
+    void
+    set_lookat(const Point3D& p);
+
+    void
+    set_lookat(const float x, const float y, const float z);
+
+    void
+    set_up_vector(const Vector3D& u);
+
+    void
+    set_up_vector(const float x, const float y, const float z);
+
+    void
+    set_roll(const float ra);
+
+    void
+    set_exposure_time(const float exposure);
+
+    void
+    compute_uvw(void);
+
+
+  protected:
+
+    Point3D			eye;				// eye point
+    Point3D			lookat; 			// lookat point
+    float			ra;					// roll angle
+    Vector3D		u, v, w;			// orthonormal basis vectors
+    Vector3D		up;					// up vector
+    float			exposure_time;
+
+    Camera& 							// assignment operator
+    operator= (const Camera& camera);
 };
 
 
@@ -76,7 +78,7 @@ class Camera {
 
 inline void
 Camera::set_eye(const Point3D& p) {
-	eye = p;
+  eye = p;
 }
 
 
@@ -84,7 +86,7 @@ Camera::set_eye(const Point3D& p) {
 
 inline void
 Camera::set_eye(const float x, const float y, const float z) {
-	eye.x = x; eye.y = y; eye.z = z;
+  eye.x = x; eye.y = y; eye.z = z;
 }
 
 
@@ -92,7 +94,7 @@ Camera::set_eye(const float x, const float y, const float z) {
 
 inline void
 Camera::set_lookat(const Point3D& p) {
-	lookat = p;
+  lookat = p;
 }
 
 
@@ -100,7 +102,7 @@ Camera::set_lookat(const Point3D& p) {
 
 inline void
 Camera::set_lookat(const float x, const float y, const float z) {
-	lookat.x = x; lookat.y = y; lookat.z = z;
+  lookat.x = x; lookat.y = y; lookat.z = z;
 }
 
 
@@ -108,7 +110,7 @@ Camera::set_lookat(const float x, const float y, const float z) {
 
 inline void
 Camera::set_up_vector(const Vector3D& u) {
-	up = u;
+  up = u;
 }
 
 
@@ -116,15 +118,15 @@ Camera::set_up_vector(const Vector3D& u) {
 
 inline void
 Camera::set_up_vector(const float x, const float y, const float z) {
-	up.x = x; up.y = y; up.z = z;
+  up.x = x; up.y = y; up.z = z;
 }
 
 
 // ----------------------------------------------------------------- set_roll
 
 inline void
-Camera::set_roll(const float r) { 
-	ra = r;
+Camera::set_roll(const float r) {
+  ra = r;
 }
 
 
@@ -132,7 +134,12 @@ Camera::set_roll(const float r) {
 
 inline void
 Camera::set_exposure_time(const float exposure) {
-	exposure_time = exposure;
+  exposure_time = exposure;
+}
+
+
+inline void Camera::render_stereo(const World& w, float, int) {
+  render_scene(w);
 }
 
 

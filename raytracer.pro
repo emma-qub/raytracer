@@ -60,7 +60,8 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    Cameras/ThinLens.h
+    Cameras/ThinLens.h \
+    Cameras/StereoCamera.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -124,7 +125,8 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    Cameras/ThinLens.cpp
+    Cameras/ThinLens.cpp \
+    Cameras/StereoCamera.cpp
 
 INCLUDEPATH += \
   BRDFs \
@@ -162,3 +164,5 @@ QMAKE_CXXFLAGS += \
   -D_FILE_OFFSET_BITS=64 \
   -D_LARGE_FILES \
   -D__WXGTK__
+
+CONFIG += c++11

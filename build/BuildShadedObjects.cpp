@@ -9,11 +9,13 @@
 
 #include "World.h"
 #include "RayCast.h"
+#include "MultipleObjects.h"
 #include "Directional.h"
 #include "Matte.h"
 #include "Plane.h"
 #include "Pinhole.h"
 #include "ThinLens.h"
+#include "StereoCamera.h"
 #include "Maths.h"
 
 #define perso 1
@@ -44,7 +46,8 @@
 #define convexcylinder 0
 #define concavecylinder 0
 #define instance 0
-#define thinlenscamera 1
+#define thinlenscamera 0
+#define stereocamera 1
 
 void World::build(void) {
   int num_samples = 1;
@@ -481,6 +484,45 @@ void World::build(void) {
     new Rectangle(Point3D(15, 0, -140), Vector3D(12, 0, 0), Vector3D(0, 20, 0));
   rectangle_ptr3->set_material(matte_ptr_3); 							// orange
   add_object(rectangle_ptr3);
+# endif
+
+#if stereocamera
+  num_samples = 100;
+  vp.set_hres(200);
+  vp.set_vres(150);
+  vp.set_pixel_size(0.05);
+  vp.set_sampler(new MultiJittered(num_samples));
+
+
+  Matte* matte_ptr = new Matte;
+  matte_ptr->set_ka(ka);
+  matte_ptr->set_kd(kd);
+  matte_ptr->set_cd(yellow);
+  OpenPartTorus* openPartTorus =
+    new OpenPartTorus(3, 1, 45, 325, 90, 360);
+  openPartTorus->set_material(matte_ptr);	   							// yellow
+  add_object(openPartTorus);
+
+  float vpd = 100;        // view-plane distance
+
+  Pinhole* left_camera_ptr = new Pinhole;
+  left_camera_ptr->set_view_distance(vpd);
+
+  Pinhole* right_camera_ptr = new Pinhole;
+  right_camera_ptr->set_view_distance(vpd);
+
+  StereoCamera* stereo_ptr = new StereoCamera;
+  stereo_ptr->set_left_camera(left_camera_ptr);
+  stereo_ptr->set_right_camera(right_camera_ptr);
+  //stereo_ptr->use_parallel_viewing();
+  stereo_ptr->use_transverse_viewing();
+  stereo_ptr->set_pixel_gap(5);       // in pixels
+  stereo_ptr->set_eye(5, 50, 100);
+  stereo_ptr->set_lookat(0);
+  stereo_ptr->compute_uvw();
+  stereo_ptr->set_stereo_angle(0.75); // in degrees
+  stereo_ptr->setup_cameras();
+  set_camera(stereo_ptr);
 # endif
 
 #else
