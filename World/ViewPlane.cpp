@@ -12,8 +12,8 @@ ViewPlane::ViewPlane(void)
     gamma(1.0),
     inv_gamma(1.0),
     show_out_of_gamut(false),
-    sampler_ptr(NULL)
-{}
+    sampler_ptr(NULL) {
+}
 
 
 // ---------------------------------------------------------------- copy constructor

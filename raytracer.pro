@@ -61,7 +61,8 @@ HEADERS += \
   World/ViewPlane.h \
   World/World.h \
     Cameras/ThinLens.h \
-    Cameras/StereoCamera.h
+    Cameras/StereoCamera.h \
+    GeometricObjects/BeveledObjects/BeveledBox.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -126,16 +127,18 @@ SOURCES += \
   World/ViewPlane.cpp \
   World/World.cpp \
     Cameras/ThinLens.cpp \
-    Cameras/StereoCamera.cpp
+    Cameras/StereoCamera.cpp \
+    GeometricObjects/BeveledObjects/BeveledBox.cpp
 
 INCLUDEPATH += \
   BRDFs \
   BRDFs \
   Cameras \
   GeometricObjects \
+  GeometricObjects/BeveledObjects/ \
+  GeometricObjects/CompoundObjects \
   GeometricObjects/PartObjects \
   GeometricObjects/Primitives \
-  GeometricObjects/CompoundObjects \
   Lights \
   Materials \
   Samplers \

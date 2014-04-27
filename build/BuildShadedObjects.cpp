@@ -47,7 +47,10 @@
 #define concavecylinder 0
 #define instance 0
 #define thinlenscamera 0
-#define stereocamera 1
+#define stereocamera 0
+#define beveledbox 1
+
+#include <iostream>
 
 void World::build(void) {
   int num_samples = 1;
@@ -58,6 +61,7 @@ void World::build(void) {
   vp.set_vres(400);
   vp.set_pixel_size(0.5);
   vp.set_samples(num_samples);
+  std::cerr << vp.sampler_ptr << std::endl;
 
   // the ambient light here is the same as the default set in the World
   // constructor, and can therefore be left out
@@ -110,7 +114,7 @@ void World::build(void) {
 
 #if perso
   // camera
-  pinhole_ptr->set_eye(0, 200, 500);
+  pinhole_ptr->set_eye(300, 200, 500);
   pinhole_ptr->set_lookat(0.0);
   pinhole_ptr->set_view_distance(600.0);
   pinhole_ptr->compute_uvw();
@@ -523,6 +527,17 @@ void World::build(void) {
   stereo_ptr->set_stereo_angle(0.75); // in degrees
   stereo_ptr->setup_cameras();
   set_camera(stereo_ptr);
+# endif
+
+# if beveledbox
+  Matte* matte_ptr = new Matte;
+  matte_ptr->set_ka(ka);
+  matte_ptr->set_kd(kd);
+  matte_ptr->set_cd(green);
+  BeveledBox* beveledBox =
+    new BeveledBox(Point3D(-50, -5, -40), Point3D(50, 5, 40), 2);
+  beveledBox->set_material(matte_ptr);	   							// green
+  add_object(beveledBox);
 # endif
 
 #else
