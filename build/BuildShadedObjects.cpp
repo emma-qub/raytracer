@@ -48,7 +48,8 @@
 #define instance 0
 #define thinlenscamera 0
 #define stereocamera 0
-#define beveledbox 1
+#define beveledbox 0
+#define beveledwedge 1
 
 #include <iostream>
 
@@ -538,6 +539,17 @@ void World::build(void) {
     new BeveledBox(Point3D(-50, -5, -40), Point3D(50, 5, 40), 2);
   beveledBox->set_material(matte_ptr);	   							// green
   add_object(beveledBox);
+# endif
+
+# if beveledwedge
+  Matte* matte_ptr = new Matte;
+  matte_ptr->set_ka(ka);
+  matte_ptr->set_kd(kd);
+  matte_ptr->set_cd(green);
+  BeveledWedge* beveledWedge =
+    new BeveledWedge(-10, 10, 20, 60, 2, 45, 325);
+  beveledWedge->set_material(matte_ptr);	   							// green
+  add_object(beveledWedge);
 # endif
 
 #else

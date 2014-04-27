@@ -13,7 +13,8 @@ public:
 
   PartAnnulus(const double y, const double i_r, const double o_r,
               const double azimuth_min,	// in degrees
-              const double azimuth_max);	// in degrees
+              const double azimuth_max,	// in degrees
+              bool up = true);
 
   virtual PartAnnulus* clone(void) const;
 
@@ -33,6 +34,7 @@ public:
   double phi_max;     // maximum azimiuth angle in degrees measured counter clockwise from the +ve z axis
   double i_r_squared; // stored only to avoid recalculations
   double o_r_squared; // stored only to avoid recalculations
+  bool normal_up;     // normal is up or down
 };
 
 #endif // PARTANNULUS_H

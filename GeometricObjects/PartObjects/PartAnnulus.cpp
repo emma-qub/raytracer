@@ -11,13 +11,14 @@ PartAnnulus::PartAnnulus(void):
   phi_min(0.0),
   phi_max(TWO_PI),
   i_r_squared(0.64),
-  o_r_squared(1.0) {
+  o_r_squared(1.0),
+  normal_up(true) {
 }
 
 PartAnnulus::PartAnnulus(const double y, double i_r, double o_r,
                          const double azimuth_min,	// in degrees
-                         const double azimuth_max   // in degrees
-                         ):
+                         const double azimuth_max,   // in degrees
+                         bool up):
   GeometricObject(),
   y(y),
   inner_radius(i_r),
@@ -25,7 +26,8 @@ PartAnnulus::PartAnnulus(const double y, double i_r, double o_r,
   phi_min(azimuth_min * PI_ON_180),
   phi_max(azimuth_max * PI_ON_180),
   i_r_squared(inner_radius * inner_radius),
-  o_r_squared(outer_radius * outer_radius) {
+  o_r_squared(outer_radius * outer_radius),
+  normal_up(up) {
 }
 
 PartAnnulus::PartAnnulus(const PartAnnulus& partAnnulus):
@@ -36,7 +38,8 @@ PartAnnulus::PartAnnulus(const PartAnnulus& partAnnulus):
   phi_min(partAnnulus.phi_min),
   phi_max(partAnnulus.phi_max),
   i_r_squared(partAnnulus.i_r_squared),
-  o_r_squared(partAnnulus.o_r_squared) {
+  o_r_squared(partAnnulus.o_r_squared),
+  normal_up(partAnnulus.normal_up) {
 }
 
 PartAnnulus* PartAnnulus::clone(void) const {
@@ -56,6 +59,7 @@ PartAnnulus& PartAnnulus::operator=(const PartAnnulus& rhs) {
   phi_max = rhs.phi_max;
   i_r_squared = rhs.i_r_squared;
   o_r_squared = rhs.o_r_squared;
+  normal_up = rhs.normal_up;
 
   return *this;
 }
@@ -80,10 +84,8 @@ bool PartAnnulus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     if (phi_min <= phi && phi <= phi_max) {
       tmin = t;
       sr.normal = Normal(0.0, 1.0, 0.0);
-
-      // test for hitting inside surface
-      if (-ray.d * sr.normal < 0.0)
-        sr.normal = -sr.normal;        // points towards camera
+      if (!normal_up)
+        sr.normal.y *= -1;
 
       sr.local_hit_point = p;
 
