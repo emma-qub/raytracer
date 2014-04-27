@@ -62,7 +62,6 @@ void World::build(void) {
   vp.set_vres(400);
   vp.set_pixel_size(0.5);
   vp.set_samples(num_samples);
-  std::cerr << vp.sampler_ptr << std::endl;
 
   // the ambient light here is the same as the default set in the World
   // constructor, and can therefore be left out

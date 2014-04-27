@@ -20,8 +20,8 @@ Rectangle::Rectangle(void)
     a_len_squared(4.0),
     b_len_squared(4.0),
     area(4.0),
-    inv_area(0.25),//,
-    //sampler_ptr(NULL)
+    inv_area(0.25),
+    sampler_ptr(NULL),
     normal(0, 1, 0)
 {}
 
@@ -37,8 +37,8 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
     a_len_squared(a.len_squared()),
     b_len_squared(b.len_squared()),
     area(a.length() * b.length()),
-    inv_area(1.0 / area)//,
-    //sampler_ptr(NULL)
+    inv_area(1.0 / area),
+    sampler_ptr(NULL)
 {
   normal = a ^ b;
   normal.normalize();
@@ -57,7 +57,7 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b,
     b_len_squared(b.len_squared()),
     area(a.length() * b.length()),
     inv_area(1.0 / area),
-    //sampler_ptr(NULL),
+    sampler_ptr(NULL),
     normal(n)
 {
   normal.normalize();
@@ -86,9 +86,9 @@ Rectangle::Rectangle (const Rectangle& r)
     inv_area(r.inv_area),
     normal(r.normal)
 {
-//  if(r.sampler_ptr)
-//    sampler_ptr	= r.sampler_ptr->clone();
-//  else  sampler_ptr = NULL;
+  if(r.sampler_ptr)
+    sampler_ptr	= r.sampler_ptr->clone();
+  else  sampler_ptr = NULL;
 }
 
 
@@ -111,13 +111,13 @@ Rectangle::operator= (const Rectangle& rhs) {
   inv_area		= rhs.inv_area;
   normal			= rhs.normal;
 
-//  if (sampler_ptr) {
-//    delete sampler_ptr;
-//    sampler_ptr = NULL;
-//  }
+  if (sampler_ptr) {
+    delete sampler_ptr;
+    sampler_ptr = NULL;
+  }
 
-//  if (rhs.sampler_ptr)
-//    sampler_ptr= rhs.sampler_ptr->clone();
+  if (rhs.sampler_ptr)
+    sampler_ptr = rhs.sampler_ptr->clone();
 
   return (*this);
 }
@@ -128,10 +128,10 @@ Rectangle::operator= (const Rectangle& rhs) {
 Rectangle::~Rectangle (void) {
   delete material_ptr;
 
-//  if (sampler_ptr) {
-//    delete sampler_ptr;
-//    sampler_ptr = NULL;
-//  }
+  if (sampler_ptr) {
+    delete sampler_ptr;
+    sampler_ptr = NULL;
+  }
 }
 
 //------------------------------------------------------------------ get_bounding_box
@@ -179,10 +179,10 @@ Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 // ---------------------------------------------------------------- setSampler
 
-//void
-//Rectangle::set_sampler(Sampler* sampler) {
-//  sampler_ptr = sampler;
-//}
+void
+Rectangle::set_sampler(Sampler* sampler) {
+  sampler_ptr = sampler;
+}
 
 
 // ---------------------------------------------------------------- sample
@@ -190,8 +190,8 @@ Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 Point3D
 Rectangle::sample(void) {
-  //Point2D sample_point = sampler_ptr->sample_unit_square();
-  //return (p0 + sample_point.x * a + sample_point.y * b);
+  Point2D sample_point = sampler_ptr->sample_unit_square();
+  return (p0 + sample_point.x * a + sample_point.y * b);
 }
 
 

@@ -7,7 +7,7 @@
 //	See the file COPYING.txt for the full license.
 
 
-//#include "Sampler.h"
+#include "Sampler.h"
 #include "GeometricObject.h"
 #include "BBox.h"
 
@@ -40,8 +40,8 @@ class Rectangle: public GeometricObject {
 
     // the following functions are used when the rectangle is a light source
 
-    //virtual void
-    //set_sampler(Sampler* sampler);
+    virtual void
+    set_sampler(Sampler* sampler);
 
     virtual Point3D
     sample(void);
@@ -62,7 +62,7 @@ class Rectangle: public GeometricObject {
 
     float			area;			// for rectangular lights
     float			inv_area;		// for rectangular lights
-    //Sampler*		sampler_ptr;	// for rectangular lights
+    Sampler*		sampler_ptr;	// for rectangular lights
     Normal			normal;
 
     static const double kEpsilon;
