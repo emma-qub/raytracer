@@ -49,12 +49,13 @@
 #define thinlenscamera 0
 #define stereocamera 0
 #define beveledbox 0
-#define beveledwedge 1
+#define beveledwedge 0
+#define chocolate 1
 
 #include <iostream>
 
 void World::build(void) {
-  int num_samples = 1;
+  int num_samples = 100;
 
   // view plane
 
@@ -344,7 +345,7 @@ void World::build(void) {
 # endif
 
 # if bowlroundedobject
-  Matte* matte_ptr113 = new Matte;
+  Matte* matte_ptr114 = new Matte;
   matte_ptr114->set_ka(ka);
   matte_ptr114->set_kd(kd);
   matte_ptr114->set_cd(yellow);
@@ -454,7 +455,7 @@ void World::build(void) {
   thin_lens_ptr->set_eye(0, 6, 50);
   thin_lens_ptr->set_lookat(0, 6, 0);
   thin_lens_ptr->set_view_distance(40.0);
-  thin_lens_ptr->set_focal_distance(140.0);
+  thin_lens_ptr->set_focal_distance(190.0);
   thin_lens_ptr->set_lens_radius(1.0);
   thin_lens_ptr->compute_uvw();
   set_camera(thin_lens_ptr);
@@ -549,6 +550,57 @@ void World::build(void) {
     new BeveledWedge(-10, 10, 20, 60, 2, 45, 325);
   beveledWedge->set_material(matte_ptr);	   							// green
   add_object(beveledWedge);
+# endif
+
+# if chocolate
+  Matte* matte_ptr1 = new Matte;
+  matte_ptr1->set_ka(ka);
+  matte_ptr1->set_kd(kd);
+  matte_ptr1->set_cd(brown);
+  Matte* matte_ptr2 = new Matte;
+  matte_ptr2->set_ka(ka);
+  matte_ptr2->set_kd(kd);
+  matte_ptr2->set_cd(brown);
+  Matte* matte_ptr3 = new Matte;
+  matte_ptr3->set_ka(ka);
+  matte_ptr3->set_kd(kd);
+  matte_ptr3->set_cd(brown);
+  Matte* matte_ptr4 = new Matte;
+  matte_ptr4->set_ka(ka);
+  matte_ptr4->set_kd(kd);
+  matte_ptr4->set_cd(brown);
+  Matte* matte_ptr5 = new Matte;
+  matte_ptr5->set_ka(ka);
+  matte_ptr5->set_kd(kd);
+  matte_ptr5->set_cd(brown);
+  Matte* matte_ptr6 = new Matte;
+  matte_ptr6->set_ka(ka);
+  matte_ptr6->set_kd(kd);
+  matte_ptr6->set_cd(brown);
+  BeveledBox* beveledBox1 =
+    new BeveledBox(Point3D(-50, -5, -40), Point3D(-25, 5, -20), 2);
+  BeveledBox* beveledBox2 =
+    new BeveledBox(Point3D(-25, -5, -20), Point3D(0, 5, 0), 2);
+  BeveledBox* beveledBox3 =
+    new BeveledBox(Point3D(-50, -5, -20), Point3D(-25, 5, 0), 2);
+  BeveledBox* beveledBox4 =
+    new BeveledBox(Point3D(-25, -5, -40), Point3D(0, 5, -20), 2);
+  Rectangle* bottom1 = new Rectangle(
+    Point3D(-48, -5, 0), Vector3D(48, 0, 0), Vector3D(0, 2, 0));
+  Rectangle* bottom2 = new Rectangle(
+    Point3D(0, -5, 0), Vector3D(0, 0, -38), Vector3D(0, 2, 0));
+  beveledBox1->set_material(matte_ptr1);	   							// brown
+  beveledBox2->set_material(matte_ptr2);	   							// brown
+  beveledBox3->set_material(matte_ptr3);	   							// brown
+  beveledBox4->set_material(matte_ptr4);	   							// brown
+  bottom1->set_material(matte_ptr5);
+  bottom2->set_material(matte_ptr6);
+  add_object(beveledBox1);
+  add_object(beveledBox2);
+  add_object(beveledBox3);
+  add_object(beveledBox4);
+  add_object(bottom1);
+  add_object(bottom2);
 # endif
 
 #else

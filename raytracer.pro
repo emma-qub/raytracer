@@ -3,8 +3,12 @@ HEADERS += \
   BRDFs/Lambertian.h \
   Cameras/Camera.h \
   Cameras/Pinhole.h \
+  Cameras/StereoCamera.h \
+  Cameras/ThinLens.h \
   GeometricObjects/GeometricObject.h \
   GeometricObjects/Instance.h \
+  GeometricObjects/BeveledObjects/BeveledBox.h \
+  GeometricObjects/BeveledObjects/BeveledWedge.h \
   GeometricObjects/CompoundObjects/Compound.h \
   GeometricObjects/CompoundObjects/SolidCone.h \
   GeometricObjects/CompoundObjects/SolidCylinder.h \
@@ -30,6 +34,11 @@ HEADERS += \
   GeometricObjects/Primitives/Rectangle.h \
   GeometricObjects/Primitives/Sphere.h \
   GeometricObjects/Primitives/Torus.h \
+#  GeometricObjects/Triangles/FlatMeshTriangle.h \
+#  GeometricObjects/Triangles/MeshTriangle.h \
+#  GeometricObjects/Triangles/SmoothMeshTriangle.h \
+#  GeometricObjects/Triangles/SmoothTriangle.h \
+  GeometricObjects/Triangles/Triangle.h \
   Lights/Ambient.h \
   Lights/Directional.h \
   Lights/Light.h \
@@ -59,11 +68,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    Cameras/ThinLens.h \
-    Cameras/StereoCamera.h \
-    GeometricObjects/BeveledObjects/BeveledBox.h \
-    GeometricObjects/BeveledObjects/BeveledWedge.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -71,8 +76,12 @@ SOURCES += \
   build/BuildShadedObjects.cpp \
   Cameras/Camera.cpp \
   Cameras/Pinhole.cpp \
+  Cameras/StereoCamera.cpp \
+  Cameras/ThinLens.cpp \
   GeometricObjects/GeometricObject.cpp \
   GeometricObjects/Instance.cpp \
+  GeometricObjects/BeveledObjects/BeveledBox.cpp \
+  GeometricObjects/BeveledObjects/BeveledWedge.cpp \
   GeometricObjects/CompoundObjects/Compound.cpp \
   GeometricObjects/CompoundObjects/SolidCone.cpp \
   GeometricObjects/CompoundObjects/SolidCylinder.cpp \
@@ -98,6 +107,11 @@ SOURCES += \
   GeometricObjects/Primitives/Rectangle.cpp \
   GeometricObjects/Primitives/Sphere.cpp \
   GeometricObjects/Primitives/Torus.cpp \
+#  GeometricObjects/Triangles/FlatMeshTriangle.cpp \
+#  GeometricObjects/Triangles/MeshTriangle.cpp \
+#  GeometricObjects/Triangles/SmoothMeshTriangle.cpp \
+#  GeometricObjects/Triangles/SmoothTriangle.cpp \
+  GeometricObjects/Triangles/Triangle.cpp \
   Lights/Ambient.cpp \
   Lights/Directional.cpp \
   Lights/Light.cpp \
@@ -126,11 +140,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    Cameras/ThinLens.cpp \
-    Cameras/StereoCamera.cpp \
-    GeometricObjects/BeveledObjects/BeveledBox.cpp \
-    GeometricObjects/BeveledObjects/BeveledWedge.cpp
+  World/World.cpp
 
 INCLUDEPATH += \
   BRDFs \
@@ -141,6 +151,7 @@ INCLUDEPATH += \
   GeometricObjects/CompoundObjects \
   GeometricObjects/PartObjects \
   GeometricObjects/Primitives \
+  GeometricObjects/Triangles \
   Lights \
   Materials \
   Samplers \
