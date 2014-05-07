@@ -746,6 +746,7 @@ void World::build(void) {
   //checker_ptr->set_color2(white);
 
   Matte* sv_matte_ptr1 = new Matte;
+  sv_matte_ptr1->set_cd(0.5, 0.5, 0.5);
   sv_matte_ptr1->set_ka(0.20);
   sv_matte_ptr1->set_kd(0.50);
   //sv_matte_ptr1->set_cd(checker_ptr);
