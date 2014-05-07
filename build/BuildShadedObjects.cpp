@@ -13,6 +13,7 @@
 #include "Directional.h"
 #include "PointLight.h"
 #include "Matte.h"
+#include "Phong.h"
 #include "Plane.h"
 #include "Pinhole.h"
 #include "ThinLens.h"
@@ -22,13 +23,68 @@
 #include "Maths.h"
 
 #define chocolate 0
-#define chapitre11_1 1
+#define chapitre11_1 0
 #define chapitre11_2 0
+#define chapitre15_7 1
 #define firstexample 0
 
 #include <iostream>
 
 void World::build(void) {
+
+#if chapitre15_7
+  int num_samples = 1;
+
+  vp.set_hres(650);
+  vp.set_vres(300);
+  vp.set_samples(num_samples);
+
+  tracer_ptr = new RayCast(this);
+
+  Pinhole* pinhole_ptr = new Pinhole;
+  pinhole_ptr->set_eye(0, 0, 100);
+  pinhole_ptr->set_lookat(0, 0, 0);
+  pinhole_ptr->set_view_distance(6000);
+  pinhole_ptr->compute_uvw();
+  set_camera(pinhole_ptr);
+
+  Directional* light_ptr2 = new Directional;
+  light_ptr2->set_direction(20, 0, 20);
+  light_ptr2->scale_radiance(3.0);
+  add_light(light_ptr2);
+
+
+  // beveled cylinder
+
+  float bottom 		= -2.0;
+  float top 			= 2.0;
+  float radius 		= 1.0;
+  //float bevel_radius 	= 0.2;
+
+  //BeveledCylinder* cylinder_ptr1 = new BeveledCylinder(bottom, top, radius, bevel_radius);
+  SolidCylinder* cylinder_ptr1 = new SolidCylinder(bottom, top, radius);
+
+  for (int j = 0; j < 4; j++) {
+    float exp;
+
+    if (j == 0) exp = 5;
+    if (j == 1) exp = 20;
+    if (j == 2) exp = 100;
+    if (j == 3) exp = 1000;
+
+    Phong* phong_ptr = new Phong;
+    phong_ptr->set_ka(0.25);
+    phong_ptr->set_kd(0.6);
+    phong_ptr->set_cd(0.5);
+    phong_ptr->set_ks(0.2);
+    phong_ptr->set_exp(exp);
+
+    Instance* cylinder_ptr2 = new Instance(cylinder_ptr1);
+    cylinder_ptr2->translate(-3.75 + 2.5 * j, 0, 0);
+    cylinder_ptr2->set_material(phong_ptr);
+    add_object(cylinder_ptr2);
+  }
+#endif
 
 #if chocolate
   int num_samples = 100;

@@ -15,7 +15,7 @@ GlossySpecular::GlossySpecular(const GlossySpecular& gs):
   exp(gs.exp) {
 }
 
-BRDF* GlossySpecular::clone(void) const {
+GlossySpecular* GlossySpecular::clone(void) const {
   return new GlossySpecular(*this);
 }
 

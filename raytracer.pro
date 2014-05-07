@@ -73,7 +73,8 @@ HEADERS += \
   World/ViewPlane.h \
   World/World.h \
     GeometricObjects/CompoundObjects/Box.h \
-    Cameras/Spherical.h
+    Cameras/Spherical.h \
+    Materials/Phong.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -150,7 +151,8 @@ SOURCES += \
   World/ViewPlane.cpp \
   World/World.cpp \
     GeometricObjects/CompoundObjects/Box.cpp \
-    Cameras/Spherical.cpp
+    Cameras/Spherical.cpp \
+    Materials/Phong.cpp
 
 INCLUDEPATH += \
   BRDFs \
