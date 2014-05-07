@@ -18,544 +18,21 @@
 #include "ThinLens.h"
 #include "StereoCamera.h"
 #include "Fisheye.h"
+#include "Spherical.h"
 #include "Maths.h"
 
-#define perso 1
-#define sphere 0
-#define cylinder 0
-#define torus 0
-#define disk 0
-#define rectangle 0
-#define annulus 0
-#define cone 0
-#define convexpartsphere 0
-#define concavepartsphere 0
-#define openpartsphere 0
-#define convexpartcylinder 0
-#define concavepartcylinder 0
-#define openpartcylinder 0
-#define convexparttorus 0
-#define concaveparttorus 0
-#define openparttorus 0
-#define partannulus 0
-#define genericsphere 0
-#define compoundobject 0
-#define bowlthickobject 0
-#define bowlroundedobject 0
-#define solidcylinder 0
-#define solidcone 0
-#define thickring 0
-#define convexcylinder 0
-#define concavecylinder 0
-#define instance 0
-#define thinlenscamera 0
-#define stereocamera 0
-#define beveledbox 0
-#define beveledwedge 0
 #define chocolate 0
-#define fisheye 1
+#define chapitre11_1 0
+#define chapitre11_2 1
+#define firstexample 0
 
 #include <iostream>
 
 void World::build(void) {
+
+#if chocolate
   int num_samples = 100;
 
-  // view plane
-
-  vp.set_hres(400);
-  vp.set_vres(400);
-  vp.set_pixel_size(0.5);
-  vp.set_samples(num_samples);
-
-  // the ambient light here is the same as the default set in the World
-  // constructor, and can therefore be left out
-
-  Ambient* ambient_ptr = new Ambient;
-  ambient_ptr->scale_radiance(1.0);
-  set_ambient_light(ambient_ptr);
-
-  background_color = black;			// default color - this can be left out
-
-  tracer_ptr = new RayCast(this);
-
-
-  // camera
-
-  Pinhole* pinhole_ptr = new Pinhole;
-  pinhole_ptr->set_eye(0, 0, 500);
-  pinhole_ptr->set_lookat(0.0);
-  pinhole_ptr->set_view_distance(600.0);
-  pinhole_ptr->compute_uvw();
-  set_camera(pinhole_ptr);
-
-
-  // light
-
-//  Directional* light_ptr1 = new Directional;
-//  light_ptr1->set_direction(100, 100, 200);
-//  light_ptr1->scale_radiance(3.0);
-//  add_light(light_ptr1);
-
-
-  // colors
-
-  RGBColor yellow(1, 1, 0);										// yellow
-  RGBColor brown(0.71, 0.40, 0.16);								// brown
-  RGBColor darkGreen(0.0, 0.41, 0.41);							// darkGreen
-  RGBColor orange(1, 0.75, 0);									// orange
-  RGBColor green(0, 0.6, 0.3);									// green
-  RGBColor lightGreen(0.65, 1, 0.30);								// light green
-  RGBColor darkYellow(0.61, 0.61, 0);								// dark yellow
-  RGBColor lightPurple(0.65, 0.3, 1);								// light purple
-  RGBColor darkPurple(0.5, 0, 1);									// dark purple
-  RGBColor grey(0.25);											// grey
-
-
-  // Matte material reflection coefficients - common to all materials
-
-  float ka = 0.25;
-  float kd = 0.75;
-
-#if perso
-  // camera
-  pinhole_ptr->set_eye(300, 200, 500);
-  pinhole_ptr->set_lookat(0.0);
-  pinhole_ptr->set_view_distance(600.0);
-  pinhole_ptr->compute_uvw();
-
-# if sphere
-  Matte* matte_ptr = new Matte;
-  matte_ptr->set_ka(ka);
-  matte_ptr->set_kd(kd);
-  matte_ptr->set_cd(yellow);
-  Sphere* sphere_ptr = new Sphere(Point3D(), 50);
-  sphere_ptr->set_material(matte_ptr);	   							// yellow
-  add_object(sphere_ptr);
-# endif
-
-# if cylinder
-  Matte* matte_ptr = new Matte;
-  matte_ptr->set_ka(ka);
-  matte_ptr->set_kd(kd);
-  matte_ptr->set_cd(yellow);
-  OpenCylinder* cylinder_ptr = new OpenCylinder(-5, 50, 30);
-  cylinder_ptr->set_material(matte_ptr);	   							// yellow
-  add_object(cylinder_ptr);
-# endif
-
-#if torus
-  Matte* matte_ptr5 = new Matte;
-  matte_ptr5->set_ka(ka);
-  matte_ptr5->set_kd(kd);
-  matte_ptr5->set_cd(yellow);
-  Torus* torus_ptr = new Torus(60, 20);
-  torus_ptr->set_material(matte_ptr5);								// yellow
-  add_object(torus_ptr);
-# endif
-
-#if disk
-  Matte* matte_ptr5 = new Matte;
-  matte_ptr5->set_ka(ka);
-  matte_ptr5->set_kd(kd);
-  matte_ptr5->set_cd(yellow);
-  Disk* disk_ptr = new Disk(Point3D(), Normal(0.0, 1.0, 1.0), 50.0);
-  disk_ptr->set_material(matte_ptr5);								// yellow
-  add_object(disk_ptr);
-# endif
-
-#if rectangle
-  Matte* matte_ptr15 = new Matte;
-  matte_ptr15->set_ka(ka);
-  matte_ptr15->set_kd(kd);
-  matte_ptr15->set_cd(yellow);
-  Rectangle*	rectangle_ptr15 =
-    new Rectangle(Point3D(-40, 0, -20), Vector3D(70, 0, 0), Vector3D(0, 50, 0));
-  rectangle_ptr15->set_material(matte_ptr15); 							// yellow
-  add_object(rectangle_ptr15);
-# endif
-
-#if annulus
-  Matte* matte_ptr4 = new Matte;
-  matte_ptr4->set_ka(ka);
-  matte_ptr4->set_kd(kd);
-  matte_ptr4->set_cd(yellow);
-  Annulus* annulus_ptr = new Annulus(Point3D(0, 0, 0), Normal(0, 1, 0), 50, 60);
-  annulus_ptr->set_material(matte_ptr4);								// yellow
-  add_object(annulus_ptr);
-# endif
-
-#if cone
-  Matte* matte_ptr = new Matte;
-  matte_ptr->set_ka(ka);
-  matte_ptr->set_kd(kd);
-  matte_ptr->set_cd(yellow);
-  OpenCone* cone_ptr = new OpenCone(50, 30);
-  cone_ptr->set_material(matte_ptr);	   							// yellow
-  add_object(cone_ptr);
-# endif
-
-# if convexpartsphere
-  Matte* matte_ptr101 = new Matte;
-  matte_ptr101->set_ka(ka);
-  matte_ptr101->set_kd(kd);
-  matte_ptr101->set_cd(yellow);
-  ConvexPartSphere* convexPartSphere =
-    new ConvexPartSphere(Point3D(0, 0, 0), 50, 45, 325, 45, 135);
-  convexPartSphere->set_material(matte_ptr101);	   							// yellow
-  add_object(convexPartSphere);
-# endif
-
-# if concavepartsphere
-  Matte* matte_ptr101 = new Matte;
-  matte_ptr101->set_ka(ka);
-  matte_ptr101->set_kd(kd);
-  matte_ptr101->set_cd(yellow);
-  ConcavePartSphere* concavePartSphere =
-    new ConcavePartSphere(Point3D(0, 0, 0), 50, 45, 325, 45, 135);
-  concavePartSphere->set_material(matte_ptr101);	   							// yellow
-  add_object(concavePartSphere);
-# endif
-
-# if openpartsphere
-  Matte* matte_ptr102 = new Matte;
-  matte_ptr102->set_ka(ka);
-  matte_ptr102->set_kd(kd);
-  matte_ptr102->set_cd(yellow);
-  OpenPartSphere* openPartSphere =
-    new OpenPartSphere(Point3D(0, 0, 0), 50, 45, 325, 45, 135);
-  openPartSphere->set_material(matte_ptr102);	   							// yellow
-  add_object(openPartSphere);
-# endif
-
-# if convexpartcylinder
-  Matte* matte_ptr103 = new Matte;
-  matte_ptr103->set_ka(ka);
-  matte_ptr103->set_kd(kd);
-  matte_ptr103->set_cd(yellow);
-  ConvexPartCylinder* convexPartCylinder =
-    new ConvexPartCylinder(-25, 25, 50, 45, 325);
-  convexPartCylinder->set_material(matte_ptr103);	   							// yellow
-  add_object(convexPartCylinder);
-# endif
-
-# if concavepartcylinder
-  Matte* matte_ptr104 = new Matte;
-  matte_ptr104->set_ka(ka);
-  matte_ptr104->set_kd(kd);
-  matte_ptr104->set_cd(yellow);
-  ConcavePartCylinder* concavePartCylinder =
-    new ConcavePartCylinder(-25, 25, 50, 45, 325);
-  concavePartCylinder->set_material(matte_ptr104);	   							// yellow
-  add_object(concavePartCylinder);
-# endif
-
-# if openpartcylinder
-  Matte* matte_ptr105 = new Matte;
-  matte_ptr105->set_ka(ka);
-  matte_ptr105->set_kd(kd);
-  matte_ptr105->set_cd(yellow);
-  OpenPartCylinder* openPartCylinder =
-    new OpenPartCylinder(-25, 25, 50, 45, 325);
-  openPartCylinder->set_material(matte_ptr105);	   							// yellow
-  add_object(openPartCylinder);
-# endif
-
-# if convexparttorus
-  Matte* matte_ptr106 = new Matte;
-  matte_ptr106->set_ka(ka);
-  matte_ptr106->set_kd(kd);
-  matte_ptr106->set_cd(yellow);
-  ConvexPartTorus* convexPartTorus =
-    new ConvexPartTorus(60, 20, 45, 325, 90, 360);
-  convexPartTorus->set_material(matte_ptr106);	   							// yellow
-  add_object(convexPartTorus);
-# endif
-
-# if concaveparttorus
-  Matte* matte_ptr107 = new Matte;
-  matte_ptr107->set_ka(ka);
-  matte_ptr107->set_kd(kd);
-  matte_ptr107->set_cd(yellow);
-  ConcavePartTorus* concavePartTorus =
-    new ConcavePartTorus(60, 20, 45, 325, 90, 360);
-  concavePartTorus->set_material(matte_ptr107);	   							// yellow
-  add_object(concavePartTorus);
-# endif
-
-# if openparttorus
-  Matte* matte_ptr108 = new Matte;
-  matte_ptr108->set_ka(ka);
-  matte_ptr108->set_kd(kd);
-  matte_ptr108->set_cd(yellow);
-  OpenPartTorus* openPartTorus =
-    new OpenPartTorus(60, 20, 45, 325, 90, 360);
-  openPartTorus->set_material(matte_ptr108);	   							// yellow
-  add_object(openPartTorus);
-# endif
-
-# if partannulus
-  Matte* matte_ptr109 = new Matte;
-  matte_ptr109->set_ka(ka);
-  matte_ptr109->set_kd(kd);
-  matte_ptr109->set_cd(yellow);
-  PartAnnulus* partAnnulus = new PartAnnulus(0, 50, 60, 45, 325);
-  partAnnulus->set_material(matte_ptr109);	   							// yellow
-  add_object(partAnnulus);
-# endif
-
-# if genericsphere
-  // camera
-  pinhole_ptr->set_eye(0, 0, 10);
-  pinhole_ptr->set_lookat(0.0);
-  pinhole_ptr->set_view_distance(600.0);
-  pinhole_ptr->compute_uvw();
-  // generic sphere
-  Matte* matte_ptr111 = new Matte;
-  matte_ptr111->set_ka(ka);
-  matte_ptr111->set_kd(kd);
-  matte_ptr111->set_cd(yellow);
-  GenericSphere* genericSphere = new GenericSphere;
-  genericSphere->set_material(matte_ptr111);	   							// yellow
-  add_object(genericSphere);
-# endif
-
-# if compoundobject
-  Matte* matte_ptr112 = new Matte;
-  matte_ptr112->set_ka(ka);
-  matte_ptr112->set_kd(kd);
-  matte_ptr112->set_cd(yellow);
-  Compound* compound = new Compound;
-  compound->set_material(matte_ptr112);	   							// yellow
-  add_object(compound);
-# endif
-
-# if bowlthickobject
-  Matte* matte_ptr113 = new Matte;
-  matte_ptr113->set_ka(ka);
-  matte_ptr113->set_kd(kd);
-  matte_ptr113->set_cd(yellow);
-  ConcavePartSphere* bowl_interior =
-    new ConcavePartSphere(Point3D(), 50, 0, 360, 90, 180);
-  bowl_interior->set_material(matte_ptr113);	   							// yellow
-  add_object(bowl_interior);
-  ConvexPartSphere* bowl_exterior =
-    new ConvexPartSphere(Point3D(), 60, 0, 360, 90, 180);
-  bowl_exterior->set_material(matte_ptr113->clone());	   							// yellow
-  add_object(bowl_exterior);
-  Annulus* edge = new Annulus(Point3D(), Normal(0.0, 1.0, 0.0), 50, 60);
-  edge->set_material(matte_ptr113->clone());	   							// yellow
-  add_object(edge);
-# endif
-
-# if bowlroundedobject
-  Matte* matte_ptr114 = new Matte;
-  matte_ptr114->set_ka(ka);
-  matte_ptr114->set_kd(kd);
-  matte_ptr114->set_cd(yellow);
-  ConcavePartSphere* bowl_interior =
-    new ConcavePartSphere(Point3D(), 50, 0, 360, 90, 180);
-  ConvexPartSphere* bowl_exterior =
-    new ConvexPartSphere(Point3D(), 60, 0, 360, 90, 180);
-  Torus* edge = new Torus(55, 5);
-  Compound* compound = new Compound;
-  compound->add_object(bowl_interior);
-  compound->add_object(bowl_exterior);
-  compound->add_object(edge);
-  compound->set_material(matte_ptr114);
-  add_object(compound);
-# endif
-
-# if solidcylinder
-  Matte* matte_ptr115 = new Matte;
-  matte_ptr115->set_ka(ka);
-  matte_ptr115->set_kd(kd);
-  matte_ptr115->set_cd(yellow);
-  SolidCylinder* solidCylinder = new SolidCylinder(-5, 50, 30);
-  solidCylinder->set_material(matte_ptr115);	   							// yellow
-  add_object(solidCylinder);
-# endif
-
-# if solidcone
-  Matte* matte_ptr116 = new Matte;
-  matte_ptr116->set_ka(ka);
-  matte_ptr116->set_kd(kd);
-  matte_ptr116->set_cd(yellow);
-  SolidCone* solidCone = new SolidCone(50, 30);
-  solidCone->set_material(matte_ptr116);	   							// yellow
-  add_object(solidCone);
-# endif
-
-# if thickring
-  Matte* matte_ptr116 = new Matte;
-  matte_ptr116->set_ka(ka);
-  matte_ptr116->set_kd(kd);
-  matte_ptr116->set_cd(yellow);
-  ThickRing* thickRing = new ThickRing(-10, 20, 40, 50);
-  thickRing->set_material(matte_ptr116);	   							// yellow
-  add_object(thickRing);
-# endif
-
-# if convexcylinder
-  Matte* matte_ptr117 = new Matte;
-  matte_ptr117->set_ka(ka);
-  matte_ptr117->set_kd(kd);
-  matte_ptr117->set_cd(yellow);
-  ConvexCylinder* convexCylinder = new ConvexCylinder(-5, 50, 30);
-  convexCylinder->set_material(matte_ptr117);	   							// yellow
-  add_object(convexCylinder);
-# endif
-
-# if concavecylinder
-  Matte* matte_ptr118 = new Matte;
-  matte_ptr118->set_ka(ka);
-  matte_ptr118->set_kd(kd);
-  matte_ptr118->set_cd(yellow);
-  ConcaveCylinder* concaveCylinder = new ConcaveCylinder(-5, 50, 30);
-  concaveCylinder->set_material(matte_ptr118);	   							// yellow
-  add_object(concaveCylinder);
-# endif
-
-# if instance
-  pinhole_ptr->set_eye(300, 200, 300);
-  pinhole_ptr->set_lookat(0.0);
-  pinhole_ptr->set_view_distance(600.0);
-  pinhole_ptr->compute_uvw();
-  set_camera(pinhole_ptr);
-
-  GenericSphere* solidCylinder = new GenericSphere;
-  for (int i = -40; i <= 40; i += 20) {
-    for (int j = -40; j <= 40; j += 20) {
-
-      Matte* matte = new Matte;
-      matte->set_ka(ka);
-      matte->set_kd(kd);
-      matte->set_cd(RGBColor(rand_float(), rand_float(), rand_float()));
-
-      Instance* instance_ptr = new Instance(solidCylinder);
-      float h = rand_float(5.0, 20.0);
-      instance_ptr->scale(7.0, h, 7.0);
-      instance_ptr->translate(i, 0.0, j);
-      instance_ptr->set_material(matte);
-      add_object(instance_ptr);
-    }
-  }
-# endif
-
-# if thinlenscamera
-  num_samples = 100;
-  vp.set_hres(400);
-  vp.set_vres(300);
-  vp.set_pixel_size(0.05);
-  vp.set_sampler(new MultiJittered(num_samples));
-
-  tracer_ptr = new RayCast(this);
-  background_color = white;
-
-  ambient_ptr->scale_radiance(0.5);
-
-  ThinLens* thin_lens_ptr = new ThinLens;
-  thin_lens_ptr->set_sampler(new MultiJittered(num_samples));
-  thin_lens_ptr->set_eye(0, 6, 50);
-  thin_lens_ptr->set_lookat(0, 6, 0);
-  thin_lens_ptr->set_view_distance(40.0);
-  thin_lens_ptr->set_focal_distance(190.0);
-  thin_lens_ptr->set_lens_radius(1.0);
-  thin_lens_ptr->compute_uvw();
-  set_camera(thin_lens_ptr);
-
-  // Yellow rectangle
-  Matte* matte_ptr_1 = new Matte;
-  matte_ptr_1->set_ka(ka);
-  matte_ptr_1->set_kd(kd);
-  matte_ptr_1->set_cd(yellow);
-  Rectangle* rectangle_ptr1 =
-    new Rectangle(Point3D(-15, 0, -40), Vector3D(12, 0, 0), Vector3D(0, 20, 0));
-  rectangle_ptr1->set_material(matte_ptr_1); 							// yellow
-  add_object(rectangle_ptr1);
-
-  // Green rectangle
-  Matte* matte_ptr_2 = new Matte;
-  matte_ptr_2->set_ka(ka);
-  matte_ptr_2->set_kd(kd);
-  matte_ptr_2->set_cd(green);
-  Rectangle* rectangle_ptr2 =
-    new Rectangle(Point3D(-2, 0, -90), Vector3D(12, 0, 0), Vector3D(0, 20, 0));
-  rectangle_ptr2->set_material(matte_ptr_2); 							// green
-  add_object(rectangle_ptr2);
-
-  // Orange rectangle
-  Matte* matte_ptr_3 = new Matte;
-  matte_ptr_3->set_ka(ka);
-  matte_ptr_3->set_kd(kd);
-  matte_ptr_3->set_cd(orange);
-  Rectangle* rectangle_ptr3 =
-    new Rectangle(Point3D(15, 0, -140), Vector3D(12, 0, 0), Vector3D(0, 20, 0));
-  rectangle_ptr3->set_material(matte_ptr_3); 							// orange
-  add_object(rectangle_ptr3);
-# endif
-
-#if stereocamera
-  num_samples = 100;
-  vp.set_hres(200);
-  vp.set_vres(150);
-  vp.set_pixel_size(0.05);
-  vp.set_sampler(new MultiJittered(num_samples));
-
-
-  Matte* matte_ptr = new Matte;
-  matte_ptr->set_ka(ka);
-  matte_ptr->set_kd(kd);
-  matte_ptr->set_cd(yellow);
-  OpenPartTorus* openPartTorus =
-    new OpenPartTorus(3, 1, 45, 325, 90, 360);
-  openPartTorus->set_material(matte_ptr);	   							// yellow
-  add_object(openPartTorus);
-
-  float vpd = 100;        // view-plane distance
-
-  Pinhole* left_camera_ptr = new Pinhole;
-  left_camera_ptr->set_view_distance(vpd);
-
-  Pinhole* right_camera_ptr = new Pinhole;
-  right_camera_ptr->set_view_distance(vpd);
-
-  StereoCamera* stereo_ptr = new StereoCamera;
-  stereo_ptr->set_left_camera(left_camera_ptr);
-  stereo_ptr->set_right_camera(right_camera_ptr);
-  //stereo_ptr->use_parallel_viewing();
-  stereo_ptr->use_transverse_viewing();
-  stereo_ptr->set_pixel_gap(5);       // in pixels
-  stereo_ptr->set_eye(5, 50, 100);
-  stereo_ptr->set_lookat(0);
-  stereo_ptr->compute_uvw();
-  stereo_ptr->set_stereo_angle(0.75); // in degrees
-  stereo_ptr->setup_cameras();
-  set_camera(stereo_ptr);
-# endif
-
-# if beveledbox
-  Matte* matte_ptr = new Matte;
-  matte_ptr->set_ka(ka);
-  matte_ptr->set_kd(kd);
-  matte_ptr->set_cd(green);
-  BeveledBox* beveledBox =
-    new BeveledBox(Point3D(-50, -5, -40), Point3D(50, 5, 40), 2);
-  beveledBox->set_material(matte_ptr);	   							// green
-  add_object(beveledBox);
-# endif
-
-# if beveledwedge
-  Matte* matte_ptr = new Matte;
-  matte_ptr->set_ka(ka);
-  matte_ptr->set_kd(kd);
-  matte_ptr->set_cd(green);
-  BeveledWedge* beveledWedge =
-    new BeveledWedge(-10, 10, 20, 60, 2, 45, 325);
-  beveledWedge->set_material(matte_ptr);	   							// green
-  add_object(beveledWedge);
-# endif
-
-# if chocolate
   Matte* matte_ptr1 = new Matte;
   matte_ptr1->set_ka(ka);
   matte_ptr1->set_kd(kd);
@@ -604,10 +81,10 @@ void World::build(void) {
   add_object(beveledBox4);
   add_object(bottom1);
   add_object(bottom2);
-# endif
+#endif
 
-# ifdef fisheye
-  num_samples = 16;
+#if chapitre11_1
+  int num_samples = 16;
 
   vp.set_hres(600);
   vp.set_vres(600);
@@ -754,9 +231,224 @@ void World::build(void) {
   Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Normal(0, 1, 0));
   plane_ptr->set_material(sv_matte_ptr1);
   add_object(plane_ptr);
-# endif
+#endif
 
-#else
+#if chapitre11_2
+  // 	Copyright (C) Kevin Suffern 2000-2007.
+  //	This C++ code is for non-commercial purposes only.
+  //	This C++ code is licensed under the GNU General Public License Version 2.
+  //	See the file COPYING.txt for the full license.
+
+  // This builds the scene for Figure 11.12
+  // The light probe mapping is described in Chapter 29
+  // There are no light sources in this scene
+
+  int num_samples = 16;
+
+  vp.set_hres(600);
+  vp.set_vres(600);
+  vp.set_samples(num_samples);
+  vp.set_pixel_size(1.0);
+
+  tracer_ptr = new RayCast(this);
+
+  Spherical* spherical_ptr = new Spherical;
+  spherical_ptr->set_eye(10, 15, 13);
+  spherical_ptr->set_lookat(34, 15, 0);
+
+  /*
+  // for Figure 11.12(a)
+
+  vp.set_hres(600);
+  vp.set_vres(400);
+
+  spherical_ptr->set_horizontal_fov(180);
+  spherical_ptr->set_vertical_fov(120);
+  */
+
+
+  // for Figure 11.12(b)
+
+  vp.set_hres(800);
+  vp.set_vres(400);
+
+  spherical_ptr->set_horizontal_fov(360);
+  spherical_ptr->set_vertical_fov(180);
+
+  spherical_ptr->compute_uvw();
+  set_camera(spherical_ptr);
+
+
+  PointLight* light_ptr2 = new PointLight;
+  light_ptr2->set_location(150, 500, 300);
+  light_ptr2->scale_radiance(3.75);
+  //light_ptr2->set_shadows(true);
+  add_light(light_ptr2);
+
+
+  // city parameters
+
+  float 	a					= 10;   // city block width:  xw extent
+  float 	b   				= 12;	// city block length:  yw extent
+  int 	num_rows			= 10;  	// number of blocks in the xw direction
+  int 	num_columns			= 12; 	// number of blocks in the zw direction
+  float	width				= 7;	// building width: xw extent in range [min, a - offset]
+  float 	length				= 7;	// building length: zw extent in range [min, b - offset]
+  float 	min_size			= 6;	// mininum building extent in xw and yw directions
+  float 	offset				= 1.0;	// half the minimum distance between buildings
+  float 	min_height			= 0.0; 	// minimum building height
+  float 	max_height			= 30; 	// maximum bulding height
+  float 	height;						// the building height in range [min_height, max_height]
+  int		num_park_rows		= 4;  	// number of blocks of park in xw direction
+  int		num_park_columns	= 6;  	// number of blocks of park in xw direction
+  int 	row_test;					// there are no buildings in the park
+  int 	column_test;				// there are no buildings in the park
+  float 	min_color			= 0.1;  // prevents black buildings
+  float 	max_color			= 0.9;	// prevents white buildings
+
+  set_rand_seed(15);  				// as the buildings' dimensions and colors are random, it's necessary to
+                    // seed rand to keep these quantities the same at each run
+                    // if you leave this out, and change the number of samples per pixel,
+                    // these will change
+
+  // the buildings are stored in a grid
+
+  //Grid* grid_ptr = new Grid;
+
+  for (int r = 0; r < num_rows; r++)  			// xw direction
+    for (int c = 0; c < num_columns; c++) {		// zw direction
+      // determine if the block is in the park
+
+      if ((r - num_rows / 2) >= 0)
+        row_test = r -  num_rows / 2;
+      else
+        row_test = r -  num_rows / 2 + 1;
+
+      if ((c - num_columns / 2) >= 0)
+        column_test = c - num_columns / 2;
+      else
+        column_test = c - num_columns / 2 + 1;
+
+      if (abs(row_test) >= (num_park_rows / 2) || abs(column_test) >= (num_park_columns / 2)) {
+
+        Matte* matte_ptr = new Matte;
+        matte_ptr->set_ka(0.4);
+        matte_ptr->set_kd(0.6);
+        matte_ptr->set_cd(	min_color + rand_float() * (max_color - min_color),
+                  min_color + rand_float() * (max_color - min_color),
+                  min_color + rand_float() * (max_color - min_color));
+
+        // block center coordinates
+
+        float xc = a * (r - num_rows / 2.0 + 0.5);
+        float zc = b * (c - num_columns / 2.0 + 0.5);
+
+        width = min_size + rand_float() * (a - 2 * offset - min_size);
+        length = min_size + rand_float() * (b - 2 * offset - min_size);
+
+        // minimum building coordinates
+
+        float xmin = xc - width / 2.0;
+        float ymin = 0.0;
+        float zmin = zc - length / 2.0;
+
+        // maximum building coordinates
+
+        height = min_height + rand_float() * (max_height - min_height);
+
+        // The following is a hack to make the middle row and column of buildings higher
+        // on average than the other buildings.
+        // This only works properly when there are three rows and columns of buildings
+
+        if (r == 1 || r == num_rows - 2 || c == 1 || c == num_columns - 2)
+          height *= 1.5;
+
+        float xmax = xc + width / 2.0;
+        float ymax = height;
+        float zmax = zc + length / 2.0;
+
+        Box* building_ptr = new  Box(Point3D(xmin, ymin, zmin), Point3D(xmax, ymax, zmax));
+        building_ptr->set_material(matte_ptr);
+        /*grid_ptr->*/add_object(building_ptr);
+      }
+    }
+
+  //grid_ptr->setup_cells();
+  //add_object(grid_ptr);
+
+
+  // render the park with small green checkers
+
+  Matte* sv_matte_ptr1 = new Matte;
+  sv_matte_ptr1->set_ka(0.3);
+  sv_matte_ptr1->set_kd(0.50);
+  sv_matte_ptr1->set_cd(0.35, 0.75, 0.35);
+
+  //Checker3D* checker3D_ptr1 = new Checker3D;
+  Rectangle* checker3D_ptr1 = new Rectangle;
+  //checker3D_ptr1->set_size(5);
+  //checker3D_ptr1->set_color1(0.35, 0.75, 0.35);
+  //checker3D_ptr1->set_color2(0.3, 0.5, 0.3);
+  checker3D_ptr1->set_material(sv_matte_ptr1);
+
+  //SV_Matte* sv_matte_ptr1 = new SV_Matte;
+  //sv_matte_ptr1->set_ka(0.3);
+  //sv_matte_ptr1->set_kd(0.50);
+  //sv_matte_ptr1->set_cd(checker3D_ptr1);
+
+  Box* park_ptr = new Box( 	Point3D(-a * num_park_rows / 2, 0.0, -b * num_park_columns / 2),
+                Point3D(a * num_park_rows / 2, 0.1, b * num_park_columns / 2)  );
+  park_ptr->set_material(sv_matte_ptr1);
+  add_object(park_ptr);
+
+
+  // ground plane with checker:
+
+  Matte* sv_matte_ptr2 = new Matte;
+  sv_matte_ptr2->set_ka(0.30);
+  sv_matte_ptr2->set_kd(0.40);
+  sv_matte_ptr2->set_cd(0.7);
+
+  //Checker3D* checker3D_ptr2 = new Checker3D;
+  Rectangle* checker3D_ptr2 = new Rectangle;
+  //checker3D_ptr2->set_size(50);
+  //checker3D_ptr2->set_color1(RGBColor(0.7));
+  //checker3D_ptr2->set_color2(RGBColor(1));
+  checker3D_ptr2->set_material(sv_matte_ptr2);
+
+  //SV_Matte* sv_matte_ptr2 = new SV_Matte;
+  //sv_matte_ptr2->set_ka(0.30);
+  //sv_matte_ptr2->set_kd(0.40);
+  //sv_matte_ptr2->set_cd(checker3D_ptr2);
+
+  Plane* plane_ptr = new Plane(Point3D(0, 0.01, 0), Normal(0, 1, 0));
+  plane_ptr->set_material(sv_matte_ptr2);
+  add_object(plane_ptr);
+
+
+//  Image* image_ptr = new Image;
+//  image_ptr->read_ppm_file("CloudsSmall.ppm");
+
+//  SphericalMap* spherical_map_ptr = new SphericalMap;
+
+//  ImageTexture* image_texture_ptr = new ImageTexture(image_ptr);
+//  image_texture_ptr->set_mapping(spherical_map_ptr);
+
+//  SV_Matte* sv_matte_ptr = new SV_Matte;
+//  sv_matte_ptr->set_ka(1.0);
+//  sv_matte_ptr->set_kd(0.85);
+//  sv_matte_ptr->set_cd(image_texture_ptr);
+
+//  Sphere* unit_sphere_ptr = new Sphere;
+//  unit_sphere_ptr->set_shadows(false);
+
+//  Instance* sphere_ptr = new Instance(unit_sphere_ptr);
+//  sphere_ptr->scale(1000000);
+//  sphere_ptr->set_material(sv_matte_ptr);
+//  add_object(sphere_ptr);
+#endif
+
+#if firstexample
 
   // spheres
 
@@ -1041,16 +733,16 @@ void World::build(void) {
   sphere_ptr35->set_material(matte_ptr35);							// light purple
   add_object(sphere_ptr35);
 
-#endif
-
   // vertical plane
 
-//  Matte* matte_ptr36 = new Matte;
-//  matte_ptr36->set_ka(ka);
-//  matte_ptr36->set_kd(kd);
-//  matte_ptr36->set_cd(grey);
-//  Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Normal(0, 0, 1));
-//  plane_ptr->set_material(matte_ptr36);
-//  add_object (plane_ptr);
+  Matte* matte_ptr36 = new Matte;
+  matte_ptr36->set_ka(ka);
+  matte_ptr36->set_kd(kd);
+  matte_ptr36->set_cd(grey);
+  Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Normal(0, 0, 1));
+  plane_ptr->set_material(matte_ptr36);
+  add_object (plane_ptr);
+#endif
+
 }
 
