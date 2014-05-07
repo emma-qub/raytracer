@@ -692,66 +692,66 @@ void World::build(void) {
   float h = 150;
   float s = 100;
 
-//  for (int j = 0; j < num_boxes; j++) {
-//    Box* box_ptr = new Box(	Point3D(-wx, 0, -(j + 1) * wz - j * s),
-//                Point3D(0, h, - j * wz - j * s));
-//    box_ptr->set_material(matte_ptr1);
-//    //add_object(box_ptr);
-//    //grid_ptr->add_object(box_ptr);
-//    add_object(box_ptr);
-//  }
+  for (int j = 0; j < num_boxes; j++) {
+    Box* box_ptr = new Box(	Point3D(-wx, 0, -(j + 1) * wz - j * s),
+                Point3D(0, h, - j * wz - j * s));
+    box_ptr->set_material(matte_ptr1->clone());
+    //add_object(box_ptr);
+    //grid_ptr->add_object(box_ptr);
+    add_object(box_ptr);
+  }
 
-//  // second row
-//  h = 300;
-//  for (int j = 0; j < num_boxes; j++) {
-//    Box* box_ptr = new Box(	Point3D(-wx -wx - s, 0, -(j + 1) * wz - j * s),
-//                Point3D(-wx - s, h, - j * wz - j * s));
-//    box_ptr->set_material(matte_ptr2);
-//    //add_object(box_ptr);
-//    //grid_ptr->add_object(box_ptr);
-//    add_object(box_ptr);
-//  }
+  // second row
+  h = 300;
+  for (int j = 0; j < num_boxes; j++) {
+    Box* box_ptr = new Box(	Point3D(-wx -wx - s, 0, -(j + 1) * wz - j * s),
+                Point3D(-wx - s, h, - j * wz - j * s));
+    box_ptr->set_material(matte_ptr2->clone());
+    //add_object(box_ptr);
+    //grid_ptr->add_object(box_ptr);
+    add_object(box_ptr);
+  }
 
-//  // third row
-//  h = 850;
-//  for (int j = 0; j < num_boxes; j++) {
-//    Box* box_ptr = new Box(	Point3D(-wx - 2 * wx - 2 * s, 0, -(j + 1) * wz - j * s),
-//                Point3D(-2 * wx - 2 * s, h, - j * wz - j * s));
-//    box_ptr->set_material(matte_ptr3);
-//    //add_object(box_ptr);
-//    //grid_ptr->add_object(box_ptr);
-//    add_object(box_ptr);
-//  }
+  // third row
+  h = 850;
+  for (int j = 0; j < num_boxes; j++) {
+    Box* box_ptr = new Box(	Point3D(-wx - 2 * wx - 2 * s, 0, -(j + 1) * wz - j * s),
+                Point3D(-2 * wx - 2 * s, h, - j * wz - j * s));
+    box_ptr->set_material(matte_ptr3->clone());
+    //add_object(box_ptr);
+    //grid_ptr->add_object(box_ptr);
+    add_object(box_ptr);
+  }
 
-//  // a column
-//  h = 150;
-//  for (int j = 0; j < num_boxes; j++) {
-//    Box* box_ptr = new Box(	Point3D(-3 * (wx + s) - (j + 1) * wz - j * s, 0, -wx),
-//                Point3D(-3 * (wx + s) - j * wz - j * s, h, 0));
-//    box_ptr->set_material(matte_ptr1);
-//    //add_object(box_ptr);
-//    //grid_ptr->add_object(box_ptr);
-//    add_object(box_ptr);
-//  }
+  // a column
+  h = 150;
+  for (int j = 0; j < num_boxes; j++) {
+    Box* box_ptr = new Box(	Point3D(-3 * (wx + s) - (j + 1) * wz - j * s, 0, -wx),
+                Point3D(-3 * (wx + s) - j * wz - j * s, h, 0));
+    box_ptr->set_material(matte_ptr1->clone());
+    //add_object(box_ptr);
+    //grid_ptr->add_object(box_ptr);
+    add_object(box_ptr);
+  }
 
-//  //grid_ptr->setup_cells();
-//  //add_object(grid_ptr);
+  //grid_ptr->setup_cells();
+  //add_object(grid_ptr);
 
-//  // ground plane with checker
+  // ground plane with checker
 
-//  //Checker3D* checker_ptr = new Checker3D;
-//  Plane* checker_ptr = new Plane();
-//  //checker_ptr->set_size(2 * wx);
-//  //checker_ptr->set_color1(0.7);
-//  //checker_ptr->set_color2(white);
+  //Checker3D* checker_ptr = new Checker3D;
+  //Plane* checker_ptr = new Plane;
+  //checker_ptr->set_size(2 * wx);
+  //checker_ptr->set_color1(0.7);
+  //checker_ptr->set_color2(white);
 
-//  SV_Matte* sv_matte_ptr1 = new SV_Matte;
-//  sv_matte_ptr1->set_ka(0.20);
-//  sv_matte_ptr1->set_kd(0.50);
-//  sv_matte_ptr1->set_cd(checker_ptr);
-//  Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Normal(0, 1, 0));
-//  plane_ptr->set_material(sv_matte_ptr1);
-//  add_object(plane_ptr);
+  Matte* sv_matte_ptr1 = new Matte;
+  sv_matte_ptr1->set_ka(0.20);
+  sv_matte_ptr1->set_kd(0.50);
+  //sv_matte_ptr1->set_cd(checker_ptr);
+  Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Normal(0, 1, 0));
+  plane_ptr->set_material(sv_matte_ptr1);
+  add_object(plane_ptr);
 # endif
 
 #else
@@ -1043,12 +1043,12 @@ void World::build(void) {
 
   // vertical plane
 
-  Matte* matte_ptr36 = new Matte;
-  matte_ptr36->set_ka(ka);
-  matte_ptr36->set_kd(kd);
-  matte_ptr36->set_cd(grey);
-  Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Normal(0, 0, 1));
-  plane_ptr->set_material(matte_ptr36);
-  add_object (plane_ptr);
+//  Matte* matte_ptr36 = new Matte;
+//  matte_ptr36->set_ka(ka);
+//  matte_ptr36->set_kd(kd);
+//  matte_ptr36->set_cd(grey);
+//  Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Normal(0, 0, 1));
+//  plane_ptr->set_material(matte_ptr36);
+//  add_object (plane_ptr);
 }
 

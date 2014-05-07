@@ -45,6 +45,7 @@
 #include "Instance.h"
 #include "BeveledBox.h"
 #include "BeveledWedge.h"
+#include "Box.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 
