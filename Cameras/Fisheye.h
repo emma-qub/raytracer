@@ -23,7 +23,7 @@ private:
 };
 
 inline void Fisheye::set_fov(float psi) {
-  psi_max = psi;
+  psi_max = 0.5 * psi;
 }
 
 #endif // FISHEYE_H
