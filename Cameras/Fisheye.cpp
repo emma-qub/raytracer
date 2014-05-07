@@ -6,12 +6,14 @@
 
 Fisheye::Fisheye():
   Camera(),
-  psi_max(180) {
+  psi_max(180),
+  rectangular(false) {
 }
 
 Fisheye::Fisheye(const Fisheye& fisheye):
   Camera(fisheye),
-  psi_max(fisheye.psi_max) {
+  psi_max(fisheye.psi_max),
+  rectangular(fisheye.rectangular) {
 }
 
 Fisheye& Fisheye::operator=(const Fisheye& rhs) {
@@ -21,6 +23,7 @@ Fisheye& Fisheye::operator=(const Fisheye& rhs) {
   Camera::operator=(rhs);
 
   psi_max = rhs.psi_max;
+  rectangular = rhs.rectangular;
 
   return *this;
 }
@@ -38,7 +41,7 @@ Vector3D Fisheye::ray_direction(const Point2D& pp, const int hres, const int vre
   Point2D pn(2.0 / (s * hres) * pp.x, 2.0 / (s * vres) * pp.y);
   r_squared = pn.x * pn.x + pn.y * pn.y;
 
-  if (r_squared <= 1.0) {
+  if ((r_squared <= 1.0 && !rectangular) || rectangular) {
     float r = std::sqrt(r_squared);
     float psi = r * psi_max * PI_ON_180;
     float sin_psi = std::sin(psi);
@@ -78,7 +81,7 @@ void Fisheye::render_scene(const World& w) {
         pp.y = s * (r - 0.5 * vres + sp.y);
         ray.d = ray_direction(pp, hres, vres, s, r_squared);
 
-        if (r_squared <= 1.0)
+        if ((r_squared <= 1.0 && !rectangular) || rectangular)
           L += w.tracer_ptr->trace_ray(ray, depth);
       }
 

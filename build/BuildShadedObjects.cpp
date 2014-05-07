@@ -22,8 +22,8 @@
 #include "Maths.h"
 
 #define chocolate 0
-#define chapitre11_1 0
-#define chapitre11_2 1
+#define chapitre11_1 1
+#define chapitre11_2 0
 #define firstexample 0
 
 #include <iostream>
@@ -105,6 +105,8 @@ void World::build(void) {
   // fisheye camera for the other parts
 
   Fisheye* fisheye_ptr = new Fisheye;
+
+  //fisheye_ptr->set_rectangular(true);
 
   // for parts (b), (c), (d)
 
