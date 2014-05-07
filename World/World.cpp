@@ -194,7 +194,7 @@ World::hit_objects(const Ray& ray) {
     sr.local_hit_point = local_hit_point;
   }
 
-  return(sr);
+  return sr;
 }
 
 

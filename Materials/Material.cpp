@@ -30,10 +30,15 @@ Material::~Material(void)
 
 // ---------------------------------------------------------------- shade
 
-RGBColor
-Material::shade(ShadeRec& /*sr*/) {
+RGBColor Material::shade(ShadeRec& /*sr*/) {
   return (black);
 }
 
+RGBColor Material::area_light_shade(ShadeRec& /*sr*/) {
+  return (black);
+}
 
+RGBColor Material::path_shade(ShadeRec& /*sr*/) {
+  return (black);
+}
 
