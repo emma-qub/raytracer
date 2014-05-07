@@ -42,6 +42,7 @@ HEADERS += \
   Lights/Ambient.h \
   Lights/Directional.h \
   Lights/Light.h \
+  Lights/PointLight.h \
   Materials/Material.h \
   Materials/Matte.h \
   Tracers/MultipleObjects.h \
@@ -115,6 +116,7 @@ SOURCES += \
   Lights/Ambient.cpp \
   Lights/Directional.cpp \
   Lights/Light.cpp \
+  Lights/PointLight.cpp \
   Materials/Material.cpp \
   Materials/Matte.cpp \
   Samplers/Hammersley.cpp \
