@@ -1,7 +1,9 @@
 HEADERS += \
   BRDFs/BRDF.h \
+  BRDFs/GlossySpecular.h \
   BRDFs/Lambertian.h \
   Cameras/Camera.h \
+  Cameras/Fisheye.h \
   Cameras/Pinhole.h \
   Cameras/StereoCamera.h \
   Cameras/ThinLens.h \
@@ -73,9 +75,11 @@ HEADERS += \
 
 SOURCES += \
   BRDFs/BRDF.cpp \
+  BRDFs/GlossySpecular.cpp \
   BRDFs/Lambertian.cpp \
   build/BuildShadedObjects.cpp \
   Cameras/Camera.cpp \
+  Cameras/Fisheye.cpp \
   Cameras/Pinhole.cpp \
   Cameras/StereoCamera.cpp \
   Cameras/ThinLens.cpp \
