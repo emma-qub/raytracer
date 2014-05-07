@@ -11,6 +11,7 @@
 #include "RayCast.h"
 #include "MultipleObjects.h"
 #include "Directional.h"
+#include "PointLight.h"
 #include "Matte.h"
 #include "Plane.h"
 #include "Pinhole.h"
@@ -90,10 +91,10 @@ void World::build(void) {
 
   // light
 
-  Directional* light_ptr1 = new Directional;
-  light_ptr1->set_direction(100, 100, 200);
-  light_ptr1->scale_radiance(3.0);
-  add_light(light_ptr1);
+//  Directional* light_ptr1 = new Directional;
+//  light_ptr1->set_direction(100, 100, 200);
+//  light_ptr1->scale_radiance(3.0);
+//  add_light(light_ptr1);
 
 
   // colors
@@ -632,9 +633,9 @@ void World::build(void) {
 
   fisheye_ptr->set_eye(250, 300, 150);
   fisheye_ptr->set_lookat(-20, 300, -110);
-  //fisheye_ptr->set_fov(120);  // part (b)
+  fisheye_ptr->set_fov(120);  // part (b)
   //fisheye_ptr->set_fov(180);  // part (c)
-  fisheye_ptr->set_fov(360);  // part (d)
+  //fisheye_ptr->set_fov(360);  // part (d)
 
   /*
   // for part (e)
@@ -658,11 +659,11 @@ void World::build(void) {
   fisheye_ptr->compute_uvw();
   set_camera(fisheye_ptr);
 
-//    PointLight* light_ptr1 = new PointLight;
-//    light_ptr1->set_location(150, 200, 65);
-//    light_ptr1->scale_radiance(5.25);
-//    light_ptr1->set_shadows(true);
-//    add_light(light_ptr1);
+  PointLight* light_ptr1 = new PointLight;
+  light_ptr1->set_location(150, 200, 65);
+  light_ptr1->scale_radiance(5.25);
+  //light_ptr1->set_shadows(true);
+  add_light(light_ptr1);
 
 
   // box materials
