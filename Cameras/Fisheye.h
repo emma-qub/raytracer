@@ -16,8 +16,14 @@ public:
   Vector3D ray_direction(const Point2D& pp, const int hres, const int vres, const float s, float& r_squared);
   virtual void render_scene(const World& w);
 
+  void set_fov(float psi);
+
 private:
   float psi_max;    // in degrees
 };
+
+inline void Fisheye::set_fov(float psi) {
+  psi_max = psi;
+}
 
 #endif // FISHEYE_H

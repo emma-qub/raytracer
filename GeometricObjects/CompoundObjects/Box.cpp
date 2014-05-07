@@ -64,9 +64,6 @@ Box::Box(void):
   objects.push_back(right_face);
 }
 
-
-// ------------------------------------------------------------------------------ constructor
-
 Box::Box(const Point3D& min_corner, const Point3D& max_corner):
   Compound(),
   p0(min_corner),

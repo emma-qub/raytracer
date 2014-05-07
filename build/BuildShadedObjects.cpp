@@ -632,9 +632,9 @@ void World::build(void) {
 
   fisheye_ptr->set_eye(250, 300, 150);
   fisheye_ptr->set_lookat(-20, 300, -110);
-  //  fisheye_ptr->set_fov(120);  // part (b)
-  //	fisheye_ptr->set_fov(180);  // part (c)
-  //	fisheye_ptr->set_fov(360);  // part (d)
+  //fisheye_ptr->set_fov(120);  // part (b)
+  //fisheye_ptr->set_fov(180);  // part (c)
+  fisheye_ptr->set_fov(360);  // part (d)
 
   /*
   // for part (e)
