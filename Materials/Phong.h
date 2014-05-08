@@ -20,12 +20,15 @@ public:
   void set_cd(const float r, const float g, const float b);
   void set_cd(const float c);
   void set_ks(const float k);
+  void set_cs(const RGBColor c);
+  void set_cs(const float r, const float g, const float b);
+  void set_cs(const float c);
   void set_exp(const float e);
+  void set_metalic(bool b);
 
   virtual RGBColor shade(ShadeRec& sr);
 
 private:
-
   Lambertian* ambient_brdf;
   Lambertian* diffuse_brdf;
   GlossySpecular* specular_brdf;
@@ -78,8 +81,24 @@ inline void Phong::set_ks(const float ks) {
   specular_brdf->set_ks(ks);
 }
 
+inline void Phong::set_cs(const RGBColor c) {
+  specular_brdf->set_cs(c);
+}
+
+inline void Phong::set_cs(const float r, const float g, const float b) {
+  specular_brdf->set_cs(r, g, b);
+}
+
+inline void Phong::set_cs(const float c) {
+  specular_brdf->set_cs(c);
+}
+
 inline void Phong::set_exp(const float e) {
   specular_brdf->set_exp(e);
+}
+
+inline void Phong::set_metalic(bool b) {
+  specular_brdf->set_metalic(b);
 }
 
 #endif // PHONG_H

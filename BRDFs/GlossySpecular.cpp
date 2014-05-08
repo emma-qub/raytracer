@@ -6,13 +6,17 @@
 GlossySpecular::GlossySpecular():
   BRDF(),
   ks(0.25),
-  exp(5.0) {
+  cs(1.0),
+  exp(5.0),
+  metalic(false) {
 }
 
 GlossySpecular::GlossySpecular(const GlossySpecular& gs):
   BRDF(gs),
   ks(gs.ks),
-  exp(gs.exp) {
+  cs(gs.cs),
+  exp(gs.exp),
+  metalic(gs.metalic) {
 }
 
 GlossySpecular* GlossySpecular::clone(void) const {
@@ -26,7 +30,9 @@ GlossySpecular& GlossySpecular::operator=(const GlossySpecular& rhs) {
   BRDF::operator=(rhs);
 
   ks = rhs.ks;
+  cs = rhs.cs;
   exp = rhs.exp;
+  metalic = rhs.metalic;
 
   return *this;
 }
@@ -40,8 +46,12 @@ RGBColor GlossySpecular::f(const ShadeRec& sr, const Vector3D& wo, const Vector3
   Vector3D r(-wi + 2.0 * sr.normal * ndotwi);
   float rdotwo = r * wo;
 
-  if (rdotwo > 0.0)
+  if (rdotwo > 0.0) {
     L = ks * std::pow(rdotwo, exp);
+    if (metalic) {
+      L = L * cs;
+    }
+  }
 
   return L;
 }
