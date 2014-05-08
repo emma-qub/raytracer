@@ -10,27 +10,27 @@ class ShadeRec;
 
 //-------------------------------------------------------------------- class Light
 
-class Light {	
-	public:
-	
-		Light(void);
-								
-		Light(const Light& ls);			
+class Light {
 
-		Light& 								
-		operator= (const Light& rhs); 
+public:
+  Light(void);
+  Light(const Light& ls);
+  Light& operator=(const Light& rhs);
+  virtual Light* clone(void) const = 0;
+  virtual ~Light(void);
 
-		virtual Light* 						
-		clone(void) const = 0;
-		
-		virtual 							
-		~Light(void);
-						
-		virtual Vector3D								
-		get_direction(ShadeRec& sr) = 0;				
-																
-		virtual RGBColor														
-		L(ShadeRec& sr);								
+  virtual Vector3D get_direction(ShadeRec& sr) = 0;
+
+  virtual RGBColor L(ShadeRec& sr);
+
+  void set_shadows(bool b);
+
+protected:
+    bool shadows;
 };
+
+inline void Light::set_shadows(bool b) {
+  shadows = b;
+}
 
 #endif
