@@ -5,12 +5,15 @@ HEADERS += \
   Cameras/Camera.h \
   Cameras/Fisheye.h \
   Cameras/Pinhole.h \
+  Cameras/Spherical.h \
   Cameras/StereoCamera.h \
   Cameras/ThinLens.h \
   GeometricObjects/GeometricObject.h \
   GeometricObjects/Instance.h \
   GeometricObjects/BeveledObjects/BeveledBox.h \
+  GeometricObjects/BeveledObjects/BeveledCylinder.h \
   GeometricObjects/BeveledObjects/BeveledWedge.h \
+  GeometricObjects/CompoundObjects/Box.h \
   GeometricObjects/CompoundObjects/Compound.h \
   GeometricObjects/CompoundObjects/SolidCone.h \
   GeometricObjects/CompoundObjects/SolidCylinder.h \
@@ -47,6 +50,8 @@ HEADERS += \
   Lights/PointLight.h \
   Materials/Material.h \
   Materials/Matte.h \
+  Materials/Phong.h \
+  Materials/Plastic.h \
   Tracers/MultipleObjects.h \
   Tracers/RayCast.h \
   Tracers/Tracer.h \
@@ -71,11 +76,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    GeometricObjects/CompoundObjects/Box.h \
-    Cameras/Spherical.h \
-    Materials/Phong.h \
-    GeometricObjects/BeveledObjects/BeveledCylinder.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -85,12 +86,15 @@ SOURCES += \
   Cameras/Camera.cpp \
   Cameras/Fisheye.cpp \
   Cameras/Pinhole.cpp \
+  Cameras/Spherical.cpp \
   Cameras/StereoCamera.cpp \
   Cameras/ThinLens.cpp \
   GeometricObjects/GeometricObject.cpp \
   GeometricObjects/Instance.cpp \
   GeometricObjects/BeveledObjects/BeveledBox.cpp \
+  GeometricObjects/BeveledObjects/BeveledCylinder.cpp \
   GeometricObjects/BeveledObjects/BeveledWedge.cpp \
+  GeometricObjects/CompoundObjects/Box.cpp \
   GeometricObjects/CompoundObjects/Compound.cpp \
   GeometricObjects/CompoundObjects/SolidCone.cpp \
   GeometricObjects/CompoundObjects/SolidCylinder.cpp \
@@ -127,6 +131,8 @@ SOURCES += \
   Lights/PointLight.cpp \
   Materials/Material.cpp \
   Materials/Matte.cpp \
+  Materials/Phong.cpp \
+  Materials/Plastic.cpp \
   Samplers/Hammersley.cpp \
   Samplers/Jittered.cpp \
   Samplers/MultiJittered.cpp \
@@ -150,11 +156,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    GeometricObjects/CompoundObjects/Box.cpp \
-    Cameras/Spherical.cpp \
-    Materials/Phong.cpp \
-    GeometricObjects/BeveledObjects/BeveledCylinder.cpp
+  World/World.cpp
 
 INCLUDEPATH += \
   BRDFs \
