@@ -14,6 +14,12 @@
 
 #include <vector>
 
+#include "Plane.h"
+#include "Maths.h"
+#include "RayCast.h"
+#include "MultipleObjects.h"
+#include "Directional.h"
+#include "PointLight.h"
 #include "ViewPlane.h"
 #include "RGBColor.h"
 #include "Tracer.h"
@@ -47,6 +53,7 @@
 #include "BeveledWedge.h"
 #include "Box.h"
 #include "BeveledCylinder.h"
+#include "Triangle.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 
