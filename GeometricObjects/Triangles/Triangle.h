@@ -25,7 +25,7 @@ public:
   virtual BBox get_bounding_box(void);
 
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
-  virtual bool shadow_hit(const Ray& ray, double& tmin) const;
+  virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
 private:
   void compute_normal(void);

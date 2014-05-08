@@ -6,6 +6,7 @@
 #include "Constants.h"
 #include "Triangle.h"
 #include "Maths.h"
+#include <iostream>
 
 // ----------------------------------------------------------------  default constructor
 
@@ -131,7 +132,7 @@ bool Triangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 // ------------------------------------------------------------------------------ shadow_hit
 
-bool Triangle::shadow_hit(const Ray& ray, double& tmin) const {
+bool Triangle::shadow_hit(const Ray& ray, float& tmin) const {
   if (!shadows)
     return false;
 
