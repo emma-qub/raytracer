@@ -173,6 +173,9 @@ bool Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 
 bool Rectangle::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
   double t = (p0 - ray.o) * normal / (ray.d * normal);
 
   if (t <= kEpsilon)

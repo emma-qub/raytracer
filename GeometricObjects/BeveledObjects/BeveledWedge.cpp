@@ -29,22 +29,22 @@
 
 // ------------------------------------------------------------------------------ constructor
 
-BeveledWedge::BeveledWedge(	const double _y0,		// minimum y value
-              const double _y1,		// minimum y value
-              const double _r0,		// inner radius
-              const double _r1,		// outer radius
-              const double _rb,		// bevel radius
-              const double _phi0,		// minimum azimuth angle in degrees
-              const double _phi1)		// maximum azimuth angle in degrees
+BeveledWedge::BeveledWedge(const double _y0,		// minimum y value
+                           const double _y1,		// minimum y value
+                           const double _r0,		// inner radius
+                           const double _r1,		// outer radius
+                           const double _rb,		// bevel radius
+                           const double _phi0,	// minimum azimuth angle in degrees
+                           const double _phi1):	// maximum azimuth angle in degrees
 
-  :	y0(_y0),
-    y1(_y1),
-    r0(_r0),
-    r1(_r1),
-    rb(_rb),
-    phi0(_phi0),
-    phi1(_phi1)
-{
+  y0(_y0),
+  y1(_y1),
+  r0(_r0),
+  r1(_r1),
+  rb(_rb),
+  phi0(_phi0),
+  phi1(_phi1) {
+
   double sin_phi0 = sin(phi0 * PI_ON_180);  // in radians
   double cos_phi0 = cos(phi0 * PI_ON_180);  // in radians
   double sin_phi1 = sin(phi1 * PI_ON_180);  // in radians
@@ -429,30 +429,28 @@ BeveledWedge::BeveledWedge(	const double _y0,		// minimum y value
 
 // ------------------------------------------------------------------------------ copy constructor
 
-BeveledWedge::BeveledWedge (const BeveledWedge& bw)
-      : 	Compound(bw),
-        y0(bw.y0),
-        y1(bw.y1),
-        r0(bw.r0),
-        r1(bw.r1),
-        rb(bw.rb),
-        phi0(bw.phi0),
-        phi1(bw.phi1),
-        bbox(bw.bbox)
-{}
+BeveledWedge::BeveledWedge (const BeveledWedge& bw):
+  Compound(bw),
+  y0(bw.y0),
+  y1(bw.y1),
+  r0(bw.r0),
+  r1(bw.r1),
+  rb(bw.rb),
+  phi0(bw.phi0),
+  phi1(bw.phi1),
+  bbox(bw.bbox) {
+}
 
 // ------------------------------------------------------------------------------ clone
 
-BeveledWedge*
-BeveledWedge::clone (void) const {
-  return(new BeveledWedge(*this));
+BeveledWedge* BeveledWedge::clone (void) const {
+  return new BeveledWedge(*this);
 }
 
 
 // ------------------------------------------------------------------------------ assignment operator
 
-BeveledWedge&
-BeveledWedge::operator= (const BeveledWedge& rhs) {
+BeveledWedge& BeveledWedge::operator=(const BeveledWedge& rhs) {
   if (this == &rhs)
     return *this;
 
@@ -467,31 +465,40 @@ BeveledWedge::operator= (const BeveledWedge& rhs) {
   phi1 	= rhs.phi1;
   bbox	= rhs.bbox;
 
-  return (*this) ;
+  return *this;
 }
 
 
 // ------------------------------------------------------------------------------ destructor
 
-BeveledWedge::~BeveledWedge(void) {}
+BeveledWedge::~BeveledWedge(void) {
+}
 
 
 
 // ------------------------------------------------------------------------------ get_bounding_box
 
-BBox
-BeveledWedge::get_bounding_box(void) {
-  return (bbox);
+BBox BeveledWedge::get_bounding_box(void) {
+  return bbox;
 }
 
 
 
 // ------------------------------------------------------------------------------ hit
 
-bool
-BeveledWedge::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+bool BeveledWedge::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   if (bbox.hit(ray))
     return (Compound::hit(ray, tmin, sr));
+  else
+    return false;
+}
+
+bool BeveledWedge::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
+  if (bbox.hit(ray))
+    return (Compound::shadow_hit(ray, tmin));
   else
     return false;
 }

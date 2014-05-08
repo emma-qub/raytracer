@@ -14,8 +14,8 @@
 //-------------------------------------------------------------------------------- class Compound
 
 class Compound: public GeometricObject {
-public:
 
+public:
   Compound(void);
   Compound(const Compound& c);
   virtual Compound* clone(void) const;

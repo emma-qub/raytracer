@@ -18,13 +18,13 @@
 
 // ------------------------------------------------------------------------------ default constructor
 
-BeveledBox::BeveledBox(void)
-      :	Compound(),
-        p0(-1.0),
-        p1(1.0),
-        rb(0.1),
-        bbox(p0, p1)
-{
+BeveledBox::BeveledBox(void):
+  Compound(),
+  p0(-1.0),
+  p1(1.0),
+  rb(0.1),
+  bbox(p0, p1) {
+
   // edges
   // since the cylinders have to be defined initially in the vertical direction, it's easiest to use -(...)/2, +(...)/2 for
   // y0 and y1 in the constructors, and then rotate them about their centers.
@@ -241,15 +241,12 @@ BeveledBox::BeveledBox(void)
 
 // ------------------------------------------------------------------------------ constructor
 
-BeveledBox::BeveledBox(	const Point3D& 	min_corner,
-            const Point3D& 	max_corner,
-            const double 	bevel_radius)
-  : 	Compound(),
-    p0(min_corner),
-    p1(max_corner),
-    rb(bevel_radius),
-    bbox(p0, p1)
-{
+BeveledBox::BeveledBox(const Point3D& min_corner, const Point3D& max_corner, const double bevel_radius):
+  Compound(),
+  p0(min_corner),
+  p1(max_corner),
+  rb(bevel_radius),
+  bbox(p0, p1) {
 
   // edges
   // since the cylinders have to be defined initially in the vertical direction, it's easiest to use -(...)/2, +(...)/2 for
@@ -463,27 +460,24 @@ BeveledBox::BeveledBox(	const Point3D& 	min_corner,
 
 // ------------------------------------------------------------------------------ copy constructor
 
-BeveledBox::BeveledBox (const BeveledBox& bb)
-      : 	Compound(bb),
-        p0(bb.p0),
-        p1(bb.p1),
-        rb(bb.rb),
-        bbox(bb.bbox)
-{}
+BeveledBox::BeveledBox (const BeveledBox& bb):
+  Compound(bb),
+  p0(bb.p0),
+  p1(bb.p1),
+  rb(bb.rb),
+  bbox(bb.bbox) {
+}
 
 // ------------------------------------------------------------------------------ clone
 
-BeveledBox*
-BeveledBox::clone(void) const {
-  return(new BeveledBox(*this));
+BeveledBox* BeveledBox::clone(void) const {
+  return new BeveledBox(*this);
 }
 
 
 // ------------------------------------------------------------------------------ assignment operator
 
-BeveledBox&
-BeveledBox::operator= (const BeveledBox& rhs)
-{
+BeveledBox& BeveledBox::operator= (const BeveledBox& rhs) {
   if (this == &rhs)
     return *this;
 
@@ -494,39 +488,39 @@ BeveledBox::operator= (const BeveledBox& rhs)
   rb		= rhs.rb;
   bbox	= rhs.bbox;
 
-  return (*this) ;
+  return *this;
 }
 
 
 // ------------------------------------------------------------------------------ destructor
 
-BeveledBox::~BeveledBox (void) {}
+BeveledBox::~BeveledBox (void) {
+}
 
 
 
-BBox
-BeveledBox::get_bounding_box(void) {
-  return(bbox);
+BBox BeveledBox::get_bounding_box(void) {
+  return bbox;
+}
+
+// ------------------------------------------------------------------------------ hit
+
+bool BeveledBox::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+  if (bbox.hit(ray))
+    return Compound::hit(ray, tmin, sr);
+  else
+    return false;
 }
 
 
 // ------------------------------------------------------------------------------ shadow_hit
 
-//bool
-//BeveledBox::shadow_hit(const Ray& ray, double& tmin) const {
-//  if (bbox.hit(ray))
-//    return (Compound::shadow_hit(ray, tmin));
-//  else
-//    return false;
-//}
+bool BeveledBox::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
 
-
-// ------------------------------------------------------------------------------ hit
-
-bool
-BeveledBox::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   if (bbox.hit(ray))
-    return (Compound::hit(ray, tmin, sr));
+    return Compound::shadow_hit(ray, tmin);
   else
     return false;
 }

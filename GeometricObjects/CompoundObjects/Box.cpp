@@ -155,18 +155,19 @@ BBox Box::get_bounding_box(void) {
   return bbox;
 }
 
-//bool
-//Box::shadow_hit(const Ray& ray, double& tmin) const {
-//  if (bbox.hit(ray))
-//    return (Compound::shadow_hit(ray, tmin));
-//  else
-//    return false;
-//}
-
-bool
-Box::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+bool Box::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   if (bbox.hit(ray))
     return Compound::hit(ray, tmin, sr);
+  else
+    return false;
+}
+
+bool Box::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
+  if (bbox.hit(ray))
+    return (Compound::shadow_hit(ray, tmin));
   else
     return false;
 }

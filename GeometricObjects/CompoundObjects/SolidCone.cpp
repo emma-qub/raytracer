@@ -36,3 +36,14 @@ SolidCone& SolidCone::operator=(const SolidCone& rhs) {
 
 SolidCone::~SolidCone(void) {
 }
+
+bool SolidCone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+  return Compound::hit(ray, tmin, sr);
+}
+
+bool SolidCone::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
+  return Compound::shadow_hit(ray, tmin);
+}

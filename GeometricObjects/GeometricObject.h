@@ -25,12 +25,14 @@ public:
 
   Material* get_material(void) const;
   virtual void set_material(Material* mPtr);                // needs to virtual so that it can be overriden in Compound
+  void set_shadows(bool b);
 
   virtual BBox get_bounding_box(void) const;
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
 protected:
   mutable Material* material_ptr;                           // mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
+  bool shadows;                                             // cast shadows or not
 
   GeometricObject& operator= (const GeometricObject& rhs);  // assignment operator
 };
@@ -45,6 +47,10 @@ GeometricObject::get_material(void) const {
 
 inline BBox GeometricObject::get_bounding_box(void) const {
   return BBox();
+}
+
+inline void GeometricObject::set_shadows(bool b) {
+  shadows = b;
 }
 
 #endif

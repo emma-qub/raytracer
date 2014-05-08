@@ -154,6 +154,9 @@ bool ConvexPartCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 }
 
 bool ConvexPartCylinder::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
   double t;
   double ox = ray.o.x;
   double oy = ray.o.y;

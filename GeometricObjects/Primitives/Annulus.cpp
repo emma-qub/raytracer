@@ -78,6 +78,9 @@ bool Annulus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 }
 
 bool Annulus::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
   float t = (center - ray.o) * normal / (ray.d * normal);
 
   if (t <= kEpsilon)

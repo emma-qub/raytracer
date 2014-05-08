@@ -98,7 +98,6 @@ OpenPartCylinder::~OpenPartCylinder(void) {
 // ------------------------------------------------------------------------------ hit
 
 bool OpenPartCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-
   double t;
   double ox = ray.o.x;
   double oz = ray.o.z;
@@ -164,6 +163,9 @@ bool OpenPartCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 }
 
 bool OpenPartCylinder::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
   double t;
   double ox = ray.o.x;
   double oy = ray.o.y;

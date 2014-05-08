@@ -8,13 +8,16 @@
 
 
 GeometricObject::GeometricObject(void):
-  material_ptr(NULL) {
+  material_ptr(NULL),
+  shadows(true) {
 }
 
 
 // ---------------------------------------------------------------------- copy constructor
 
-GeometricObject::GeometricObject (const GeometricObject& object) {
+GeometricObject::GeometricObject(const GeometricObject& object):
+  shadows(true) {
+
   if(object.material_ptr)
     material_ptr = object.material_ptr->clone();
   else  material_ptr = NULL;
@@ -34,6 +37,8 @@ GeometricObject& GeometricObject::operator= (const GeometricObject& rhs) {
 
   if (rhs.material_ptr)
     material_ptr = rhs.material_ptr->clone();
+
+  shadows = true;
 
   return *this;
 }

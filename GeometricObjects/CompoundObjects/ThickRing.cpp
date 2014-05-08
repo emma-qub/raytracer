@@ -7,7 +7,7 @@
 ThickRing::ThickRing(void):
   Compound() {
 
-  add_object(new ConcaveCylinder(-1.0, 1.0, 0.5));
+  objects.push_back(new ConcaveCylinder(-1.0, 1.0, 0.5));
   add_object(new ConvexCylinder);
   add_object(new Disk(Point3D(0.0, -1.0, 0.0), Normal(0.0, -1.0, 0.0), 1.0));
   add_object(new Disk(Point3D(0.0, 1.0, 0.0), Normal(0.0, 1.0, 0.0), 1.0));
@@ -40,4 +40,15 @@ ThickRing& ThickRing::operator=(const ThickRing& rhs) {
 }
 
 ThickRing::~ThickRing(void) {
+}
+
+bool ThickRing::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+  return Compound::hit(ray, tmin, sr);
+}
+
+bool ThickRing::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
+  return Compound::shadow_hit(ray, tmin);
 }

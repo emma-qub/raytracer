@@ -37,3 +37,14 @@ SolidCylinder& SolidCylinder::operator=(const SolidCylinder& rhs) {
 
 SolidCylinder::~SolidCylinder(void) {
 }
+
+bool SolidCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+  return Compound::hit(ray, tmin, sr);
+}
+
+bool SolidCylinder::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
+  return Compound::shadow_hit(ray, tmin);
+}

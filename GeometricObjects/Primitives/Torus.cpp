@@ -115,6 +115,9 @@ bool Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 }
 
 bool Torus::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
   if (!bbox.hit(ray))
     return false;
 

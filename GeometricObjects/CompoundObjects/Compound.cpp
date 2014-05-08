@@ -135,6 +135,9 @@ bool Compound::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 }
 
 bool Compound::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
   float t = kHugeValue;
   tmin = kHugeValue;
   int num_objects = objects.size();

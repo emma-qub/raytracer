@@ -111,18 +111,19 @@ BBox BeveledCylinder::get_bounding_box(void) {
   return bbox;
 }
 
-//bool
-//BeveledCylinder::shadow_hit(const Ray& ray, double& tmin) const {
-//  if (bbox.hit(ray))
-//    return (Compound::shadow_hit(ray, tmin));
-//  else
-//    return false;
-//}
-
-bool
-BeveledCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+bool BeveledCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   if (bbox.hit(ray))
     return Compound::hit(ray, tmin, sr);
+  else
+    return false;
+}
+
+bool BeveledCylinder::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
+  if (bbox.hit(ray))
+    return (Compound::shadow_hit(ray, tmin));
   else
     return false;
 }

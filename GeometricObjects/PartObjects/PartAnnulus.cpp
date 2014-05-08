@@ -97,6 +97,9 @@ bool PartAnnulus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 }
 
 bool PartAnnulus::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!shadows)
+    return false;
+
   float t = (y - ray.o.y) / ray.d.y;
 
   if (t <= kEpsilon)

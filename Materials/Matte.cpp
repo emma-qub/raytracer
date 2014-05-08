@@ -2,41 +2,41 @@
 
 // ---------------------------------------------------------------- default constructor
 
-Matte::Matte (void)
-  :	Material(),
-    ambient_brdf(new Lambertian),
-    diffuse_brdf(new Lambertian)
-{}
+Matte::Matte (void):
+  Material(),
+  ambient_brdf(new Lambertian),
+  diffuse_brdf(new Lambertian) {
+}
 
 
 
 // ---------------------------------------------------------------- copy constructor
 
-Matte::Matte(const Matte& m)
-  : 	Material(m)
-{
+Matte::Matte(const Matte& m):
+  Material(m) {
+
   if(m.ambient_brdf)
     ambient_brdf = m.ambient_brdf->clone();
-  else  ambient_brdf = NULL;
+  else
+    ambient_brdf = NULL;
 
   if(m.diffuse_brdf)
     diffuse_brdf = m.diffuse_brdf->clone();
-  else  diffuse_brdf = NULL;
+  else
+    diffuse_brdf = NULL;
 }
 
 
 // ---------------------------------------------------------------- clone
 
-Material*
-Matte::clone(void) const {
-  return (new Matte(*this));
+Material* Matte::clone(void) const {
+  return new Matte(*this);
 }
 
 
 // ---------------------------------------------------------------- assignment operator
 
-Matte&
-Matte::operator= (const Matte& rhs) {
+Matte& Matte::operator= (const Matte& rhs) {
   if (this == &rhs)
     return *this;
 
@@ -80,8 +80,7 @@ Matte::~Matte(void) {
 
 // ---------------------------------------------------------------- shade
 
-RGBColor
-Matte::shade(ShadeRec& sr) {
+RGBColor Matte::shade(ShadeRec& sr) {
   Vector3D 	wo 			= -sr.ray.d;
   RGBColor 	L 			= ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
   int 		num_lights	= sr.w.lights.size();
@@ -103,8 +102,5 @@ Matte::shade(ShadeRec& sr) {
     }
   }
 
-  return (L);
+  return L;
 }
-
-
-
