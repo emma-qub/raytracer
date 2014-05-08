@@ -64,17 +64,13 @@ RGBColor Directional::L(ShadeRec& /*s*/) {
 }
 
 bool Directional::in_shadow(const Ray& ray, const ShadeRec& sr) const {
-  float t = kHugeValue;
-  float tmin = kHugeValue;
+  float t;
   int num_objects = sr.w.objects.size();
 
-  bool hit = false;
   for (int j = 0; j < num_objects; j++) {
-    if (sr.w.objects[j]->shadow_hit(ray, tmin) && tmin < t) {
-      t = tmin;
-      hit = true;
-    }
+    if (sr.w.objects[j]->shadow_hit(ray, t))
+      return true;
   }
 
-  return hit;
+  return false;
 }
