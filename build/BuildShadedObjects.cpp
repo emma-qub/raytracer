@@ -25,9 +25,9 @@
 #define chocolate 0
 #define chapitre11_1 0
 #define chapitre11_2 0
-#define chapitre15_7 0
+#define chapitre15_7 1
 #define chapitre15_8 0
-#define chapitre15_10 1
+#define chapitre15_10 0
 #define chapitre15_15 0
 #define firstexample 0
 
@@ -162,10 +162,9 @@ void World::build(void) {
   float bottom 		= -1.0;
   float top 			= 1.0;
   float radius 		= 1.0;
-  //float bevel_radius 	= 0.2;
+  float bevel_radius 	= 0.07;
 
-  //BeveledCylinder* cylinder_ptr1 = new BeveledCylinder(bottom, top, radius, bevel_radius);
-  SolidCylinder* cylinder_ptr1 = new SolidCylinder(bottom, top, radius);
+  BeveledCylinder* cylinder_ptr1 = new BeveledCylinder(bottom, top, radius, bevel_radius);
 
   for (int j = 0; j < 3; j++) {
     float exp = 30;
@@ -689,10 +688,9 @@ void World::build(void) {
   float bottom 		= -2.0;
   float top 			= 2.0;
   float radius 		= 1.0;
-  //float bevel_radius 	= 0.2;
+  float bevel_radius 	= 0.2;
 
-  //BeveledCylinder* cylinder_ptr1 = new BeveledCylinder(bottom, top, radius, bevel_radius);
-  SolidCylinder* cylinder_ptr1 = new SolidCylinder(bottom, top, radius);
+  BeveledCylinder* cylinder_ptr1 = new BeveledCylinder(bottom, top, radius, bevel_radius);
 
   for (int j = 0; j < 4; j++) {
     float exp;

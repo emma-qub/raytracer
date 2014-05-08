@@ -74,7 +74,8 @@ HEADERS += \
   World/World.h \
     GeometricObjects/CompoundObjects/Box.h \
     Cameras/Spherical.h \
-    Materials/Phong.h
+    Materials/Phong.h \
+    GeometricObjects/BeveledObjects/BeveledCylinder.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -152,7 +153,8 @@ SOURCES += \
   World/World.cpp \
     GeometricObjects/CompoundObjects/Box.cpp \
     Cameras/Spherical.cpp \
-    Materials/Phong.cpp
+    Materials/Phong.cpp \
+    GeometricObjects/BeveledObjects/BeveledCylinder.cpp
 
 INCLUDEPATH += \
   BRDFs \
