@@ -12,34 +12,34 @@ const double Rectangle::kEpsilon = 0.001;
 
 // ----------------------------------------------------------------  default constructor
 
-Rectangle::Rectangle(void)
-  : 	GeometricObject(),
-    p0(-1, 0, -1),
-    a(0, 0, 2),
-    b(2, 0, 0),
-    a_len_squared(4.0),
-    b_len_squared(4.0),
-    area(4.0),
-    inv_area(0.25),
-    sampler_ptr(NULL),
-    normal(0, 1, 0)
-{}
+Rectangle::Rectangle(void):
+  GeometricObject(),
+  p0(-1, 0, -1),
+  a(0, 0, 2),
+  b(2, 0, 0),
+  a_len_squared(4.0),
+  b_len_squared(4.0),
+  area(4.0),
+  inv_area(0.25),
+  sampler_ptr(NULL),
+  normal(0, 1, 0) {
+}
 
 
 // ----------------------------------------------------------------  constructor
 // this constructs the normal
 
-Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
-  :	GeometricObject(),
-    p0(_p0),
-    a(_a),
-    b(_b),
-    a_len_squared(a.len_squared()),
-    b_len_squared(b.len_squared()),
-    area(a.length() * b.length()),
-    inv_area(1.0 / area),
-    sampler_ptr(NULL)
-{
+Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b):
+  GeometricObject(),
+  p0(_p0),
+  a(_a),
+  b(_b),
+  a_len_squared(a.len_squared()),
+  b_len_squared(b.len_squared()),
+  area(a.length() * b.length()),
+  inv_area(1.0 / area),
+  sampler_ptr(NULL) {
+
   normal = a ^ b;
   normal.normalize();
 }
@@ -48,18 +48,18 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
 // ----------------------------------------------------------------  constructor
 // this has the normal as an argument
 
-Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n)
-  :	GeometricObject(),
-    p0(_p0),
-    a(_a),
-    b(_b),
-    a_len_squared(a.len_squared()),
-    b_len_squared(b.len_squared()),
-    area(a.length() * b.length()),
-    inv_area(1.0 / area),
-    sampler_ptr(NULL),
-    normal(n)
-{
+Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n):
+  GeometricObject(),
+  p0(_p0),
+  a(_a),
+  b(_b),
+  a_len_squared(a.len_squared()),
+  b_len_squared(b.len_squared()),
+  area(a.length() * b.length()),
+  inv_area(1.0 / area),
+  sampler_ptr(NULL),
+  normal(n) {
+
   normal.normalize();
 }
 
@@ -67,25 +67,24 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b,
 
 // ---------------------------------------------------------------- clone
 
-Rectangle*
-Rectangle::clone(void) const {
-  return (new Rectangle(*this));
+Rectangle* Rectangle::clone(void) const {
+  return new Rectangle(*this);
 }
 
 
 // ---------------------------------------------------------------- copy constructor
 
-Rectangle::Rectangle (const Rectangle& r)
-  :	GeometricObject(r),
-    p0(r.p0),
-    a(r.a),
-    b(r.b),
-    a_len_squared(r.a_len_squared),
-    b_len_squared(r.b_len_squared),
-    area(r.area),
-    inv_area(r.inv_area),
-    normal(r.normal)
-{
+Rectangle::Rectangle (const Rectangle& r):
+  GeometricObject(r),
+  p0(r.p0),
+  a(r.a),
+  b(r.b),
+  a_len_squared(r.a_len_squared),
+  b_len_squared(r.b_len_squared),
+  area(r.area),
+  inv_area(r.inv_area),
+  normal(r.normal) {
+
   if(r.sampler_ptr)
     sampler_ptr	= r.sampler_ptr->clone();
   else  sampler_ptr = NULL;
@@ -95,10 +94,9 @@ Rectangle::Rectangle (const Rectangle& r)
 
 // ---------------------------------------------------------------- assignment operator
 
-Rectangle&
-Rectangle::operator= (const Rectangle& rhs) {
+Rectangle& Rectangle::operator= (const Rectangle& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   GeometricObject::operator=(rhs);
 
@@ -119,7 +117,7 @@ Rectangle::operator= (const Rectangle& rhs) {
   if (rhs.sampler_ptr)
     sampler_ptr = rhs.sampler_ptr->clone();
 
-  return (*this);
+  return *this;
 }
 
 
@@ -136,8 +134,7 @@ Rectangle::~Rectangle (void) {
 
 //------------------------------------------------------------------ get_bounding_box
 
-BBox
-Rectangle::get_bounding_box(void) {
+BBox Rectangle::get_bounding_box(void) {
   double delta = 0.0001;
 
   return(BBox(min(p0.x, p0.x + a.x + b.x) - delta, max(p0.x, p0.x + a.x + b.x) + delta,
@@ -148,13 +145,11 @@ Rectangle::get_bounding_box(void) {
 
 //------------------------------------------------------------------ hit
 
-bool
-Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-
+bool Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   double t = (p0 - ray.o) * normal / (ray.d * normal);
 
   if (t <= kEpsilon)
-    return (false);
+    return false;
 
   Point3D p = ray.o + t * ray.d;
   Vector3D d = p - p0;
@@ -162,18 +157,42 @@ Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   double ddota = d * a;
 
   if (ddota < 0.0 || ddota > a_len_squared)
-    return (false);
+    return false;
 
   double ddotb = d * b;
 
   if (ddotb < 0.0 || ddotb > b_len_squared)
-    return (false);
+    return false;
 
-  tmin 				= t;
-  sr.normal 			= normal;
-  sr.local_hit_point 	= p;
+  tmin = t;
+  sr.normal = normal;
+  sr.local_hit_point = p;
 
-  return (true);
+  return true;
+}
+
+
+bool Rectangle::shadow_hit(const Ray& ray, float& tmin) const {
+  double t = (p0 - ray.o) * normal / (ray.d * normal);
+
+  if (t <= kEpsilon)
+    return false;
+
+  Point3D p = ray.o + t * ray.d;
+  Vector3D d = p - p0;
+
+  double ddota = d * a;
+
+  if (ddota < 0.0 || ddota > a_len_squared)
+    return false;
+
+  double ddotb = d * b;
+
+  if (ddotb < 0.0 || ddotb > b_len_squared)
+    return false;
+
+  tmin = t;
+  return true;
 }
 
 

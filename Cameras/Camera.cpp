@@ -37,7 +37,7 @@ Camera::Camera(const Camera& c)
 Camera&
 Camera::operator= (const Camera& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   eye				= rhs.eye;
   lookat			= rhs.lookat;
@@ -48,7 +48,7 @@ Camera::operator= (const Camera& rhs) {
   up				= rhs.up;
   exposure_time 	= rhs.exposure_time;
 
-  return (*this);
+  return *this;
 }
 
 

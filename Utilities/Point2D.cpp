@@ -20,10 +20,10 @@ Point2D::Point2D(const Point2D& p)
 Point2D& 							
 Point2D::operator= (const Point2D& rhs) {
 	if (this == &rhs)
-		return (*this);
+		return *this;
 
 	x = rhs.x;
 	y = rhs.y;
 
-	return (*this);
+	return *this;
 }

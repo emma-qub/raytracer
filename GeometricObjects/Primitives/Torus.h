@@ -7,19 +7,24 @@
 class Torus: public GeometricObject {
 public:
   Torus(void);
-  Torus(double a, double b);
+  Torus(double i_r, double o_r);
   Torus(const Torus& torus);
   Torus* clone(void) const;
   virtual ~Torus(void);
   Torus& operator=(const Torus& torus);
-  Normal compute_normal(const Point3D& p) const;
+
   virtual bool hit(const Ray& ray, double& t, ShadeRec& s) const;
+  virtual bool shadow_hit(const Ray& ray, float& tmin) const;
+
   BBox get_bounding_box(void) const;
 
-private:
+public:
   double a;
   double b;
   BBox bbox;
+
+private:
+  Normal compute_normal(const Point3D& p) const;
 };
 
 inline BBox Torus::get_bounding_box(void) const {

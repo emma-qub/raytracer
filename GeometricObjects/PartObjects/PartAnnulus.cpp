@@ -95,3 +95,25 @@ bool PartAnnulus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
   return false;
 }
+
+bool PartAnnulus::shadow_hit(const Ray& ray, float& tmin) const {
+  float t = (y - ray.o.y) / ray.d.y;
+
+  if (t <= kEpsilon)
+    return false;
+
+  Point3D p = ray.o + t * ray.d;
+
+  if (i_r_squared < p.d_squared(Point3D(0, y, 0)) && p.d_squared(Point3D(0, y, 0)) < o_r_squared) {
+    double phi = atan2(p.x, p.z);
+    if (phi < 0.0)
+      phi += TWO_PI;
+
+    if (phi_min <= phi && phi <= phi_max) {
+      tmin = t;
+      return true;
+    }
+  }
+
+  return false;
+}

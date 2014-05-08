@@ -38,14 +38,14 @@ Pinhole::clone(void) const {
 Pinhole&
 Pinhole::operator= (const Pinhole& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Camera::operator= (rhs);
 
   d 		= rhs.d;
   zoom	= rhs.zoom;
 
-  return (*this);
+  return *this;
 }
 
 

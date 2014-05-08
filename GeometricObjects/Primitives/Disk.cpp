@@ -68,3 +68,19 @@ bool Disk::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
   return false;
 }
+
+bool Disk::shadow_hit(const Ray& ray, float& tmin) const {
+  float t = (center - ray.o) * normal / (ray.d * normal);
+
+  if (t <= kEpsilon)
+    return false;
+
+  Point3D p = ray.o + t * ray.d;
+
+  if (p.d_squared(center) < r_squared) {
+    tmin = t;
+    return true;
+  }
+
+  return false;
+}

@@ -28,7 +28,7 @@ SolidCylinder* SolidCylinder::clone (void) const {
 
 SolidCylinder& SolidCylinder::operator=(const SolidCylinder& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Compound::operator= (rhs);
 

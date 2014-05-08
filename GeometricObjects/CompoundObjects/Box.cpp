@@ -137,7 +137,7 @@ Box* Box::clone(void) const {
 
 Box& Box::operator= (const Box& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Compound::operator=(rhs);
 
@@ -160,7 +160,7 @@ BBox Box::get_bounding_box(void) {
 //  if (bbox.hit(ray))
 //    return (Compound::shadow_hit(ray, tmin));
 //  else
-//    return (false);
+//    return false;
 //}
 
 bool

@@ -485,7 +485,7 @@ BeveledBox&
 BeveledBox::operator= (const BeveledBox& rhs)
 {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Compound::operator=(rhs);
 
@@ -517,7 +517,7 @@ BeveledBox::get_bounding_box(void) {
 //  if (bbox.hit(ray))
 //    return (Compound::shadow_hit(ray, tmin));
 //  else
-//    return (false);
+//    return false;
 //}
 
 
@@ -528,5 +528,5 @@ BeveledBox::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   if (bbox.hit(ray))
     return (Compound::hit(ray, tmin, sr));
   else
-    return (false);
+    return false;
 }

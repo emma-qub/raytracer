@@ -10,7 +10,7 @@ GenericSphere::GenericSphere(void):
 }
 
 GenericSphere* GenericSphere::clone(void) const {
-  return (new GenericSphere(*this));
+  return new GenericSphere(*this);
 }
 
 GenericSphere::GenericSphere (const GenericSphere& GenericSphere):
@@ -20,11 +20,11 @@ GenericSphere::GenericSphere (const GenericSphere& GenericSphere):
 GenericSphere& GenericSphere::operator=(const GenericSphere& rhs)
 {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   GeometricObject::operator= (rhs);
 
-  return (*this);
+  return *this;
 }
 
 GenericSphere::~GenericSphere(void) {
@@ -44,7 +44,7 @@ bool GenericSphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   double 		disc	= b * b - 4.0 * a * c;
 
   if (disc < 0.0)
-    return(false);
+    return false;
   else {
     double e = sqrt(disc);
     double denom = 2.0 * a;
@@ -63,6 +63,37 @@ bool GenericSphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
       tmin = t;
       sr.normal   = (ray.o + t * ray.d);
       sr.local_hit_point = ray.o + t * ray.d;
+      return true;
+    }
+  }
+
+  return false;
+}
+
+bool GenericSphere::shadow_hit(const Ray& ray, float& tmin) const {
+  double 		t;
+  Vector3D	temp 	= ray.o;
+  double 		a 		= ray.d * ray.d;
+  double 		b 		= 2.0 * ray.o * ray.d;
+  double 		c 		= temp * temp - 1;
+  double 		disc	= b * b - 4.0 * a * c;
+
+  if (disc < 0.0)
+    return false;
+  else {
+    double e = sqrt(disc);
+    double denom = 2.0 * a;
+    t = (-b - e) / denom;    // smaller root
+
+    if (t > kEpsilon) {
+      tmin = t;
+      return true;
+    }
+
+    t = (-b + e) / denom;    // larger root
+
+    if (t > kEpsilon) {
+      tmin = t;
       return true;
     }
   }

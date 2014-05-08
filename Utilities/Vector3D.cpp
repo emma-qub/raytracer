@@ -59,11 +59,11 @@ Vector3D::~Vector3D (void)
 Vector3D& 
 Vector3D::operator= (const Vector3D& rhs) {
 	if (this == &rhs)
-		return (*this);
+		return *this;
 
 	x = rhs.x; y = rhs.y; z = rhs.z;
 
-	return (*this);
+	return *this;
 }
 
 
@@ -73,7 +73,7 @@ Vector3D::operator= (const Vector3D& rhs) {
 Vector3D& 
 Vector3D::operator= (const Normal& rhs) {
 	x = rhs.x; y = rhs.y; z = rhs.z;
-	return (*this);
+	return *this;
 }
 
 
@@ -83,7 +83,7 @@ Vector3D::operator= (const Normal& rhs) {
 Vector3D& 												
 Vector3D::operator= (const Point3D& rhs) {
 	x = rhs.x; y = rhs.y; z = rhs.z;
-	return (*this);
+	return *this;
 }
 
 
@@ -113,7 +113,7 @@ Vector3D&
 Vector3D::hat(void) {	
 	double length = sqrt(x * x + y * y + z * z);
 	x /= length; y /= length; z /= length;
-	return (*this);
+	return *this;
 } 
 
 

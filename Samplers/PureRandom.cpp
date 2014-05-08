@@ -32,11 +32,11 @@ PureRandom::PureRandom(const PureRandom& r)
 PureRandom&
 PureRandom::operator= (const PureRandom& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Sampler::operator=(rhs);
 
-  return (*this);
+  return *this;
 }
 
 // ---------------------------------------------------------------- clone

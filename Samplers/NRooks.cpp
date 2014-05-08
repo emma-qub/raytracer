@@ -40,11 +40,11 @@ NRooks::NRooks(const NRooks& nr)
 NRooks&
 NRooks::operator= (const NRooks& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Sampler::operator=(rhs);
 
-  return (*this);
+  return *this;
 }
 
 // ---------------------------------------------------------------- clone

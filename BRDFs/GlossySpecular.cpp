@@ -25,7 +25,7 @@ GlossySpecular* GlossySpecular::clone(void) const {
 
 GlossySpecular& GlossySpecular::operator=(const GlossySpecular& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   BRDF::operator=(rhs);
 

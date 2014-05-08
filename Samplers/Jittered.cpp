@@ -40,11 +40,11 @@ Jittered::Jittered(const Jittered& js)
 Jittered&
 Jittered::operator= (const Jittered& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Sampler::operator= (rhs);
 
-  return (*this);
+  return *this;
 }
 
 // ---------------------------------------------------------------- clone

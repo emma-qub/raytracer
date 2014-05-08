@@ -64,7 +64,7 @@ bool OpenCone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   double disc = b * b - 4.0 * a * c;
 
   if (disc < 0.0)
-    return(false);
+    return false;
   else {
     double e = sqrt(disc);
     double denom = 2.0 * a;
@@ -106,6 +106,51 @@ bool OpenCone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         sr.local_hit_point = ray.o + tmin * ray.d;
 
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+bool OpenCone::shadow_hit(const Ray& ray, float& tmin) const {
+  double t;
+  double ox = ray.o.x;
+  double oy = ray.o.y;
+  double oz = ray.o.z;
+  double dx = ray.d.x;
+  double dy = ray.d.y;
+  double dz = ray.d.z;
+
+  double a = h2r2 * (dx * dx + dz * dz) - dy * dy;
+  double b = 2 * (h2r2 * (ox * dx + oz * dz) + dy * (height - oy));
+  double c = h2r2 * (ox * ox + oz * oz) + 2 * oy * height - oy * oy - height * height;
+  double disc = b * b - 4.0 * a * c;
+
+  if (disc < 0.0)
+    return false;
+  else {
+    double e = sqrt(disc);
+    double denom = 2.0 * a;
+    t = (-b - e) / denom;    // smaller root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (0 <= yhit && yhit <= height) {
+        tmin = t;
+        return true;
+      }
+    }
+
+    t = (-b + e) / denom;    // larger root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (0 <= yhit && yhit <= height) {
+        tmin = t;
         return true;
       }
     }

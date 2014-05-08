@@ -82,7 +82,7 @@ Normal::operator+ (const Normal& n) const {
 inline Normal& 
 Normal::operator+= (const Normal& n) {
 	x += n.x; y += n.y; z += n.z;
-    return (*this);
+    return *this;
 }
 
 

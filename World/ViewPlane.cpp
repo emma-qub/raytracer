@@ -37,7 +37,7 @@ ViewPlane::ViewPlane(const ViewPlane& vp):
 ViewPlane&
 ViewPlane::operator= (const ViewPlane& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   hres 				= rhs.hres;
   vres 				= rhs.vres;

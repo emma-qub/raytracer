@@ -18,7 +18,7 @@ Fisheye::Fisheye(const Fisheye& fisheye):
 
 Fisheye& Fisheye::operator=(const Fisheye& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Camera::operator=(rhs);
 

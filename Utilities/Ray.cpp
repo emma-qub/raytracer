@@ -27,12 +27,12 @@ Ray&
 Ray::operator= (const Ray& rhs) {
 	
 	if (this == &rhs)
-		return (*this);
+		return *this;
 		
 	o = rhs.o; 
 	d = rhs.d; 
 
-	return (*this);	
+	return *this;	
 }
 
 // ---------------------------------------------------------------- destructor

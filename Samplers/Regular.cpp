@@ -34,11 +34,11 @@ Regular::Regular(const Regular& u)
 Regular&
 Regular::operator= (const Regular& rhs)	{
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Sampler::operator= (rhs);
 
-  return (*this);
+  return *this;
 }
 
 // ---------------------------------------------------------------- clone

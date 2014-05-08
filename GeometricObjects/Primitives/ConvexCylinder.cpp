@@ -54,7 +54,7 @@ ConvexCylinder* ConvexCylinder::clone(void) const {
 
 ConvexCylinder& ConvexCylinder::operator= (const ConvexCylinder& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   GeometricObject::operator= (rhs);
 
@@ -63,7 +63,7 @@ ConvexCylinder& ConvexCylinder::operator= (const ConvexCylinder& rhs) {
   radius 		= rhs.radius;
   inv_radius 	= rhs.inv_radius;
 
-  return (*this) ;
+  return *this;
 }
 
 
@@ -78,7 +78,6 @@ ConvexCylinder::~ConvexCylinder(void) {
 // The normal always points outwards
 
 bool ConvexCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-
   double t;
   double ox = ray.o.x;
   double oy = ray.o.y;
@@ -94,7 +93,7 @@ bool ConvexCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 
   if (disc < 0.0)
-    return(false);
+    return false;
   else {
     double e = sqrt(disc);
     double denom = 2.0 * a;
@@ -108,7 +107,7 @@ bool ConvexCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         sr.normal = Normal((ox + t * dx) * inv_radius, 0.0, (oz + t * dz) * inv_radius); // points outwards
         sr.local_hit_point = ray.o + tmin * ray.d;
 
-        return (true);
+        return true;
       }
     }
 
@@ -122,13 +121,56 @@ bool ConvexCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         sr.normal = Normal((ox + t * dx) * inv_radius, 0.0, (oz + t * dz) * inv_radius); // points outwards
         sr.local_hit_point = ray.o + tmin * ray.d;
 
-        return (true);
+        return true;
       }
     }
   }
 
-  return (false);
+  return false;
 }
 
+bool ConvexCylinder::shadow_hit(const Ray& ray, float& tmin) const {
+  double t;
+  double ox = ray.o.x;
+  double oy = ray.o.y;
+  double oz = ray.o.z;
+  double dx = ray.d.x;
+  double dy = ray.d.y;
+  double dz = ray.d.z;
+
+  double a = dx * dx + dz * dz;
+  double b = 2.0 * (ox * dx + oz * dz);
+  double c = ox * ox + oz * oz - radius * radius;
+  double disc = b * b - 4.0 * a * c ;
 
 
+  if (disc < 0.0)
+    return false;
+  else {
+    double e = sqrt(disc);
+    double denom = 2.0 * a;
+    t = (-b - e) / denom;    // smaller root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (yhit > y0 && yhit < y1) {
+        tmin = t;
+        return true;
+      }
+    }
+
+    t = (-b + e) / denom;    // larger root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (yhit > y0 && yhit < y1) {
+        tmin = t;
+        return true;
+      }
+    }
+  }
+
+  return false;
+}

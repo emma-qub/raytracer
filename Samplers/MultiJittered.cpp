@@ -43,11 +43,11 @@ MultiJittered::MultiJittered(const MultiJittered& mjs)
 MultiJittered&
 MultiJittered::operator= (const MultiJittered& rhs)	{
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Sampler::operator=(rhs);
 
-  return (*this);
+  return *this;
 }
 
 // ---------------------------------------------------------------- clone

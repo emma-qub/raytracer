@@ -11,7 +11,9 @@ public:
   virtual OpenCone* clone(void) const;
   OpenCone& operator=(const OpenCone& rhs);
   virtual ~OpenCone(void);
+
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+  virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
 private:
   double height;

@@ -64,7 +64,7 @@ Sampler::Sampler(const Sampler& s)
 Sampler&
 Sampler::operator= (const Sampler& rhs)	{
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   num_samples 		= rhs.num_samples;
   num_sets			= rhs.num_sets;
@@ -76,7 +76,7 @@ Sampler::operator= (const Sampler& rhs)	{
   count				= rhs.count;
   jump				= rhs.jump;
 
-  return (*this);
+  return *this;
 }
 
 Sampler::~Sampler(void) {}

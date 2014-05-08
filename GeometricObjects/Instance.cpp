@@ -76,7 +76,7 @@ Instance::~Instance(void) {
 Instance&
 Instance::operator= (const Instance& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   GeometricObject::operator=(rhs);
 
@@ -94,7 +94,7 @@ Instance::operator= (const Instance& rhs) {
   bbox					= rhs.bbox;
   transform_the_texture 	= rhs.transform_the_texture;
 
-  return (*this);
+  return *this;
 }
 
 
@@ -251,10 +251,10 @@ Instance::hit(const Ray& ray, double& t, ShadeRec& sr) const {
     if (!transform_the_texture)
       sr.local_hit_point = ray.o + t * ray.d;
 
-    return (true);
+    return true;
   }
 
-  return (false);
+  return false;
 }
 
 

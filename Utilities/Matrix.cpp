@@ -37,13 +37,13 @@ Matrix::~Matrix (void) {}
 Matrix&
 Matrix::operator= (const Matrix& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   for (int x = 0; x < 4; x++)
     for (int y = 0; y < 4; y++)
       m[x][y] = rhs.m[x][y];
 
-  return (*this);
+  return *this;
 }
 
 
@@ -77,7 +77,7 @@ Matrix::operator/ (const double d) {
     for (int y = 0; y < 4; y++)
       m[x][y] = m[x][y] / d;
 
-  return (*this);
+  return *this;
 }
 
 

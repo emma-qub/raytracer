@@ -18,9 +18,9 @@ BRDF::BRDF(const BRDF& /*brdf*/) {}
 BRDF&
 BRDF::operator= (const BRDF& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
-  return (*this);
+  return *this;
 }
 
 

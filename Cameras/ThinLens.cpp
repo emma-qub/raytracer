@@ -27,7 +27,7 @@ ThinLens* ThinLens::clone(void) const {
 
 ThinLens& ThinLens::operator=(const ThinLens& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Camera::operator= (rhs);
 

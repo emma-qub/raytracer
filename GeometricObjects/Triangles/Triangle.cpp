@@ -9,51 +9,49 @@
 
 // ----------------------------------------------------------------  default constructor
 
-Triangle::Triangle (void)
-  : 	GeometricObject(),
-    v0(0, 0, 0),
-    v1(0,0,1),
-    v2(1,0,0),
-    normal(0, 1, 0)
-{}
+Triangle::Triangle (void):
+  GeometricObject(),
+  v0(0, 0, 0),
+  v1(0,0,1),
+  v2(1,0,0),
+  normal(0, 1, 0) {
+}
 
 // ---------------------------------------------------------------- constructor
 
-Triangle::Triangle (const Point3D& a, const Point3D& b, const Point3D& c)
-  : 	GeometricObject(),
-    v0(a),
-    v1(b),
-    v2(c)
-{
+Triangle::Triangle (const Point3D& a, const Point3D& b, const Point3D& c):
+  GeometricObject(),
+  v0(a),
+  v1(b),
+  v2(c) {
+
   compute_normal();
 }
 
 
 // ---------------------------------------------------------------- clone
 
-Triangle*
-Triangle::clone(void) const {
-  return (new Triangle(*this));
+Triangle* Triangle::clone(void) const {
+  return new Triangle(*this);
 }
 
 
 // ---------------------------------------------------------------- copy constructor
 
-Triangle::Triangle (const Triangle& triangle)
-  :	GeometricObject(triangle),
-    v0(triangle.v0),
-    v1(triangle.v1),
-    v2(triangle.v2),
-    normal(triangle.normal)
-{}
+Triangle::Triangle (const Triangle& triangle):
+  GeometricObject(triangle),
+  v0(triangle.v0),
+  v1(triangle.v1),
+  v2(triangle.v2),
+  normal(triangle.normal) {
+}
 
 
 // ---------------------------------------------------------------- assignment operator
 
-Triangle&
-Triangle::operator= (const Triangle& rhs) {
+Triangle& Triangle::operator= (const Triangle& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   GeometricObject::operator=(rhs);
 
@@ -62,27 +60,25 @@ Triangle::operator= (const Triangle& rhs) {
   v2 		= rhs.v2;
   normal 	= rhs.normal;
 
-  return (*this);
+  return *this;
 }
 
 
 // ---------------------------------------------------------------- destructor
 
-Triangle::~Triangle (void) {}
-
+Triangle::~Triangle (void) {
+}
 
 
 // ---------------------------------------------------------------- compute_normal
 
-void
-Triangle::compute_normal(void) {
+void Triangle::compute_normal(void) {
   normal = (v1 - v0) ^ (v2 - v0);
   normal.normalize();
 }
 
 
-BBox
-Triangle::get_bounding_box(void) {
+BBox Triangle::get_bounding_box(void) {
   double delta = 0.000001;
 
   return (BBox(min(min(v0.x, v1.x), v2.x) - delta, max(max(v0.x, v1.x), v2.x) + delta,
@@ -93,8 +89,7 @@ Triangle::get_bounding_box(void) {
 
 // ------------------------------------------------------------------------------ hit
 
-bool
-Triangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+bool Triangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.d.x, d = v0.x - ray.o.x;
   double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.d.y, h = v0.y - ray.o.y;
   double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.d.z, l = v0.z - ray.o.z;
@@ -108,36 +103,35 @@ Triangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   double beta = e1 * inv_denom;
 
   if (beta < 0.0)
-    return (false);
+    return false;
 
   double r = /*r = */e * l - h * i;
   double e2 = a * n + d * q + c * r;
   double gamma = e2 * inv_denom;
 
   if (gamma < 0.0 )
-    return (false);
+    return false;
 
   if (beta + gamma > 1.0)
-    return (false);
+    return false;
 
   double e3 = a * p - b * r + d * s;
   double t = e3 * inv_denom;
 
   if (t < kEpsilon)
-    return (false);
+    return false;
 
-  tmin 				= t;
-  sr.normal 			= normal;
-  sr.local_hit_point 	= ray.o + t * ray.d;
+  tmin = t;
+  sr.normal = normal;
+  sr.local_hit_point = ray.o + t * ray.d;
 
-  return (true);
+  return true;
 }
 
 
 // ------------------------------------------------------------------------------ shadow_hit
 
-bool
-Triangle::shadow_hit(const Ray& ray, double& tmin) const {
+bool Triangle::shadow_hit(const Ray& ray, double& tmin) const {
   double a = v0.x - v1.x, b = v0.x - v2.x, c = ray.d.x, d = v0.x - ray.o.x;
   double e = v0.y - v1.y, f = v0.y - v2.y, g = ray.d.y, h = v0.y - ray.o.y;
   double i = v0.z - v1.z, j = v0.z - v2.z, k = ray.d.z, l = v0.z - ray.o.z;
@@ -151,26 +145,26 @@ Triangle::shadow_hit(const Ray& ray, double& tmin) const {
   double beta = e1 * inv_denom;
 
   if (beta < 0.0)
-    return (false);
+    return false;
 
   double r = e * l - h * i;
   double e2 = a * n + d * q + c * r;
   double gamma = e2 * inv_denom;
 
   if (gamma < 0.0)
-    return (false);
+    return false;
 
   if (beta + gamma > 1.0)
-    return (false);
+    return false;
 
   double e3 = a * p - b * r + d * s;
   double t = e3 * inv_denom;
 
   if (t < kEpsilon)
-    return (false);
+    return false;
 
   tmin = t;
 
-  return(true);
+  return true;
 }
 

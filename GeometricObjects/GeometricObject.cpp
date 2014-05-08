@@ -23,10 +23,9 @@ GeometricObject::GeometricObject (const GeometricObject& object) {
 
 // ---------------------------------------------------------------------- assignment operator
 
-GeometricObject&
-GeometricObject::operator= (const GeometricObject& rhs) {
+GeometricObject& GeometricObject::operator= (const GeometricObject& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   if (material_ptr) {
     delete material_ptr;
@@ -36,7 +35,7 @@ GeometricObject::operator= (const GeometricObject& rhs) {
   if (rhs.material_ptr)
     material_ptr = rhs.material_ptr->clone();
 
-  return (*this);
+  return *this;
 }
 
 
@@ -48,9 +47,11 @@ GeometricObject::~GeometricObject (void) {
 
 // ---------------------------------------------------------------- set_material
 
-void
-GeometricObject::set_material(Material* mPtr) {
+void GeometricObject::set_material(Material* mPtr) {
   material_ptr = mPtr;
 }
 
 
+bool GeometricObject::shadow_hit(const Ray& /*ray*/, float& /*tmin*/) const {
+  return false;
+}

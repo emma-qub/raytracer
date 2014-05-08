@@ -13,51 +13,48 @@
 
 // ---------------------------------------------------------------- default constructor
 
-OpenCylinder::OpenCylinder(void)
-  : 	GeometricObject(),
-    y0(-1.0),
-    y1(1.0),
-    radius(1.0),
-    inv_radius(1.0)
-{}
+OpenCylinder::OpenCylinder(void):
+  GeometricObject(),
+  y0(-1.0),
+  y1(1.0),
+  radius(1.0),
+  inv_radius(1.0) {
+}
 
 // ---------------------------------------------------------------- constructor
 
-OpenCylinder::OpenCylinder(const double bottom, const double top, const double r)
-  :  	GeometricObject(),
-    y0(bottom),
-    y1(top),
-    radius(r),
-    inv_radius(1.0 / radius)
-{}
+OpenCylinder::OpenCylinder(const double bottom, const double top, const double r):
+  GeometricObject(),
+  y0(bottom),
+  y1(top),
+  radius(r),
+  inv_radius(1.0 / radius) {
+}
 
 
 // ---------------------------------------------------------------- copy constructor
 
-OpenCylinder::OpenCylinder(const OpenCylinder& c)
-  : 	GeometricObject(c),
-    y0(c.y0),
-    y1(c.y1),
-    radius(c.radius),
-    inv_radius(c.inv_radius)
-{}
+OpenCylinder::OpenCylinder(const OpenCylinder& c):
+  GeometricObject(c),
+  y0(c.y0),
+  y1(c.y1),
+  radius(c.radius),
+  inv_radius(c.inv_radius) {
+}
 
 
 // ---------------------------------------------------------------- clone
 
-OpenCylinder*
-OpenCylinder::clone(void) const {
-  return (new OpenCylinder (*this));
+OpenCylinder* OpenCylinder::clone(void) const {
+  return new OpenCylinder(*this);
 }
 
 
 // ---------------------------------------------------------------- assignment operator
 
-OpenCylinder&
-OpenCylinder::operator= (const OpenCylinder& rhs)
-{
+OpenCylinder& OpenCylinder::operator=(const OpenCylinder& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   GeometricObject::operator= (rhs);
 
@@ -66,7 +63,7 @@ OpenCylinder::operator= (const OpenCylinder& rhs)
   radius 		= rhs.radius;
   inv_radius 	= rhs.inv_radius;
 
-  return (*this) ;
+  return *this;
 }
 
 
@@ -81,8 +78,7 @@ OpenCylinder::~OpenCylinder(void) {
 // The code reverses the normal when the ray hits the inside surface, allows both
 // sides to be shaded, but completely messes up transparency.
 
-bool
-OpenCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+bool OpenCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
   double t;
   double ox = ray.o.x;
@@ -99,7 +95,7 @@ OpenCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 
   if (disc < 0.0)
-    return(false);
+    return false;
   else {
     double e = sqrt(disc);
     double denom = 2.0 * a;
@@ -119,7 +115,7 @@ OpenCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         sr.local_hit_point = ray.o + tmin * ray.d;
 
-        return (true);
+        return true;
       }
     }
 
@@ -139,13 +135,56 @@ OpenCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         sr.local_hit_point = ray.o + tmin * ray.d;
 
-        return (true);
+        return true;
       }
     }
   }
 
-  return (false);
+  return false;
 }
 
+bool OpenCylinder::shadow_hit(const Ray& ray, float& tmin) const {
+  double t;
+  double ox = ray.o.x;
+  double oy = ray.o.y;
+  double oz = ray.o.z;
+  double dx = ray.d.x;
+  double dy = ray.d.y;
+  double dz = ray.d.z;
+
+  double a = dx * dx + dz * dz;
+  double b = 2.0 * (ox * dx + oz * dz);
+  double c = ox * ox + oz * oz - radius * radius;
+  double disc = b * b - 4.0 * a * c ;
 
 
+  if (disc < 0.0)
+    return false;
+  else {
+    double e = sqrt(disc);
+    double denom = 2.0 * a;
+    t = (-b - e) / denom;    // smaller root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (yhit > y0 && yhit < y1) {
+        tmin = t;
+        return true;
+      }
+    }
+
+    t = (-b + e) / denom;    // larger root
+
+    if (t > kEpsilon) {
+      double yhit = oy + t * dy;
+
+      if (yhit > y0 && yhit < y1) {
+        tmin = t;
+        return true;
+      }
+    }
+  }
+
+  return false;
+}

@@ -11,7 +11,9 @@ public:
   virtual Disk* clone(void) const;
   Disk& operator=(const Disk& rhs);
   virtual ~Disk(void);
+
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+  virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
 private:
   Point3D center;

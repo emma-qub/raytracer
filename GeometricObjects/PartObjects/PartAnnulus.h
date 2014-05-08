@@ -8,23 +8,18 @@
 class PartAnnulus: public GeometricObject {
 
 public:
-
   PartAnnulus(void);
-
   PartAnnulus(const double y, const double i_r, const double o_r,
               const double azimuth_min,	// in degrees
               const double azimuth_max,	// in degrees
               bool up = true);
-
   virtual PartAnnulus* clone(void) const;
-
   PartAnnulus(const PartAnnulus& cp);
-
   virtual ~PartAnnulus(void);
-
   PartAnnulus& operator= (const PartAnnulus& rhs);
 
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+  virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
 public:
   double y;

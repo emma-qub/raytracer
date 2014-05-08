@@ -43,11 +43,11 @@ RGBColor::~RGBColor(void)
 RGBColor& 											
 RGBColor::operator= (const RGBColor& rhs) {
 	if (this == &rhs)
-		return (*this);
+		return *this;
 
 	r = rhs.r; g = rhs.g; b = rhs.b;
 
-	return (*this);
+	return *this;
 }
  
 

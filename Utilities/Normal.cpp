@@ -53,11 +53,11 @@ Normal::~Normal (void)
 Normal& 
 Normal::operator= (const Normal& rhs) {
 	if (this == &rhs)
-		return (*this);
+		return *this;
 
 	x = rhs.x; y = rhs.y; z = rhs.z;
 
-	return (*this);
+	return *this;
 }
 
 
@@ -67,7 +67,7 @@ Normal::operator= (const Normal& rhs) {
 Normal& 
 Normal::operator= (const Vector3D& rhs) {
 	x = rhs.x; y = rhs.y; z = rhs.z;
-	return (*this);
+	return *this;
 }
 
 
@@ -77,7 +77,7 @@ Normal::operator= (const Vector3D& rhs) {
 Normal& 
 Normal::operator= (const Point3D& rhs) {		
 	x = rhs.x; y = rhs.y; z = rhs.z;
-	return (*this);
+	return *this;
 }
 
 

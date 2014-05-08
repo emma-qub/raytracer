@@ -34,7 +34,7 @@ Directional&
 Directional::operator= (const Directional& rhs)
 {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Light::operator= (rhs);
 
@@ -42,7 +42,7 @@ Directional::operator= (const Directional& rhs)
   color 	= rhs.color;
   dir 	= rhs.dir;
 
-  return (*this);
+  return *this;
 }
 
 

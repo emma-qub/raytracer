@@ -38,13 +38,13 @@ Compound::Compound (const Compound& c):
 
 Compound& Compound::operator= (const Compound& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   GeometricObject::operator= (rhs);
 
   copy_objects(rhs.objects);
 
-  return (*this);
+  return *this;
 }
 
 
@@ -108,29 +108,43 @@ Compound::copy_objects(const std::vector<GeometricObject*>& rhs_ojects) {
 
 //------------------------------------------------------------------ hit
 
-bool
-Compound::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-  double		t;
-  Normal		normal;
-  Point3D		local_hit_point;
-  bool		hit 		= false;
-        tmin 		= kHugeValue;
-  int 		num_objects	= objects.size();
+bool Compound::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+  double t;
+  Normal normal;
+  Point3D local_hit_point;
+  bool hit = false;
+  tmin = kHugeValue;
+  int num_objects = objects.size();
 
   for (int j = 0; j < num_objects; j++)
     if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
-      hit				= true;
-      tmin 			= t;
-      material_ptr	= objects[j]->get_material();	// lhs is GeometricObject::material_ptr
-      normal			= sr.normal;
-      local_hit_point	= sr.local_hit_point;
+      hit = true;
+      tmin = t;
+      material_ptr = objects[j]->get_material();	// lhs is GeometricObject::material_ptr
+      normal = sr.normal;
+      local_hit_point = sr.local_hit_point;
     }
 
   if (hit) {
-    sr.t				= tmin;
-    sr.normal 			= normal;
-    sr.local_hit_point 	= local_hit_point;
+    sr.t = tmin;
+    sr.normal = normal;
+    sr.local_hit_point = local_hit_point;
   }
 
-  return (hit);
+  return hit;
+}
+
+bool Compound::shadow_hit(const Ray& ray, float& tmin) const {
+  float t = kHugeValue;
+  tmin = kHugeValue;
+  int num_objects = objects.size();
+
+  bool hit = false;
+  for (int j = 0; j < num_objects; j++)
+    if (objects[j]->shadow_hit(ray, t) && (t < tmin)) {
+      tmin = t;
+      hit = true;
+    }
+
+  return hit;
 }

@@ -36,11 +36,11 @@ Hammersley::Hammersley(const Hammersley& h)
 Hammersley&
 Hammersley::operator= (const Hammersley& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Sampler::operator=(rhs);
 
-  return (*this);
+  return *this;
 }
 
 

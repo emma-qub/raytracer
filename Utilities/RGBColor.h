@@ -73,7 +73,7 @@ RGBColor::operator+ (const RGBColor& c) const {
 inline RGBColor& 
 RGBColor::operator+= (const RGBColor& c) {
 	r += c.r; g += c.g; b += c.b;
-    return (*this);
+    return *this;
 }
 
 
@@ -92,7 +92,7 @@ RGBColor::operator* (const float a) const {
 inline RGBColor& 
 RGBColor::operator*= (const float a) {
 	r *= a; g *= a; b *= a;
-	return (*this);
+	return *this;
 }
 
 
@@ -111,7 +111,7 @@ RGBColor::operator/ (const float a) const {
 inline RGBColor& 
 RGBColor::operator/= (const float a) {	
 	r /= a; g /= a; b /= a;
-	return (*this);
+	return *this;
 }
 
 

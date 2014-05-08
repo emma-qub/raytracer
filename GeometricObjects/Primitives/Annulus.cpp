@@ -76,3 +76,19 @@ bool Annulus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
   return false;
 }
+
+bool Annulus::shadow_hit(const Ray& ray, float& tmin) const {
+  float t = (center - ray.o) * normal / (ray.d * normal);
+
+  if (t <= kEpsilon)
+    return false;
+
+  Point3D p = ray.o + t * ray.d;
+
+  if (i_r_squared < p.d_squared(center) && p.d_squared(center) < o_r_squared) {
+    tmin = t;
+    return true;
+  }
+
+  return false;
+}

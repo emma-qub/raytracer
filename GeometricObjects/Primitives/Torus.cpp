@@ -9,10 +9,10 @@ Torus::Torus() :
   bbox(-a - b, a + b, -b, b, -a - b, a + b) {
 }
 
-Torus::Torus(const double a, const double b):
+Torus::Torus(const double i_r, const double o_r):
   GeometricObject(),
-  a(a),
-  b(b),
+  a(i_r),
+  b(o_r),
   bbox(-a - b, a + b, -b, b, -a - b, a + b) {
 }
 
@@ -31,15 +31,15 @@ Torus::~Torus(void) {
   delete material_ptr;
 }
 
-Torus& Torus::operator=(const Torus& torus) {
-  if (this == &torus)
+Torus& Torus::operator=(const Torus& rhs) {
+  if (this == &rhs)
     return *this;
 
-  GeometricObject::operator=(torus);
+  GeometricObject::operator=(rhs);
 
-  a = torus.a;
-  b = torus.b;
-  bbox = torus.bbox;
+  a = rhs.a;
+  b = rhs.b;
+  bbox = rhs.bbox;
 
   return *this;
 }
@@ -74,8 +74,8 @@ bool Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   // define the coefficients of the quartic equation
 
   double sum_d_sqrd 	= d1 * d1 + d2 * d2 + d3 * d3;
-  double e			= x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
-  double f			= x1 * d1 + y1 * d2 + z1 * d3;
+  double e            = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
+  double f            = x1 * d1 + y1 * d2 + z1 * d3;
   double four_a_sqrd	= 4.0 * a * a;
 
   coeffs[0] = e * e - four_a_sqrd * (b * b - y1 * y1); 	// constant term
@@ -88,11 +88,11 @@ bool Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
   int num_real_roots = SolveQuartic(coeffs, roots);
 
-  bool	intersected = false;
-  double 	t 		 	= kHugeValue;
+  bool intersected = false;
+  double t = kHugeValue;
 
   if (num_real_roots == 0)  // ray misses the torus
-    return(false);
+    return false;
 
   // find the smallest root greater than kEpsilon, if any
   // the roots array is not sorted
@@ -105,11 +105,61 @@ bool Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     }
 
   if(!intersected)
-    return (false);
+    return false;
 
-  tmin 			 	= t;
-  sr.local_hit_point 	= ray.o + t * ray.d;
-  sr.normal 		 	= compute_normal(sr.local_hit_point);
+  tmin = t;
+  sr.local_hit_point = ray.o + t * ray.d;
+  sr.normal = compute_normal(sr.local_hit_point);
 
+  return true;
+}
+
+bool Torus::shadow_hit(const Ray& ray, float& tmin) const {
+  if (!bbox.hit(ray))
+    return false;
+
+  double x1 = ray.o.x; double y1 = ray.o.y; double z1 = ray.o.z;
+  double d1 = ray.d.x; double d2 = ray.d.y; double d3 = ray.d.z;
+
+  double coeffs[5];	// coefficient array for the quartic equation
+  double roots[4];	// solution array for the quartic equation
+
+  // define the coefficients of the quartic equation
+
+  double sum_d_sqrd 	= d1 * d1 + d2 * d2 + d3 * d3;
+  double e            = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
+  double f            = x1 * d1 + y1 * d2 + z1 * d3;
+  double four_a_sqrd	= 4.0 * a * a;
+
+  coeffs[0] = e * e - four_a_sqrd * (b * b - y1 * y1); 	// constant term
+  coeffs[1] = 4.0 * f * e + 2.0 * four_a_sqrd * y1 * d2;
+  coeffs[2] = 2.0 * sum_d_sqrd * e + 4.0 * f * f + four_a_sqrd * d2 * d2;
+  coeffs[3] = 4.0 * sum_d_sqrd * f;
+  coeffs[4] = sum_d_sqrd * sum_d_sqrd;  					// coefficient of t^4
+
+  // find roots of the quartic equation
+
+  int num_real_roots = SolveQuartic(coeffs, roots);
+
+  bool intersected = false;
+  double t = kHugeValue;
+
+  if (num_real_roots == 0)  // ray misses the torus
+    return false;
+
+  // find the smallest root greater than kEpsilon, if any
+  // the roots array is not sorted
+
+  for (int j = 0; j < num_real_roots; j++)
+    if (roots[j] > kEpsilon) {
+      intersected = true;
+      if (roots[j] < t)
+        t = roots[j];
+    }
+
+  if(!intersected)
+    return false;
+
+  tmin = t;
   return true;
 }

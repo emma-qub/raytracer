@@ -32,7 +32,7 @@ ThickRing* ThickRing::clone (void) const {
 
 ThickRing& ThickRing::operator=(const ThickRing& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Compound::operator= (rhs);
 

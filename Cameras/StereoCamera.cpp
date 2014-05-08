@@ -29,7 +29,7 @@ StereoCamera* StereoCamera::clone(void) const {
 
 StereoCamera& StereoCamera::operator=(const StereoCamera& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Camera::operator= (rhs);
 

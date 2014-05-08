@@ -20,10 +20,11 @@ public:
   virtual ~Light(void);
 
   virtual Vector3D get_direction(ShadeRec& sr) = 0;
-
   virtual RGBColor L(ShadeRec& sr);
+  virtual bool in_shadow(const Ray& ray, const ShadeRec& sr) const;
 
   void set_shadows(bool b);
+  bool casts_shadows(void) const;
 
 protected:
     bool shadows;
@@ -31,6 +32,10 @@ protected:
 
 inline void Light::set_shadows(bool b) {
   shadows = b;
+}
+
+inline bool Light::casts_shadows(void) const {
+  return shadows;
 }
 
 #endif

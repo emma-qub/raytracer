@@ -10,7 +10,8 @@ Light::Light(void):
 
 // ---------------------------------------------------------------------- dopy constructor
 
-Light::Light(const Light& /*ls*/) {
+Light::Light(const Light& ls):
+  shadows(ls.shadows) {
 }
 
 
@@ -18,9 +19,11 @@ Light::Light(const Light& /*ls*/) {
 
 Light& Light::operator= (const Light& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
-  return (*this);
+  shadows = rhs.shadows;
+
+  return *this;
 }
 
 
@@ -36,4 +39,8 @@ Light::~Light(void) {
 
 RGBColor Light::L(ShadeRec& /*s*/) {
   return (black);
+}
+
+bool Light::in_shadow(const Ray& /*ray*/, const ShadeRec& /*sr*/) const {
+  return false;
 }

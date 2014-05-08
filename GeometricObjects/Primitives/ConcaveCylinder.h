@@ -8,17 +8,15 @@
 class ConcaveCylinder: public GeometricObject {
 
 public:
-
   ConcaveCylinder(void);
   ConcaveCylinder(const double bottom, const double top, const double radius);
   ConcaveCylinder(const ConcaveCylinder& cp);
-
   virtual ~ConcaveCylinder(void);
-
   virtual ConcaveCylinder* clone(void) const;
   ConcaveCylinder& operator= (const ConcaveCylinder& rhs);
 
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+  virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
 public:
   double y0;         // bottom y value

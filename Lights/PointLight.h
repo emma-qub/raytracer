@@ -14,6 +14,7 @@ public:
 
   virtual Vector3D get_direction(ShadeRec& sr);
   virtual RGBColor L(ShadeRec& sr);
+  virtual bool in_shadow(const Ray& ray, const ShadeRec& sr) const;
 
   void scale_radiance(float radiance);
   void set_location(float x, float y, float z);

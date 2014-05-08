@@ -18,7 +18,7 @@ Spherical::Spherical(const Spherical& s):
 
 Spherical& Spherical::operator=(const Spherical& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Camera::operator=(rhs);
 

@@ -27,7 +27,7 @@ SolidCone* SolidCone::clone (void) const {
 
 SolidCone& SolidCone::operator=(const SolidCone& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Compound::operator= (rhs);
 

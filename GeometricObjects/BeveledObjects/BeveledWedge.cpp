@@ -454,7 +454,7 @@ BeveledWedge::clone (void) const {
 BeveledWedge&
 BeveledWedge::operator= (const BeveledWedge& rhs) {
   if (this == &rhs)
-    return (*this);
+    return *this;
 
   Compound::operator=(rhs);
 
@@ -493,5 +493,5 @@ BeveledWedge::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   if (bbox.hit(ray))
     return (Compound::hit(ray, tmin, sr));
   else
-    return (false);
+    return false;
 }
