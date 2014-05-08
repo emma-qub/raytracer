@@ -20,7 +20,7 @@ Compound::Compound (void):
 
 Compound*
 Compound::clone(void) const {
-  return (new Compound(*this));
+  return new Compound(*this);
 }
 
 

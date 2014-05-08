@@ -51,7 +51,7 @@ Jittered::operator= (const Jittered& rhs) {
 
 Jittered*
 Jittered::clone(void) const {
-  return (new Jittered(*this));
+  return new Jittered(*this);
 }
 
 // ---------------------------------------------------------------- destructor

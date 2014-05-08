@@ -36,7 +36,7 @@ Phong::Phong(const Phong& p):
 // ---------------------------------------------------------------- clone
 
 Material* Phong::clone(void) const {
-  return (new Phong(*this));
+  return new Phong(*this);
 }
 
 

@@ -27,7 +27,7 @@ Plastic::Plastic(const Plastic& p):
 }
 
 Material* Plastic::clone(void) const {
-  return (new Plastic(*this));
+  return new Plastic(*this);
 }
 
 Plastic& Plastic::operator= (const Plastic& rhs) {

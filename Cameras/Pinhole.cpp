@@ -28,7 +28,7 @@ Pinhole::Pinhole(const Pinhole& c)
 
 Camera*
 Pinhole::clone(void) const {
-  return (new Pinhole(*this));
+  return new Pinhole(*this);
 }
 
 
@@ -61,7 +61,7 @@ Pinhole::get_direction(const Point2D& p) const {
   Vector3D dir = p.x * u + p.y * v - d * w;
   dir.normalize();
 
-  return(dir);
+  return dir;
 }
 
 

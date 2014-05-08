@@ -23,7 +23,7 @@ Ambient::Ambient (const Ambient& a)
 
 Light*
 Ambient::clone(void) const {
-  return (new Ambient(*this));
+  return new Ambient(*this);
 }
 
 
@@ -52,7 +52,7 @@ Ambient::~Ambient (void) {}
 
 Vector3D
 Ambient::get_direction(ShadeRec& /*s*/) {
-  return (Vector3D(0.0));
+  return Vector3D(0.0);
 }
 
 
@@ -60,7 +60,7 @@ Ambient::get_direction(ShadeRec& /*s*/) {
 
 RGBColor
 Ambient::L(ShadeRec& /*sr*/) {
-  return (ls * color);
+  return ls * color;
 }
 
 

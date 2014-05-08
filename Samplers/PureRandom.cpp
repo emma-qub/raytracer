@@ -43,7 +43,7 @@ PureRandom::operator= (const PureRandom& rhs) {
 
 PureRandom*
 PureRandom::clone(void) const {
-  return (new PureRandom(*this));
+  return new PureRandom(*this);
 }
 
 // ---------------------------------------------------------------- destructor

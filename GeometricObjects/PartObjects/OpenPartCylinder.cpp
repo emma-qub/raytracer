@@ -51,7 +51,7 @@ OpenPartCylinder::OpenPartCylinder(const double bottom, const double top, const 
 // ---------------------------------------------------------------- clone
 
 OpenPartCylinder* OpenPartCylinder::clone(void) const {
-  return (new OpenPartCylinder(*this));
+  return new OpenPartCylinder(*this);
 }
 
 

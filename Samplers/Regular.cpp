@@ -45,7 +45,7 @@ Regular::operator= (const Regular& rhs)	{
 
 Regular*
 Regular::clone(void) const {
-  return (new Regular(*this));
+  return new Regular(*this);
 }
 
 // ---------------------------------------------------------------- destructor

@@ -48,7 +48,7 @@ Hammersley::operator= (const Hammersley& rhs) {
 
 Hammersley*
 Hammersley::clone(void) const {
-  return (new Hammersley(*this));
+  return new Hammersley(*this);
 }
 
 
@@ -70,7 +70,7 @@ Hammersley::phi(int j) {
     f *= 0.5;
   }
 
-  return (x);
+  return x;
 }
 
 

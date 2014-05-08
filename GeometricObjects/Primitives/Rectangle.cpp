@@ -137,9 +137,9 @@ Rectangle::~Rectangle (void) {
 BBox Rectangle::get_bounding_box(void) {
   double delta = 0.0001;
 
-  return(BBox(min(p0.x, p0.x + a.x + b.x) - delta, max(p0.x, p0.x + a.x + b.x) + delta,
+  return BBox(min(p0.x, p0.x + a.x + b.x) - delta, max(p0.x, p0.x + a.x + b.x) + delta,
         min(p0.y, p0.y + a.y + b.y) - delta, max(p0.y, p0.y + a.y + b.y) + delta,
-        min(p0.z, p0.z + a.z + b.z) - delta, max(p0.z, p0.z + a.z + b.z) + delta));
+        min(p0.z, p0.z + a.z + b.z) - delta, max(p0.z, p0.z + a.z + b.z) + delta);
 }
 
 
@@ -213,7 +213,7 @@ Rectangle::set_sampler(Sampler* sampler) {
 Point3D
 Rectangle::sample(void) {
   Point2D sample_point = sampler_ptr->sample_unit_square();
-  return (p0 + sample_point.x * a + sample_point.y * b);
+  return p0 + sample_point.x * a + sample_point.y * b;
 }
 
 
@@ -221,7 +221,7 @@ Rectangle::sample(void) {
 
 Normal
 Rectangle::get_normal(const Point3D& /*p*/) {
-  return (normal);
+  return normal;
 }
 
 
@@ -229,5 +229,5 @@ Rectangle::get_normal(const Point3D& /*p*/) {
 
 float
 Rectangle::pdf(ShadeRec& /*sr*/) {
-  return (inv_area);
+  return inv_area;
 }

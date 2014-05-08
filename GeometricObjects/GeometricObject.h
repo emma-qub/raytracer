@@ -42,7 +42,7 @@ protected:
 
 inline Material*
 GeometricObject::get_material(void) const {
-  return (material_ptr);
+  return material_ptr;
 }
 
 inline BBox GeometricObject::get_bounding_box(void) const {

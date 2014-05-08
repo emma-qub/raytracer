@@ -23,7 +23,7 @@ Lambertian::Lambertian(const Lambertian& lamb)
 
 Lambertian*
 Lambertian::clone(void) const {
-  return (new Lambertian(*this));
+  return new Lambertian(*this);
 }
 
 
@@ -52,7 +52,7 @@ Lambertian::operator= (const Lambertian& rhs) {
 
 RGBColor
 Lambertian::f(const ShadeRec& /*sr*/, const Vector3D& /*wo*/, const Vector3D& /*wi*/) const {
-  return (kd * cd * invPI);
+  return kd * cd * invPI;
 }
 
 
@@ -60,7 +60,7 @@ Lambertian::f(const ShadeRec& /*sr*/, const Vector3D& /*wo*/, const Vector3D& /*
 
 RGBColor
 Lambertian::rho(const ShadeRec& /*sr*/, const Vector3D& /*wo*/) const {
-  return (kd * cd);
+  return kd * cd;
 }
 
 

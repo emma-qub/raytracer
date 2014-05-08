@@ -24,7 +24,7 @@ Directional::Directional(const Directional& dl)
 
 Light*
 Directional::clone(void) const {
-  return (new Directional(*this));
+  return new Directional(*this);
 }
 
 
@@ -56,14 +56,14 @@ Directional::~Directional(void) {}
 
 Vector3D
 Directional::get_direction(ShadeRec& /*sr*/) {
-  return (dir);
+  return dir;
 }
 
 // ------------------------------------------------------------------------------  L
 
 RGBColor
 Directional::L(ShadeRec& /*s*/) {
-  return (ls * color);
+  return ls * color;
 }
 
 

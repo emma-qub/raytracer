@@ -488,7 +488,7 @@ BBox BeveledWedge::get_bounding_box(void) {
 
 bool BeveledWedge::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   if (bbox.hit(ray))
-    return (Compound::hit(ray, tmin, sr));
+    return Compound::hit(ray, tmin, sr);
   else
     return false;
 }
@@ -498,7 +498,7 @@ bool BeveledWedge::shadow_hit(const Ray& ray, float& tmin) const {
     return false;
 
   if (bbox.hit(ray))
-    return (Compound::shadow_hit(ray, tmin));
+    return Compound::shadow_hit(ray, tmin);
   else
     return false;
 }

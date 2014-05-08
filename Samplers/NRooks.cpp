@@ -51,7 +51,7 @@ NRooks::operator= (const NRooks& rhs) {
 
 NRooks*
 NRooks::clone(void) const {
-  return (new NRooks(*this));
+  return new NRooks(*this);
 }
 
 // ---------------------------------------------------------------- destructor

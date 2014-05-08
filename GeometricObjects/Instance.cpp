@@ -57,7 +57,7 @@ Instance::Instance (const Instance& instance)
 
 Instance*
 Instance::clone(void) const {
-  return (new Instance(*this));
+  return new Instance(*this);
 }
 
 
@@ -212,14 +212,14 @@ Instance::compute_bounding_box(void) {
 
 BBox
 Instance::get_bounding_box(void) {
-  return (bbox);
+  return bbox;
 }
 
 //---------------------------------------------------------------- get_material
 
 Material*
 Instance::get_material(void) const {
-  return (material_ptr);
+  return material_ptr;
 }
 
 

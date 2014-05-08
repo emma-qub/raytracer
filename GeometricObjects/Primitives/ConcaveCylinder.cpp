@@ -40,7 +40,7 @@ ConcaveCylinder::ConcaveCylinder(const ConcaveCylinder& c):
 // ---------------------------------------------------------------- clone
 
 ConcaveCylinder* ConcaveCylinder::clone(void) const {
-  return (new ConcaveCylinder (*this));
+  return new ConcaveCylinder (*this);
 }
 
 
@@ -57,7 +57,7 @@ ConcaveCylinder& ConcaveCylinder::operator= (const ConcaveCylinder& rhs) {
   radius 		= rhs.radius;
   inv_radius 	= rhs.inv_radius;
 
-  return (*this) ;
+  return *this;
 }
 
 

@@ -82,7 +82,7 @@ class Vector3D {
 
 inline Vector3D
 Vector3D::operator- (void) const {
-  return (Vector3D(-x, -y, -z));
+  return Vector3D(-x, -y, -z);
 }
 
 
@@ -91,7 +91,7 @@ Vector3D::operator- (void) const {
 
 inline double
 Vector3D::len_squared(void) {
-  return (x * x + y * y + z * z);
+  return x * x + y * y + z * z;
 }
 
 
@@ -100,7 +100,7 @@ Vector3D::len_squared(void) {
 
 inline Vector3D
 Vector3D::operator* (const double a) const {
-  return (Vector3D(x * a, y * a, z * a));
+  return Vector3D(x * a, y * a, z * a);
 }
 
 // ----------------------------------------------------------------------- operator/
@@ -108,7 +108,7 @@ Vector3D::operator* (const double a) const {
 
 inline Vector3D
 Vector3D::operator/ (const double a) const {
-  return (Vector3D(x / a, y / a, z / a));
+  return Vector3D(x / a, y / a, z / a);
 }
 
 
@@ -117,7 +117,7 @@ Vector3D::operator/ (const double a) const {
 
 inline Vector3D
 Vector3D::operator+ (const Vector3D& v) const {
-  return (Vector3D(x + v.x, y + v.y, z + v.z));
+  return Vector3D(x + v.x, y + v.y, z + v.z);
 }
 
 
@@ -126,7 +126,7 @@ Vector3D::operator+ (const Vector3D& v) const {
 
 inline Vector3D
 Vector3D::operator- (const Vector3D& v) const {
-  return (Vector3D(x - v.x, y - v.y, z - v.z));
+  return Vector3D(x - v.x, y - v.y, z - v.z);
 }
 
 
@@ -135,7 +135,7 @@ Vector3D::operator- (const Vector3D& v) const {
 
 inline double
 Vector3D::operator* (const Vector3D& v) const {
-  return (x * v.x + y * v.y + z * v.z);
+  return x * v.x + y * v.y + z * v.z;
 }
 
 
@@ -144,7 +144,7 @@ Vector3D::operator* (const Vector3D& v) const {
 
 inline Vector3D
 Vector3D::operator^ (const Vector3D& v) const {
-  return (Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x));
+  return Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
 }
 
 
@@ -170,7 +170,7 @@ operator* (const double a, const Vector3D& v);
 
 inline Vector3D
 operator* (const double a, const Vector3D& v) {
-  return (Vector3D(a * v.x, a * v.y, a * v.z));
+  return Vector3D(a * v.x, a * v.y, a * v.z);
 }
 
 

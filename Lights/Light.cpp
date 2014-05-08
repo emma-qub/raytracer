@@ -38,7 +38,7 @@ Light::~Light(void) {
 // returns the radiance
 
 RGBColor Light::L(ShadeRec& /*s*/) {
-  return (black);
+  return black;
 }
 
 bool Light::in_shadow(const Ray& /*ray*/, const ShadeRec& /*sr*/) const {

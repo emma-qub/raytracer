@@ -64,7 +64,7 @@ Matrix::operator* (const Matrix& mat) const {
       product.m[x][y] = sum;
     }
 
-  return (product);
+  return product;
 }
 
 

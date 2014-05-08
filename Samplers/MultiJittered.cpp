@@ -54,7 +54,7 @@ MultiJittered::operator= (const MultiJittered& rhs)	{
 
 MultiJittered*
 MultiJittered::clone(void) const {
-  return (new MultiJittered(*this));
+  return new MultiJittered(*this);
 }
 
 // ---------------------------------------------------------------- destructor

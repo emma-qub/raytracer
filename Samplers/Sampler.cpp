@@ -94,7 +94,7 @@ Sampler::set_num_sets(const int np) {
 
 int
 Sampler::get_num_samples(void) {
-  return (num_samples);
+  return num_samples;
 }
 
 
@@ -259,7 +259,7 @@ Sampler::sample_unit_square(void) {
   if (count % num_samples == 0)  									// start of a new pixel
     jump = (rand_int() % num_sets) * num_samples;				// random index jump initialised to zero in constructor
 
-  return (samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+  return samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
 
@@ -275,7 +275,7 @@ Sampler::sample_unit_square(void) {
   if (count % num_samples == 0)  									// start of a new pixel
     jump = (rand_int() % num_sets) * num_samples;				// random index jump initialised to zero in constructor
 
-  return (samples[jump + count++ % num_samples]);
+  return samples[jump + count++ % num_samples]);
 }
 
 */
@@ -289,7 +289,7 @@ Sampler::sample_unit_square(void) {
 
 Point2D
 Sampler::sample_unit_square(void) {
-  return (samples[count++ % (num_samples * num_sets)]);
+  return samples[count++ % (num_samples * num_sets)]);
 }
 
 */
@@ -303,7 +303,7 @@ Sampler::sample_unit_disk(void) {
   if (count % num_samples == 0)  									// start of a new pixel
     jump = (rand_int() % num_sets) * num_samples;
 
-  return (disk_samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+  return disk_samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
 
@@ -315,7 +315,7 @@ Sampler::sample_hemisphere(void) {
   if (count % num_samples == 0)  									// start of a new pixel
     jump = (rand_int() % num_sets) * num_samples;
 
-  return (hemisphere_samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+  return hemisphere_samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
 
@@ -327,7 +327,7 @@ Sampler::sample_sphere(void) {
   if (count % num_samples == 0)  									// start of a new pixel
     jump = (rand_int() % num_sets) * num_samples;
 
-  return (sphere_samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+  return sphere_samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
 
@@ -338,5 +338,5 @@ Sampler::sample_sphere(void) {
 
 Point2D
 Sampler::sample_one_set(void) {
-  return(samples[count++ % num_samples]);
+  return samples[count++ % num_samples];
 }

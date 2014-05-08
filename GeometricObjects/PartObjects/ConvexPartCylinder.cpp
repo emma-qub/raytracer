@@ -51,7 +51,7 @@ ConvexPartCylinder::ConvexPartCylinder(const double bottom, const double top, co
 // ---------------------------------------------------------------- clone
 
 ConvexPartCylinder* ConvexPartCylinder::clone(void) const {
-  return (new ConvexPartCylinder(*this));
+  return new ConvexPartCylinder(*this);
 }
 
 

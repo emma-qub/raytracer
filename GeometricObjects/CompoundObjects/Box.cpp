@@ -132,7 +132,7 @@ Box::Box (const Box& bb):
 }
 
 Box* Box::clone(void) const {
-  return(new Box(*this));
+  return new Box(*this);
 }
 
 Box& Box::operator= (const Box& rhs) {
@@ -167,7 +167,7 @@ bool Box::shadow_hit(const Ray& ray, float& tmin) const {
     return false;
 
   if (bbox.hit(ray))
-    return (Compound::shadow_hit(ray, tmin));
+    return Compound::shadow_hit(ray, tmin);
   else
     return false;
 }

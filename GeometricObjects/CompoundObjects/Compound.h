@@ -43,7 +43,7 @@ private:
 // ------------------------------------------------------------------------------- get_num_objects
 
 inline int Compound::get_num_objects(void) {
-  return (objects.size());
+  return objects.size();
 }
 
 #endif

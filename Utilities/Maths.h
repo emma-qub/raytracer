@@ -60,7 +60,7 @@ SolveQuartic(double c[5], double s[4]);
 
 inline double
 min(double x0, double x1) {
-  return ((x0 < x1) ? x0 : x1);
+  return (x0 < x1) ? x0 : x1;
 }
 
 
@@ -68,7 +68,7 @@ min(double x0, double x1) {
 
 inline double
 max(double x0, double x1) {
-  return ((x0 > x1) ? x0 : x1);
+  return (x0 > x1) ? x0 : x1;
 }
 
 
@@ -77,7 +77,7 @@ max(double x0, double x1) {
 
 inline int
 rand_int(void) {
-  return(rand());
+  return rand();
 }
 
 
@@ -85,7 +85,7 @@ rand_int(void) {
 
 inline float
 rand_float(void) {
-  return((float)rand_int() * invRAND_MAX);
+  return (float)rand_int() * invRAND_MAX;
 }
 
 
@@ -105,14 +105,14 @@ set_rand_seed(const int seed) {
 
 inline float
 rand_float(int l, float h) {
-  return (rand_float() * (h - l) + l);
+  return rand_float() * (h - l) + l;
 }
 
 // ---------------------------------------------------- rand_int with arguments
 
 inline int
 rand_int(int l, int h) {
-  return ((int) (rand_float(0, h - l + 1) + l));
+  return (int) (rand_float(0, h - l + 1) + l);
 }
 
 
@@ -120,7 +120,7 @@ rand_int(int l, int h) {
 
 inline double
 clamp(const double x, const double min, const double max) {
-  return (x < min ? min : (x > max ? max : x));
+  return x < min ? min : (x > max ? max : x);
 }
 
 #endif

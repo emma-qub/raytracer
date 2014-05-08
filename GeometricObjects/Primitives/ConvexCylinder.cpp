@@ -46,7 +46,7 @@ ConvexCylinder::ConvexCylinder(const ConvexCylinder& c):
 // ---------------------------------------------------------------- clone
 
 ConvexCylinder* ConvexCylinder::clone(void) const {
-  return (new ConvexCylinder (*this));
+  return new ConvexCylinder (*this);
 }
 
 
