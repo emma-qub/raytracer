@@ -33,7 +33,7 @@ void World::build(void) {
 
     tracer_ptr = new RayCast(this);
 
-    PureRandom* sampler_ptr = new PureRandom(num_samples);
+    MultiJittered* sampler_ptr = new MultiJittered(num_samples);
 
     AmbientOccluder* occluder_ptr = new AmbientOccluder;
     occluder_ptr->scale_radiance(1.0);
