@@ -94,7 +94,7 @@ Phong::shade(ShadeRec& sr) {
     if (ndotwi > 0.0) {
       bool in_shadow = false;
 
-      if (sr.w.lights[j]->casts_shadows()) {
+      if (shadows && sr.w.lights[j]->casts_shadows()) {
         Ray shadowsRay(sr.hit_point, wi);
         in_shadow = sr.w.lights[j]->in_shadow(shadowsRay, sr);
       }

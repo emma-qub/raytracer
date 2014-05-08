@@ -19,7 +19,7 @@
 #include <iostream>
 
 void World::build(void) {
-  int num_samples = 16;
+  int num_samples = 25;
 
     vp.set_hres(600);
     vp.set_vres(400);
@@ -28,77 +28,117 @@ void World::build(void) {
     tracer_ptr = new RayCast(this);
 
     Pinhole* camera_ptr = new Pinhole;
-    camera_ptr->set_eye(2, 2.5, 15);
-    camera_ptr->set_lookat(0 + 3, 2.5, 0);
-    camera_ptr->set_view_distance(700);
+
+    // for Figure 16.5(a)
+
+    camera_ptr->set_eye(350, 1000, 500);
+    camera_ptr->set_lookat(-175, 550, -40);
+    camera_ptr->set_view_distance(350);
+
+  /*
+
+    // for Figure 16.5(b)
+
+    camera_ptr->set_eye(1500, 750, 250);
+    camera_ptr->set_lookat(-50, 300, -600);
+    camera_ptr->set_view_distance(650);
+
+  */
+
     camera_ptr->compute_uvw();
     set_camera(camera_ptr);
 
-    Directional* light_ptr1 = new Directional();
-    light_ptr1->set_direction(200, 150, 125);
-    light_ptr1->scale_radiance(4.0);
-    light_ptr1->set_shadows(true);				// for Figure 16.1(b)
-    add_light(light_ptr1);
 
-    PointLight* light_ptr2 = new PointLight();
-    light_ptr2->set_location(-12, 15, 30);
-    light_ptr2->scale_radiance(4.0);
-    light_ptr2->set_shadows(true);				// for Figure 16.1(b)
-    add_light(light_ptr2);
+    PointLight* light_ptr = new PointLight;
+    light_ptr->set_location(1500, 750, 250);
+    light_ptr->scale_radiance(4.5);
+    light_ptr->set_shadows(true);
+    add_light(light_ptr);
 
-    // sphere
 
-    Matte* matte_ptr1 = new Matte();
-    matte_ptr1->set_ka(0.3);
-    matte_ptr1->set_kd(0.3);
-    matte_ptr1->set_cd(0.5, 0.6, 0);
+    // box materials
 
-    Sphere*	sphere_ptr1 = new Sphere(Point3D(0.0, 2.4, 0), 1.5);
-    sphere_ptr1->set_material(matte_ptr1->clone());
-    add_object(sphere_ptr1);
+    Matte* matte_ptr1 = new Matte;
+    matte_ptr1->set_cd(0, 0.5, 0.5);     // cyan
+    matte_ptr1->set_ka(0.4);
+    matte_ptr1->set_kd(0.5);
 
-    // box
+    Matte* matte_ptr2 = new Matte;
+    matte_ptr2->set_cd(1, 0, 0);     	  // red
+    matte_ptr2->set_ka(0.4);
+    matte_ptr2->set_kd(0.5);
 
-    Matte* matte_ptr2 = new Matte();
-    matte_ptr2->set_ka(0.2);
-    matte_ptr2->set_kd(0.3);
-    matte_ptr2->set_cd(0.8,0.5,0);
+    Matte* matte_ptr3 = new Matte;
+    matte_ptr3->set_cd(0.5, 0.6, 0);     // green
+    matte_ptr3->set_ka(0.4);
+    matte_ptr3->set_kd(0.5);
 
-    Box* box_ptr1 = new Box(Point3D(5.4, -0.5, -3), Point3D(7.5, 4.75, 0.60));
-    box_ptr1->set_material(matte_ptr2->clone());
-    add_object(box_ptr1);
 
-    // triangle
+    // Construct rows of boxes stored in a grid
 
-    Matte* matte_ptr3 = new Matte();
-    matte_ptr3->set_ka(0.35);
-    matte_ptr3->set_kd(0.50);
-    matte_ptr3->set_cd(0, 0.5, 0.5);      // cyan
+    //Grid* grid_ptr = new Grid;
 
-    Triangle* triangle_ptr1 = new Triangle(	Point3D(1.5, -0.5, 1.8), 		// front
-                        Point3D(7.5, -0.5, -9.00), 		// back
-                        Point3D(2.35, 5.8, 1.4));		// top
-    triangle_ptr1->set_material(matte_ptr3->clone());
-    add_object(triangle_ptr1);
+    // first row
 
-    // cylinder
+    int num_boxes = 11;
+    float wx = 50;
+    float wz = 50;
+    float h = 300;
+    float s = 100;
 
-    float bottom 	= -0.5;
-    float top 		= 1.0;
-    float radius 	= 1.0;
+    for (int j = 0; j < num_boxes; j++) {
+      Box* box_ptr = new Box(	Point3D(-wx, 0, -(j + 1) * wz - j * s),
+                  Point3D(0, h, - j * wz - j * s));
+      box_ptr->set_material(matte_ptr1->clone());
+      add_object(box_ptr);
+    //  grid_ptr->add_object(box_ptr);
+    }
 
-    SolidCylinder* cylinder_ptr = new SolidCylinder(bottom, top, radius);
-    cylinder_ptr->set_material(matte_ptr2->clone());
-    add_object(cylinder_ptr);
 
-    // ground plane
+    // second row
 
-    Matte* matte_ptr4 = new Matte();
-    matte_ptr4->set_ka(0.1);
-    matte_ptr4->set_kd(0.2);
-    matte_ptr4->set_cd(white);
+    h = 450;
 
-    Plane* plane_ptr = new Plane(Point3D(0, -0.5, 0), Normal(0, 1, 0));
-    plane_ptr->set_material(matte_ptr4->clone());
+    for (int j = 0; j <= num_boxes; j++) {
+      Box* box_ptr = new Box(	Point3D(-wx -wx - s, 0, -(j + 1) * wz - j * s),
+                  Point3D(-wx - s, h, - j * wz - j * s));
+      box_ptr->set_material(matte_ptr2->clone());
+      add_object(box_ptr);
+  //    grid_ptr->add_object(box_ptr);
+    }
+
+
+    // third row
+
+    h = 600;
+
+    for (int j = 0; j <= num_boxes; j++) {
+      Box* box_ptr = new Box(	Point3D(-wx - 2 * wx - 2 * s, 0, -(j + 1) * wz - j * s),
+                  Point3D(-2 * wx - 2 * s, h, - j * wz - j * s));
+      box_ptr->set_material(matte_ptr3->clone());
+      add_object(box_ptr);
+  //    grid_ptr->add_object(box_ptr);
+    }
+
+//    grid_ptr->setup_cells();
+//    add_object(grid_ptr);
+
+
+    // ground plane with checker
+
+    //Checker3D* checker_ptr = new Checker3D;
+    //Plane* checker_ptr = new Plane;
+    //checker_ptr->set_size(wx);
+    //checker_ptr->set_color1(0.7);
+    //checker_ptr->set_color2(white);
+
+    //SV_Matte* sv_matte_ptr1 = new SV_Matte;
+    Matte* sv_matte_ptr1 = new Matte;
+    sv_matte_ptr1->set_ka(0.15);
+    sv_matte_ptr1->set_kd(1.0);
+    //sv_matte_ptr1->set_cd(checker_ptr);
+    sv_matte_ptr1->set_cd(0.7);
+    Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Normal(0, 1, 0));
+    plane_ptr->set_material(sv_matte_ptr1->clone());
     add_object(plane_ptr);
 }

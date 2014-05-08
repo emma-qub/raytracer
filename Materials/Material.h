@@ -13,12 +13,19 @@ public:
   virtual Material* clone(void) const = 0;
   virtual ~Material(void);
 
+  void set_shadows(bool b);
+
   virtual RGBColor shade(ShadeRec& sr);
   virtual RGBColor area_light_shade(ShadeRec& sr);
   virtual RGBColor path_shade(ShadeRec& sr);
 
 protected:
   Material& operator= (const Material& rhs);
+  bool shadows;                               // cast shadows or not
 };
+
+inline void Material::set_shadows(bool b) {
+  shadows = b;
+}
 
 #endif

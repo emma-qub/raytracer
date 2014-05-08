@@ -2,21 +2,26 @@
 
 // ---------------------------------------------------------------- default constructor
 
-Material::Material(void) {}
+Material::Material(void):
+  shadows(true) {
+}
 
 
 // ---------------------------------------------------------------- copy constructor
 
-Material::Material(const Material& /*m*/) {}
+Material::Material(const Material& m):
+  shadows(m.shadows) {
+}
 
 
 
 // ---------------------------------------------------------------- assignment operator
 
-Material&
-Material::operator= (const Material& rhs) {
+Material& Material::operator= (const Material& rhs) {
   if (this == &rhs)
     return *this;
+
+  shadows = rhs.shadows;
 
   return *this;
 }
@@ -24,8 +29,8 @@ Material::operator= (const Material& rhs) {
 
 // ---------------------------------------------------------------- destructor
 
-Material::~Material(void)
-{}
+Material::~Material(void) {
+}
 
 
 // ---------------------------------------------------------------- shade
