@@ -52,7 +52,9 @@ class Instance: public GeometricObject {
 				
 		virtual bool 												 
 		hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
-		
+
+    virtual bool
+    shadow_hit(const Ray& ray, float& tmin) const;
 		
 		// affine tranformation functions
 		
