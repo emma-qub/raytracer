@@ -39,10 +39,10 @@ HEADERS += \
   GeometricObjects/Primitives/Rectangle.h \
   GeometricObjects/Primitives/Sphere.h \
   GeometricObjects/Primitives/Torus.h \
-#  GeometricObjects/Triangles/FlatMeshTriangle.h \
-#  GeometricObjects/Triangles/MeshTriangle.h \
-#  GeometricObjects/Triangles/SmoothMeshTriangle.h \
-#  GeometricObjects/Triangles/SmoothTriangle.h \
+  GeometricObjects/Triangles/FlatMeshTriangle.h \
+  GeometricObjects/Triangles/MeshTriangle.h \
+  GeometricObjects/Triangles/SmoothMeshTriangle.h \
+  GeometricObjects/Triangles/SmoothTriangle.h \
   GeometricObjects/Triangles/Triangle.h \
   Lights/Ambient.h \
   Lights/Directional.h \
@@ -123,10 +123,10 @@ SOURCES += \
   GeometricObjects/Primitives/Rectangle.cpp \
   GeometricObjects/Primitives/Sphere.cpp \
   GeometricObjects/Primitives/Torus.cpp \
-#  GeometricObjects/Triangles/FlatMeshTriangle.cpp \
-#  GeometricObjects/Triangles/MeshTriangle.cpp \
-#  GeometricObjects/Triangles/SmoothMeshTriangle.cpp \
-#  GeometricObjects/Triangles/SmoothTriangle.cpp \
+  GeometricObjects/Triangles/FlatMeshTriangle.cpp \
+  GeometricObjects/Triangles/MeshTriangle.cpp \
+  GeometricObjects/Triangles/SmoothMeshTriangle.cpp \
+  GeometricObjects/Triangles/SmoothTriangle.cpp \
   GeometricObjects/Triangles/Triangle.cpp \
   Lights/Ambient.cpp \
   Lights/Directional.cpp \
