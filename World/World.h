@@ -91,6 +91,7 @@ public:
   void set_camera(Camera* c_ptr);
 
   void build(void);
+  void build2(void);
 
   void render_scene(void) const;
 
