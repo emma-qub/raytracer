@@ -68,6 +68,17 @@ void AmbientOccluder::set_sampler(Sampler* s_ptr) {
   sampler_ptr->map_samples_to_hemisphere(1.0);
 }
 
+void AmbientOccluder::set_samples(int n) {
+  delete sampler_ptr;
+
+  if (n > 1)
+    sampler_ptr = new MultiJittered(n);
+  else
+    sampler_ptr = new PureRandom(1);
+
+  sampler_ptr->map_samples_to_hemisphere(1.0);
+}
+
 Vector3D AmbientOccluder::get_direction(ShadeRec& /*sr*/) {
     Point3D sp = sampler_ptr->sample_hemisphere();
   return sp.x * u + sp.y * v + sp.z * w;

@@ -4,6 +4,7 @@
 #include "Light.h"
 #include "Sampler.h"
 #include "PureRandom.h"
+#include "MultiJittered.h"
 #include "ShadeRec.h"
 #include "World.h"
 
@@ -17,12 +18,12 @@ public:
   virtual ~AmbientOccluder(void);
 
   void set_sampler(Sampler* s_ptr);
+  void set_samples(int n);
   void scale_radiance(const float b);
   void set_color(const float c);
   void set_color(const RGBColor& c);
   void set_color(const float r, const float g, const float b);
   void set_min_amount(float ma);
-  void set_samples(int n);
 
   virtual Vector3D get_direction(ShadeRec& sr);
   virtual RGBColor L(ShadeRec& sr);
@@ -57,14 +58,6 @@ inline void AmbientOccluder::set_color(const float r, const float g, const float
 
 inline void AmbientOccluder::set_min_amount(float ma) {
   min_amount = ma;
-}
-
-inline void AmbientOccluder::set_samples(int n) {
-  delete sampler_ptr;
-  if (n > 1)
-    sampler_ptr = new MultiJittered(n);
-  else
-    sampler_ptr = new PureRandom(1);
 }
 
 #endif // AMBIENTOCCLUDER_H
