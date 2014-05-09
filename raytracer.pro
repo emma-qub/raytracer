@@ -79,7 +79,8 @@ HEADERS += \
   World/World.h \
     Lights/AmbientOccluder.h \
     Utilities/Mesh.h \
-    Utilities/ply.h
+    Utilities/ply.h \
+    GeometricObjects/CompoundObjects/Grid.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -163,7 +164,8 @@ SOURCES += \
     Lights/AmbientOccluder.cpp \
     build/Build2.cpp \
     Utilities/Mesh.cpp \
-    Utilities/ply.c
+    Utilities/ply.c \
+    GeometricObjects/CompoundObjects/Grid.cpp
 
 INCLUDEPATH += \
   BRDFs \
