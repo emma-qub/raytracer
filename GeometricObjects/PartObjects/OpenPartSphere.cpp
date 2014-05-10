@@ -184,11 +184,11 @@ bool OpenPartSphere::shadow_hit(const Ray& ray, float& tmin) const {
     return false;
 
   double 		t;
-  Vector3D	temp 	= ray.o - center;
+  Vector3D  	temp 	= ray.o - center;
   double 		a 		= ray.d * ray.d;
   double 		b 		= 2.0 * temp * ray.d;
   double 		c 		= temp * temp - radius * radius;
-  double 		disc	= b * b - 4.0 * a * c;
+  double 		disc 	= b * b - 4.0 * a * c;
 
   if (disc < 0.0)
     return false;
@@ -198,15 +198,37 @@ bool OpenPartSphere::shadow_hit(const Ray& ray, float& tmin) const {
     t = (-b - e) / denom;    // smaller root
 
     if (t > kEpsilon) {
-      tmin = t;
-      return true;
+      Vector3D hit = ray.o + t * ray.d - center;
+
+      double phi = atan2(hit.x, hit.z);
+      if (phi < 0.0)
+        phi += TWO_PI;
+
+      if (hit.y <= radius * cos_theta_min &&
+        hit.y >= radius * cos_theta_max &&
+        phi >= phi_min && phi <= phi_max) {
+
+        tmin = t;
+        return true;
+      }
     }
 
     t = (-b + e) / denom;    // larger root
 
     if (t > kEpsilon) {
-      tmin = t;
-      return true;
+      Vector3D hit = ray.o + t * ray.d - center;
+
+      double phi = atan2(hit.x, hit.z);
+      if (phi < 0.0)
+        phi += TWO_PI;
+
+      if (hit.y <= radius * cos_theta_min &&
+        hit.y >= radius * cos_theta_max &&
+        phi >= phi_min && phi <= phi_max) {
+
+        tmin = t;
+        return true;
+      }
     }
   }
 

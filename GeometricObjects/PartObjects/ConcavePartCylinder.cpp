@@ -158,17 +158,14 @@ bool ConcavePartCylinder::shadow_hit(const Ray& ray, float& tmin) const {
 
   double t;
   double ox = ray.o.x;
-  double oy = ray.o.y;
   double oz = ray.o.z;
   double dx = ray.d.x;
-  double dy = ray.d.y;
   double dz = ray.d.z;
 
   double a = dx * dx + dz * dz;
   double b = 2.0 * (ox * dx + oz * dz);
   double c = ox * ox + oz * oz - radius * radius;
   double disc = b * b - 4.0 * a * c ;
-
 
   if (disc < 0.0)
     return false;
@@ -178,9 +175,13 @@ bool ConcavePartCylinder::shadow_hit(const Ray& ray, float& tmin) const {
     t = (-b - e) / denom;    // smaller root
 
     if (t > kEpsilon) {
-      double yhit = oy + t * dy;
+      Vector3D hit = ray.o + t * ray.d;
 
-      if (yhit > y0 && yhit < y1) {
+      double phi = atan2(hit.x, hit.z);
+      if (phi < 0.0)
+        phi += TWO_PI;
+
+      if (y0 <= hit.y && hit.y <= y1 && phi_min <= phi && phi <= phi_max) {
         tmin = t;
         return true;
       }
@@ -189,9 +190,13 @@ bool ConcavePartCylinder::shadow_hit(const Ray& ray, float& tmin) const {
     t = (-b + e) / denom;    // larger root
 
     if (t > kEpsilon) {
-      double yhit = oy + t * dy;
+      Vector3D hit = ray.o + t * ray.d;
 
-      if (yhit > y0 && yhit < y1) {
+      double phi = atan2(hit.x, hit.z);
+      if (phi < 0.0)
+        phi += TWO_PI;
+
+      if (y0 <= hit.y && hit.y <= y1 && phi_min <= phi && phi <= phi_max) {
         tmin = t;
         return true;
       }

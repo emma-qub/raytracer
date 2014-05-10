@@ -78,11 +78,6 @@ bool OpenCone::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         sr.normal = Normal(hr * (ox + t * dx), oy + t * dy - height, hr * (oz + t * dz));
         sr.normal.normalize();
 
-        // test for hitting from inside
-
-        if (-ray.d * sr.normal < 0.0)
-          sr.normal = -sr.normal;
-
         sr.local_hit_point = ray.o + tmin * ray.d;
 
         return true;
