@@ -55,6 +55,7 @@
 #include "BeveledCylinder.h"
 #include "Triangle.h"
 #include "FlatRimmedBowl.h"
+#include "RoundRimmedBowl.h"
 #include "Ray.h"
 #include "SingleSphere.h"
 

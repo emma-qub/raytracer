@@ -15,11 +15,6 @@ public:
 
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;
-
-private:
-  double inner_radius; 	// inner radius
-  double outer_radius;	// outer radius
-  Point3D center;       // center
 };
 
 #endif // FLATRIMMEDBOWL_H

@@ -83,7 +83,8 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    GeometricObjects/CompoundObjects/FlatRimmedBowl.h
+    GeometricObjects/CompoundObjects/FlatRimmedBowl.h \
+    GeometricObjects/CompoundObjects/RoundRimmedBowl.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -171,7 +172,8 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp
+    GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp \
+    GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp
 
 INCLUDEPATH += \
   BRDFs \
