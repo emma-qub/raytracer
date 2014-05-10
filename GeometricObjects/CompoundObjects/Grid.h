@@ -48,7 +48,7 @@ class Grid: public Compound {
     get_bounding_box(void);
 
     void
-    read_flat_triangles(char* file_name);
+    read_flat_triangles(const char* file_name);
 
     void
     read_smooth_triangles(char* file_name);
@@ -59,8 +59,8 @@ class Grid: public Compound {
     void
     tessellate_smooth_sphere(const int horizontal_steps, const int vertical_steps);
 
-    virtual bool
-    hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+    virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+    virtual bool shadow_hit(const Ray& ray, float& t) const;
 
     void
     setup_cells(void);
@@ -86,7 +86,7 @@ class Grid: public Compound {
     find_max_bounds(void);
 
     void
-    read_ply_file(char* file_name, const int triangle_type);
+    read_ply_file(const char* file_name, const int triangle_type);
 
     void
     compute_mesh_normals(void);

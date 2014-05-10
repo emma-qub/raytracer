@@ -3,7 +3,8 @@ HEADERS += \
   BRDFs/GlossySpecular.h \
   BRDFs/Lambertian.h \
   Cameras/Camera.h \
-  Cameras/Fisheye.h \
+  Cameras/Fisheye.h\
+#  Cameras/Orthographic.h \
   Cameras/Pinhole.h \
   Cameras/Spherical.h \
   Cameras/StereoCamera.h \
@@ -15,6 +16,7 @@ HEADERS += \
   GeometricObjects/BeveledObjects/BeveledWedge.h \
   GeometricObjects/CompoundObjects/Box.h \
   GeometricObjects/CompoundObjects/Compound.h \
+  GeometricObjects/CompoundObjects/Grid.h \
   GeometricObjects/CompoundObjects/SolidCone.h \
   GeometricObjects/CompoundObjects/SolidCylinder.h \
   GeometricObjects/CompoundObjects/ThickRing.h \
@@ -45,6 +47,7 @@ HEADERS += \
   GeometricObjects/Triangles/SmoothTriangle.h \
   GeometricObjects/Triangles/Triangle.h \
   Lights/Ambient.h \
+  Lights/AmbientOccluder.h \
   Lights/Directional.h \
   Lights/Light.h \
   Lights/PointLight.h \
@@ -56,6 +59,7 @@ HEADERS += \
   Tracers/RayCast.h \
   Tracers/Tracer.h \
   Tracers/SingleSphere.h \
+  Tracers/Whitted.h \
   Samplers/Hammersley.h \
   Samplers/Jittered.h \
   Samplers/MultiJittered.h \
@@ -68,7 +72,9 @@ HEADERS += \
   Utilities/Constants.h \
   Utilities/Maths.h \
   Utilities/Matrix.h \
+  Utilities/Mesh.h \
   Utilities/Normal.h \
+  Utilities/ply.h \
   Utilities/Point2D.h \
   Utilities/Point3D.h \
   Utilities/Ray.h \
@@ -76,19 +82,17 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    Lights/AmbientOccluder.h \
-    Utilities/Mesh.h \
-    Utilities/ply.h \
-    GeometricObjects/CompoundObjects/Grid.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
   BRDFs/GlossySpecular.cpp \
   BRDFs/Lambertian.cpp \
+  build/Build2.cpp \
   build/BuildShadedObjects.cpp \
   Cameras/Camera.cpp \
   Cameras/Fisheye.cpp \
+#  Cameras/Orthographic.cpp \
   Cameras/Pinhole.cpp \
   Cameras/Spherical.cpp \
   Cameras/StereoCamera.cpp \
@@ -100,6 +104,7 @@ SOURCES += \
   GeometricObjects/BeveledObjects/BeveledWedge.cpp \
   GeometricObjects/CompoundObjects/Box.cpp \
   GeometricObjects/CompoundObjects/Compound.cpp \
+  GeometricObjects/CompoundObjects/Grid.cpp \
   GeometricObjects/CompoundObjects/SolidCone.cpp \
   GeometricObjects/CompoundObjects/SolidCylinder.cpp \
   GeometricObjects/CompoundObjects/ThickRing.cpp \
@@ -130,6 +135,7 @@ SOURCES += \
   GeometricObjects/Triangles/SmoothTriangle.cpp \
   GeometricObjects/Triangles/Triangle.cpp \
   Lights/Ambient.cpp \
+  Lights/AmbientOccluder.cpp \
   Lights/Directional.cpp \
   Lights/Light.cpp \
   Lights/PointLight.cpp \
@@ -148,11 +154,14 @@ SOURCES += \
   Tracers/RayCast.cpp \
   Tracers/SingleSphere.cpp \
   Tracers/Tracer.cpp \
+  Tracers/Whitted.cpp \
   UserInterface/wxraytracer.cpp \
   Utilities/BBox.cpp \
   Utilities/Maths.cpp \
   Utilities/Matrix.cpp \
+  Utilities/Mesh.cpp \
   Utilities/Normal.cpp \
+  Utilities/ply.c \
   Utilities/Point2D.cpp \
   Utilities/Point3D.cpp \
   Utilities/Ray.cpp \
@@ -160,12 +169,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    Lights/AmbientOccluder.cpp \
-    build/Build2.cpp \
-    Utilities/Mesh.cpp \
-    Utilities/ply.c \
-    GeometricObjects/CompoundObjects/Grid.cpp
+  World/World.cpp
 
 INCLUDEPATH += \
   BRDFs \
