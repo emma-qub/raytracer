@@ -85,7 +85,8 @@ HEADERS += \
   World/World.h \
     GeometricObjects/CompoundObjects/FlatRimmedBowl.h \
     GeometricObjects/CompoundObjects/RoundRimmedBowl.h \
-    Textures/Texture.h
+    Textures/Texture.h \
+    Textures/ConstantColor.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -175,7 +176,8 @@ SOURCES += \
   World/World.cpp \
     GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp \
     GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp \
-    Textures/Texture.cpp
+    Textures/Texture.cpp \
+    Textures/ConstantColor.cpp
 
 INCLUDEPATH += \
   BRDFs \
