@@ -86,7 +86,8 @@ HEADERS += \
     GeometricObjects/CompoundObjects/FlatRimmedBowl.h \
     GeometricObjects/CompoundObjects/RoundRimmedBowl.h \
     Textures/Texture.h \
-    Textures/ConstantColor.h
+    Textures/ConstantColor.h \
+    BRDFs/PerfectSpecular.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -177,7 +178,8 @@ SOURCES += \
     GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp \
     GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp \
     Textures/Texture.cpp \
-    Textures/ConstantColor.cpp
+    Textures/ConstantColor.cpp \
+    BRDFs/PerfectSpecular.cpp
 
 INCLUDEPATH += \
   BRDFs \
