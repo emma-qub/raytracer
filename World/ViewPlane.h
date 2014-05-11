@@ -8,18 +8,6 @@
 //-------------------------------------------------------------------------------------- class ViewPlane
 
 class ViewPlane {
-public:
-  int 			hres;               // horizontal image resolution
-  int 			vres;               // vertical image resolution
-  float			s;                  // pixel size
-  int				num_samples;        // number of samples per pixel
-
-  float			gamma;              // gamma correction factor
-  float			inv_gamma;          // the inverse of the gamma correction factor
-  bool			show_out_of_gamut;	// display red if RGBColor out of gamut
-
-  Sampler* sampler_ptr;         // sampler
-
 
 public:
   ViewPlane();                                    // default Constructor
@@ -34,6 +22,20 @@ public:
   void set_gamut_display(const bool show);
   void set_samples(const int n);
   void set_sampler(Sampler* sp);
+  void set_max_depth(int d);
+
+public:
+  int 			hres;               // horizontal image resolution
+  int 			vres;               // vertical image resolution
+  float			s;                  // pixel size
+  int				num_samples;        // number of samples per pixel
+
+  float			gamma;              // gamma correction factor
+  float			inv_gamma;          // the inverse of the gamma correction factor
+  bool			show_out_of_gamut;	// display red if RGBColor out of gamut
+
+  Sampler* sampler_ptr;         // sampler
+  int      max_depth;           // number of bounces rays
 };
 
 
@@ -98,6 +100,10 @@ ViewPlane::set_sampler(Sampler *sp) {
   delete sampler_ptr;
   num_samples = sp->get_num_samples();
   sampler_ptr = sp;
+}
+
+inline void ViewPlane::set_max_depth(int d) {
+  max_depth = d;
 }
 
 #endif

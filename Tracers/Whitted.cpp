@@ -11,30 +11,30 @@
 
 // -------------------------------------------------------------------- default constructor
 
-Whitted::Whitted(void)
-  : Tracer()
-{}
+Whitted::Whitted(void):
+  Tracer() {
+}
 
 
 // -------------------------------------------------------------------- constructor
 
-Whitted::Whitted(World* _worldPtr)
-  : Tracer(_worldPtr)
-{}
+Whitted::Whitted(World* _worldPtr):
+  Tracer(_worldPtr) {
+}
 
 
 // -------------------------------------------------------------------- destructor
 
-Whitted::~Whitted(void) {}
+Whitted::~Whitted(void) {
+}
 
 
 // -------------------------------------------------------------------- trace_ray
 
-RGBColor
-Whitted::trace_ray(const Ray ray, const int depth) const {
-//	if (depth > world_ptr->vp.max_depth)
-//		return(black);
-//	else {
+RGBColor Whitted::trace_ray(const Ray ray, const int depth) const {
+  if (depth > world_ptr->vp.max_depth)
+    return(black);
+  else {
     ShadeRec sr(world_ptr->hit_objects(ray));
 
     if (sr.hit_an_object) {
@@ -44,5 +44,5 @@ Whitted::trace_ray(const Ray ray, const int depth) const {
     }
     else
       return (world_ptr->background_color);
-  //}
+  }
 }
