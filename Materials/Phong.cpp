@@ -35,7 +35,7 @@ Phong::Phong(const Phong& p):
 
 // ---------------------------------------------------------------- clone
 
-Material* Phong::clone(void) const {
+Phong* Phong::clone(void) const {
   return new Phong(*this);
 }
 
@@ -81,8 +81,7 @@ Phong::~Phong(void) {
 
 // ---------------------------------------------------------------- shade
 
-RGBColor
-Phong::shade(ShadeRec& sr) {
+RGBColor Phong::shade(ShadeRec& sr) {
   Vector3D 	wo 			= -sr.ray.d;
   RGBColor 	L 			= ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
   int num_lights    = sr.w.lights.size();

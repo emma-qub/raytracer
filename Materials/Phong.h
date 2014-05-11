@@ -10,7 +10,7 @@ class Phong: public Material {
 public:
   Phong(void);
   Phong(const Phong& p);
-  virtual Material* clone(void) const;
+  virtual Phong* clone(void) const;
   Phong& operator= (const Phong& rhs);
   virtual ~Phong(void);
 
