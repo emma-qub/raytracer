@@ -13,6 +13,11 @@ public:
   ThickRing& operator= (const ThickRing& rhs);
   virtual ~ThickRing(void);
 
+  void set_inner_wall_material(Material* m);
+  void set_outer_wall_material(Material* m);
+  void set_bottom_material(Material* m);
+  void set_top_material(Material* m);
+
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 };

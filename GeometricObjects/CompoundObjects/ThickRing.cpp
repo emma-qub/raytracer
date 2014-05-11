@@ -42,6 +42,30 @@ ThickRing& ThickRing::operator=(const ThickRing& rhs) {
 ThickRing::~ThickRing(void) {
 }
 
+void ThickRing::set_inner_wall_material(Material* m) {
+  if (objects.size() >= 1 && objects[0]) {
+    objects[0]->set_material(m);
+  }
+}
+
+void ThickRing::set_outer_wall_material(Material* m) {
+  if (objects.size() >= 2 && objects[1]) {
+    objects[1]->set_material(m);
+  }
+}
+
+void ThickRing::set_bottom_material(Material* m) {
+  if (objects.size() >= 3 && objects[2]) {
+    objects[2]->set_material(m);
+  }
+}
+
+void ThickRing::set_top_material(Material* m) {
+  if (objects.size() >= 4 && objects[3]) {
+    objects[3]->set_material(m);
+  }
+}
+
 bool ThickRing::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
   return Compound::hit(ray, tmin, sr);
 }

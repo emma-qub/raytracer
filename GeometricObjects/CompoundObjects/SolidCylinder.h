@@ -15,6 +15,10 @@ public:
   SolidCylinder& operator= (const SolidCylinder& rhs);
   virtual ~SolidCylinder(void);
 
+  void set_wall_material(Material* m);
+  void set_bottom_material(Material* m);
+  void set_top_material(Material* m);
+
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 };

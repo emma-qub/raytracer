@@ -23,7 +23,7 @@
 #include <iostream>
 
 void World::build(void) {
-  int num_samples = 16;
+    int num_samples = 16;
 
     vp.set_hres(400);
     vp.set_vres(400);
@@ -45,16 +45,16 @@ void World::build(void) {
     add_light(light_ptr1);
 
     Phong* phong_ptr = new Phong;
-    phong_ptr->set_ka(0.25);
+    phong_ptr->set_ka(0.3);
     phong_ptr->set_kd(0.5);
-    phong_ptr->set_cd(0.53, 0.67, 0.34);
+    phong_ptr->set_cd(0.15, 0.75, 0.90);
     phong_ptr->set_ks(0.1);
-    phong_ptr->set_exp(50.0);
+    phong_ptr->set_exp(20.0);
 
     double inner_radius = 0.9;
     double outer_radius = 1.0;
 
-    RoundRimmedBowl* bowl_ptr = new RoundRimmedBowl(inner_radius, outer_radius);
+    FlatRimmedBowl* bowl_ptr = new FlatRimmedBowl(inner_radius, outer_radius);
     bowl_ptr->set_material(phong_ptr);
     add_object(bowl_ptr);
 
@@ -66,7 +66,7 @@ void World::build(void) {
     /*SV_*/Matte* sv_matte_ptr = new /*SV_*/Matte;
     sv_matte_ptr->set_ka(0.35);
     sv_matte_ptr->set_kd(0.85);
-    sv_matte_ptr->set_cd(/*checker_ptr*/0.75);
+    sv_matte_ptr->set_cd(0.75);
 
     Plane* plane_ptr1 = new Plane(Point3D(0, -1, 0), Normal(0, 1, 0));
     plane_ptr1->set_material(sv_matte_ptr);
