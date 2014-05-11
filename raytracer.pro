@@ -84,7 +84,8 @@ HEADERS += \
   World/ViewPlane.h \
   World/World.h \
     GeometricObjects/CompoundObjects/FlatRimmedBowl.h \
-    GeometricObjects/CompoundObjects/RoundRimmedBowl.h
+    GeometricObjects/CompoundObjects/RoundRimmedBowl.h \
+    Textures/Texture.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -173,7 +174,8 @@ SOURCES += \
   World/ViewPlane.cpp \
   World/World.cpp \
     GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp \
-    GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp
+    GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp \
+    Textures/Texture.cpp
 
 INCLUDEPATH += \
   BRDFs \
@@ -188,6 +190,7 @@ INCLUDEPATH += \
   Lights \
   Materials \
   Samplers \
+  Textures \
   Tracers \
   UserInterface \
   Utilities \
