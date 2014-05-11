@@ -8,36 +8,28 @@
 #include "RGBColor.h"
 #include "Vector3D.h"
 #include "ShadeRec.h"
+#include "Sampler.h"
 
 class BRDF {
-  public:
 
-    BRDF(void);
+public:
+  BRDF(void);
+  BRDF(const BRDF& object);
+  virtual BRDF* clone(void) const = 0;
+  virtual ~BRDF(void);
 
-    BRDF(const BRDF& object);
+  virtual RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
+  virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi) const;
+  virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
+  virtual RGBColor rho(const ShadeRec& sr, const Vector3D& wo) const;
 
-    virtual BRDF*
-    clone(void) const = 0;
+  virtual void set_sampler(Sampler* sp);
 
-    virtual ~BRDF(void);
+protected:
+  BRDF& operator= (const BRDF& rhs);
 
-    virtual RGBColor
-    f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
-
-    virtual RGBColor
-    sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi) const;
-
-    virtual RGBColor
-    sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
-
-    virtual RGBColor
-    rho(const ShadeRec& sr, const Vector3D& wo) const;
-
-
-  protected:
-
-    BRDF&
-    operator= (const BRDF& rhs);
+protected:
+  Sampler* sampler_ptr;
 };
 
 #endif
