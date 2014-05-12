@@ -88,7 +88,8 @@ HEADERS += \
     Textures/Texture.h \
     Textures/ConstantColor.h \
     BRDFs/PerfectSpecular.h \
-    Materials/Reflective.h
+    Materials/Reflective.h \
+    Materials/GlossyReflector.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -181,7 +182,8 @@ SOURCES += \
     Textures/Texture.cpp \
     Textures/ConstantColor.cpp \
     BRDFs/PerfectSpecular.cpp \
-    Materials/Reflective.cpp
+    Materials/Reflective.cpp \
+    Materials/GlossyReflector.cpp
 
 INCLUDEPATH += \
   BRDFs \

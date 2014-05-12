@@ -2,6 +2,7 @@
 #define GLOSSYSPECULAR_H
 
 #include "BRDF.h"
+#include "Sampler.h"
 
 class GlossySpecular: public BRDF {
 
@@ -13,6 +14,7 @@ public:
   virtual ~GlossySpecular(void);
 
   virtual RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
+  virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
   virtual RGBColor rho(const ShadeRec& sr, const Vector3D& wo) const;
 
   void set_ks(const float k);
@@ -21,6 +23,7 @@ public:
   void set_cs(const float c);
   void set_exp(const float e);
   void set_metalic(bool b);
+  void set_samples(const int num_samples, const float exp);
 
   float ks;
   RGBColor 	cs;
