@@ -41,7 +41,7 @@ private:
 // is diffuse reflection
 
 inline void Phong::set_ka(const float ka) {
-  ambient_brdf->set_kd(ka);
+  ambient_brdf->set_ka(ka);
 }
 
 

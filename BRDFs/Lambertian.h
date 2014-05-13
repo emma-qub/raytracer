@@ -13,7 +13,7 @@ public:
   Lambertian& operator= (const Lambertian& rhs);
 
   virtual RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
-  //virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
+  virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
   virtual RGBColor rho(const ShadeRec& sr, const Vector3D& wo) const;
 
   void set_ka(const float ka);

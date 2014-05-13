@@ -9,7 +9,7 @@ GlossySpecular::GlossySpecular():
   ks(0.25),
   cs(1.0),
   exp(5.0),
-  metalic(false) {
+  metalic(true) {
 }
 
 GlossySpecular::GlossySpecular(const GlossySpecular& gs):
@@ -80,6 +80,11 @@ RGBColor GlossySpecular::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector
 
 RGBColor GlossySpecular::rho(const ShadeRec& /*sr*/, const Vector3D& /*wo*/) const {
   return black;
+}
+
+void GlossySpecular::set_sampler(Sampler* sp, const float exp) {
+  sampler_ptr = sp;
+  sampler_ptr->map_samples_to_hemisphere(exp);
 }
 
 void GlossySpecular::set_samples(const int num_samples, const float exp) {

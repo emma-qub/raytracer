@@ -14,6 +14,9 @@ public:
 
   void set_samples(const int num_samples, const float exp);
   void set_kr(const float k);
+  void set_cr(const RGBColor c);
+  void set_cr(const float r, const float g, const float b);
+  void set_cr(const float c);
   void set_exponent(const float exp);
 
   virtual RGBColor area_light_shade(ShadeRec& sr);
@@ -32,6 +35,18 @@ GlossyReflector::set_samples(const int num_samples, const float exp) {
 inline void
 GlossyReflector::set_kr(const float k) {
   glossy_specular_brdf->set_ks(k);
+}
+
+inline void GlossyReflector::set_cr(const RGBColor c) {
+  glossy_specular_brdf->set_cs(c);
+}
+
+inline void GlossyReflector::set_cr(const float r, const float g, const float b) {
+  glossy_specular_brdf->set_cs(r, g, b);
+}
+
+inline void GlossyReflector::set_cr(const float c) {
+  glossy_specular_brdf->set_cs(c);
 }
 
 inline void

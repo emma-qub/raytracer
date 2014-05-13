@@ -60,3 +60,15 @@ void GeometricObject::set_material(Material* mPtr) {
 bool GeometricObject::shadow_hit(const Ray& /*ray*/, float& /*tmin*/) const {
   return false;
 }
+
+Point3D GeometricObject::sample(void) {
+  return Point3D();
+}
+
+Normal GeometricObject::get_normal(const Point3D& /*p*/) {
+  return Normal();
+}
+
+float GeometricObject::pdf(const ShadeRec& /*sr*/) {
+  return 0.0;
+}

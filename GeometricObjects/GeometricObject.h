@@ -30,6 +30,10 @@ public:
   virtual BBox get_bounding_box(void) const;
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
+  virtual Point3D sample(void);
+  virtual Normal get_normal(const Point3D& p);
+  virtual float pdf(const ShadeRec& sr);
+
 protected:
   mutable Material* material_ptr;                           // mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
   bool shadows;                                             // cast shadows or not

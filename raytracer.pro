@@ -51,6 +51,7 @@ HEADERS += \
   Lights/Directional.h \
   Lights/Light.h \
   Lights/PointLight.h \
+  Materials/Emissive.h \
   Materials/Material.h \
   Materials/Matte.h \
   Materials/Phong.h \
@@ -89,7 +90,9 @@ HEADERS += \
     Textures/ConstantColor.h \
     BRDFs/PerfectSpecular.h \
     Materials/Reflective.h \
-    Materials/GlossyReflector.h
+    Materials/GlossyReflector.h \
+    Tracers/AreaLighting.h \
+    Lights/AreaLight.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -146,6 +149,7 @@ SOURCES += \
   Lights/Directional.cpp \
   Lights/Light.cpp \
   Lights/PointLight.cpp \
+  Materials/Emissive.cpp \
   Materials/Material.cpp \
   Materials/Matte.cpp \
   Materials/Phong.cpp \
@@ -183,7 +187,9 @@ SOURCES += \
     Textures/ConstantColor.cpp \
     BRDFs/PerfectSpecular.cpp \
     Materials/Reflective.cpp \
-    Materials/GlossyReflector.cpp
+    Materials/GlossyReflector.cpp \
+    Tracers/AreaLighting.cpp \
+    Lights/AreaLight.cpp
 
 INCLUDEPATH += \
   BRDFs \

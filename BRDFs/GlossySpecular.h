@@ -23,7 +23,8 @@ public:
   void set_cs(const float c);
   void set_exp(const float e);
   void set_metalic(bool b);
-  void set_samples(const int num_samples, const float exp);
+  void set_samples(const int num_samples, const float exp); 	// multi jittered sampling
+  void set_sampler(Sampler* sp, const float exp);             // any type of sampling
 
   float ks;
   RGBColor 	cs;
