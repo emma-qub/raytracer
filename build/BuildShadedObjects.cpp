@@ -21,220 +21,105 @@
 #include "Grid.h"
 #include "Whitted.h"
 #include "GlossyReflector.h"
+#include "AreaLighting.h"
+#include "AreaLight.h"
+#include "Emissive.h"
 
 #include <iostream>
 
 void World::build(void) {
-  int num_samples = 10;
+  int num_samples = 1;   		// for Figure 18.4(a)
+  //	int num_samples = 100;   	// for Figure 18.4(b) & (c)
 
-  vp.set_hres(600);
-  vp.set_vres(600);
-  vp.set_samples(num_samples);
-  vp.set_max_depth(19);
+    Sampler* sampler_ptr = new MultiJittered(num_samples);
 
-  tracer_ptr = new Whitted(this);
+    vp.set_hres(600);
+    vp.set_vres(600);
+    vp.set_sampler(sampler_ptr);
 
-  Pinhole* pinhole_ptr = new Pinhole;
-  pinhole_ptr->set_eye(7.5, 3, 9.5);
-  pinhole_ptr->set_lookat(5, 2.5, 0);
-  pinhole_ptr->set_view_distance(800);
-  pinhole_ptr->compute_uvw();
-  set_camera(pinhole_ptr);
+    background_color = RGBColor(0.5);
 
+    tracer_ptr = new AreaLighting(this);
 
-  // four point lights near the ceiling
-  // these don't use distance attenuation
-
-  PointLight* light_ptr1 = new PointLight;
-  light_ptr1->set_location(10, 10, 0);
-  light_ptr1->scale_radiance(2.0);
-  light_ptr1->set_shadows(true);
-    add_light(light_ptr1);
-
-    PointLight* light_ptr2 = new PointLight;
-  light_ptr2->set_location(0, 10, 10);
-  light_ptr2->scale_radiance(2.0);
-  light_ptr2->set_shadows(true);
-    add_light(light_ptr2);
-
-    PointLight* light_ptr3 = new PointLight;
-  light_ptr3->set_location(-10, 10, 0);
-  light_ptr3->scale_radiance(2.0);
-  light_ptr3->set_shadows(true);
-    add_light(light_ptr3);
-
-    PointLight* light_ptr4 = new PointLight;
-  light_ptr4->set_location(0, 10, -10);
-  light_ptr4->scale_radiance(2.0);
-  light_ptr4->set_shadows(true);
-    add_light(light_ptr4);
+    Pinhole* camera = new Pinhole;
+    camera->set_eye(-20, 10, 20);
+    camera->set_lookat(0, 2, 0);
+    camera->set_view_distance(1080);
+    camera->compute_uvw();
+    set_camera(camera);
 
 
-  // sphere
-  // this is the only reflective object with a direct illumination shading component
-
-  Reflective* reflective_ptr1 = new Reflective;
-  reflective_ptr1->set_ka(0.1);
-  reflective_ptr1->set_kd(0.4);
-  reflective_ptr1->set_cd(0, 0, 1);   	 // blue
-  reflective_ptr1->set_ks(0.25);
-  reflective_ptr1->set_exp(100.0);
-  reflective_ptr1->set_kr(0.85);
-  reflective_ptr1->set_cr(0.75, 0.75, 1);  // blue
-
-  Sphere*	sphere_ptr1 = new Sphere(Point3D(0, 0.5, 0), 4);
-  sphere_ptr1->set_material(reflective_ptr1);
-  add_object(sphere_ptr1);
+    Emissive* emissive_ptr = new Emissive;
+    emissive_ptr->scale_radiance(40.0);
+    emissive_ptr->set_ce(white);
 
 
-  // the walls, the ceiling, and the floor of the room are defined as planes
-  // the shape is a cube
+    // define a rectangle for the rectangular light
 
-  double room_size = 11.0;
+    float width = 4.0;				// for Figure 18.4(a) & (b)
+    float height = 4.0;
+  //	float width = 2.0;				// for Figure 18.4(c)
+  //	float height = 2.0;
+    Point3D center(0.0, 7.0, -7.0);	// center of each area light (rectangular, disk, and spherical)
+    Point3D p0(-0.5 * width, center.y - 0.5 * height, center.z);
+    Vector3D a(width, 0.0, 0.0);
+    Vector3D b(0.0, height, 0.0);
+    Normal normal(0, 0, 1);
 
-  // floor  (-ve yw)
-
-  Matte* matte_ptr1 = new Matte;
-  matte_ptr1->set_ka(0.1);
-  matte_ptr1->set_kd(0.50);
-  matte_ptr1->set_cd(0.25);     // medium grey
-
-  Plane* floor_ptr = new Plane(Point3D(0, -room_size,  0), Normal(0, 1, 0));
-  floor_ptr->set_material(matte_ptr1);
-  add_object(floor_ptr);
-
-
-  // ceiling  (+ve yw)
-
-  Matte* matte_ptr2 = new Matte;
-  matte_ptr2->set_ka(0.35);
-  matte_ptr2->set_kd(0.50);
-  matte_ptr2->set_cd(white);
-
-  Plane* ceiling_ptr = new Plane(Point3D(0, room_size,  0), Normal(0, -1, 0));
-  ceiling_ptr->set_material(matte_ptr2);
-  add_object(ceiling_ptr);
+    Rectangle* rectangle_ptr = new Rectangle(p0, a, b, normal);
+    rectangle_ptr->set_material(emissive_ptr);
+    rectangle_ptr->set_sampler(sampler_ptr);
+    rectangle_ptr->set_shadows(false);
+    add_object(rectangle_ptr);
 
 
-  // back wall  (-ve zw)
-
-  Matte* matte_ptr3 = new Matte;
-  matte_ptr3->set_ka(0.15);
-  matte_ptr3->set_kd(0.60);
-  matte_ptr3->set_cd(0.5, 0.75, 0.75);     // cyan
-
-  Plane* backWall_ptr = new Plane(Point3D(0, 0,  -room_size), Normal(0, 0, 1));
-  backWall_ptr->set_material(matte_ptr3->clone());
-  add_object(backWall_ptr);
-
-  // front wall  (+ve zw)
-
-  Plane* frontWall_ptr = new Plane(Point3D(0, 0,  room_size), Normal(0, 0, -1));
-  frontWall_ptr->set_material(matte_ptr3->clone());
-  add_object(frontWall_ptr);
-
-  // left wall  (-ve xw)
-
-  Matte* matte_ptr4 = new Matte;
-  matte_ptr4->set_ka(0.15);
-  matte_ptr4->set_kd(0.60);
-  matte_ptr4->set_cd(0.71, 0.40, 0.20);   // orange
-
-  Plane* leftWall_ptr = new Plane(Point3D(-room_size, 0, 0), Normal(1, 0, 0));
-  leftWall_ptr->set_material(matte_ptr4->clone());
-  add_object(leftWall_ptr);
-
-  // right wall  (+ve xw)
-
-  Plane* rightWall_ptr = new Plane(Point3D(room_size, 0, 0), Normal(-1, 0, 0));
-  rightWall_ptr->set_material(matte_ptr4->clone());
-  add_object(rightWall_ptr);
+    AreaLight* area_light_ptr = new AreaLight;
+    area_light_ptr->set_object(rectangle_ptr);
+    area_light_ptr->set_shadows(true);
+    add_light(area_light_ptr);
 
 
-  // mirrors on the walls
-  // the right wall has no mirror
+    // Four axis aligned boxes
 
-  double mirror_size 	= 8;  	// the mirror size
-  double offset 		= 1.0;  // the mirror offset from the walls
+    float box_width 	= 1.0; 		// x dimension
+    float box_depth 	= 1.0; 		// z dimension
+    float box_height 	= 4.5; 		// y dimension
+    float gap			= 3.0;
 
-  // mirror reflection material for the left wall mirror
+    Matte* matte_ptr1 = new Matte;
+    matte_ptr1->set_ka(0.25);
+    matte_ptr1->set_kd(0.75);
+    matte_ptr1->set_cd(0.4, 0.7, 0.4);     // green
 
-  Reflective* reflective_ptr2 = new Reflective;
-  reflective_ptr2->set_ka(0);
-  reflective_ptr2->set_kd(0);
-  reflective_ptr2->set_cd(black);
-  reflective_ptr2->set_ks(0);
-  reflective_ptr2->set_kr(0.9);
-  reflective_ptr2->set_cr(0.9, 1.0, 0.9);  // light green
+    Box* box_ptr0 = new Box(Point3D(- 1.5 * gap - 2.0 * box_width, 0.0, -0.5 * box_depth),
+                Point3D(-1.5 * gap  - box_width, box_height, 0.5 * box_depth));
+    box_ptr0->set_material(matte_ptr1->clone());
+    add_object(box_ptr0);
 
-  // glossy reflector material for the back and front mirrors
+    Box* box_ptr1 = new Box(Point3D(- 0.5 * gap - box_width, 0.0, -0.5 * box_depth),
+                Point3D(-0.5 * gap, box_height, 0.5 * box_depth));
+    box_ptr1->set_material(matte_ptr1->clone());
+    add_object(box_ptr1);
 
-  float exp = 25000.0;
-  GlossyReflector* glossy_reflector_ptr = new GlossyReflector;
-  glossy_reflector_ptr->set_samples(num_samples, exp);
-  glossy_reflector_ptr->set_ka(0.0);
-  glossy_reflector_ptr->set_kd(0.0);
-  glossy_reflector_ptr->set_ks(0.0);
-  glossy_reflector_ptr->set_exp(exp);
-  glossy_reflector_ptr->set_cd(black);
-  glossy_reflector_ptr->set_kr(0.9);
-  glossy_reflector_ptr->set_exponent(exp);
-  glossy_reflector_ptr->set_cr(0.9, 1.0, 0.9);  // light green
+    Box* box_ptr2 = new Box(Point3D(0.5 * gap, 0.0, -0.5 * box_depth),
+                Point3D(0.5 * gap + box_width, box_height, 0.5 * box_depth));
+    box_ptr2->set_material(matte_ptr1->clone());
+    add_object(box_ptr2);
 
-
-  // back wall mirror  (-ve zw)
-
-  Point3D p0;
-  Vector3D a, b;
-
-  p0 = Point3D(-mirror_size, -mirror_size, -(room_size - offset));
-  a = Vector3D(2.0 * mirror_size, 0, 0);
-  b = Vector3D(0, 2.0 * mirror_size, 0);
-  Normal n(0, 0, 1);
-  Rectangle* rectangle_ptr1 = new Rectangle(p0, a, b, n);
-//	rectangle_ptr1->set_material(reflective_ptr2);
-  rectangle_ptr1->set_material(glossy_reflector_ptr->clone());
-  add_object(rectangle_ptr1);
+    Box* box_ptr3 = new Box(Point3D(1.5 * gap + box_width, 0.0, -0.5 * box_depth),
+                Point3D(1.5 * gap + 2.0 * box_width, box_height, 0.5 * box_depth));
+    box_ptr3->set_material(matte_ptr1->clone());
+    add_object(box_ptr3);
 
 
-  // front wall mirror  (+ve zw)
+    // ground plane
 
-  p0 = Point3D(-mirror_size, -mirror_size, +(room_size - offset));
-  n = Normal(0, 0, -1);
-  Rectangle* rectangle_ptr2 = new Rectangle(p0, a, b, n);
-//	rectangle_ptr2->set_material(reflective_ptr2);
-  rectangle_ptr2->set_material(glossy_reflector_ptr->clone());
-  add_object(rectangle_ptr2);
+    Matte* matte_ptr2 = new Matte;
+    matte_ptr2->set_ka(0.1);
+    matte_ptr2->set_kd(0.90);
+    matte_ptr2->set_cd(white);
 
-
-  // left wall mirror  (-ve xw)
-
-  p0 = Point3D(-(room_size - offset), -mirror_size, +mirror_size);
-  a = Point3D(0, 0, -2.0 * mirror_size);
-  n = Normal(1, 0, 0);
-  Rectangle* rectangle_ptr3 = new Rectangle(p0, a, b, n);
-  rectangle_ptr3->set_material(reflective_ptr2);
-  add_object(rectangle_ptr3);
-
-
-  // horizontal mirror underneath the sphere
-  // this has no direct illumination and a lemon color
-
-  Reflective* reflective_ptr3 = new Reflective;
-  reflective_ptr3->set_ka(0);
-  reflective_ptr3->set_kd(0);
-  reflective_ptr3->set_cd(black);
-  reflective_ptr3->set_ks(0);
-  reflective_ptr3->set_kr(1);
-  reflective_ptr3->set_cr(1, 1, 0.5);  // lemon
-
-  double yw = -4.0;   // the yw location of the mirror
-
-  p0 = Point3D(-mirror_size, yw, -mirror_size);
-  a = Vector3D(0, 0, 2.0 * mirror_size);
-  b = Vector3D(2.0 * mirror_size, 0, 0);
-  n = Normal(0, 1, 0);
-  Rectangle* rectangle_ptr4 = new Rectangle(p0, a, b, n);
-  rectangle_ptr4->set_material(reflective_ptr3);
-  add_object(rectangle_ptr4);
+    Plane* plane_ptr = new Plane(Point3D(0.0), Normal(0, 1, 0));
+    plane_ptr->set_material(matte_ptr2);
+    add_object(plane_ptr);
 }

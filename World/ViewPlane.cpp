@@ -58,5 +58,5 @@ ViewPlane& ViewPlane::operator= (const ViewPlane& rhs) {
 // -------------------------------------------------------------- destructor
 
 ViewPlane::~ViewPlane(void) {
-  delete sampler_ptr;
+  //delete sampler_ptr;
 }
