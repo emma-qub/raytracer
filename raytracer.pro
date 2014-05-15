@@ -92,7 +92,8 @@ HEADERS += \
     Materials/Reflective.h \
     Materials/GlossyReflector.h \
     Tracers/AreaLighting.h \
-    Lights/AreaLight.h
+    Lights/AreaLight.h \
+    BTDFs/BTDF.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -189,11 +190,12 @@ SOURCES += \
     Materials/Reflective.cpp \
     Materials/GlossyReflector.cpp \
     Tracers/AreaLighting.cpp \
-    Lights/AreaLight.cpp
+    Lights/AreaLight.cpp \
+    BTDFs/BTDF.cpp
 
 INCLUDEPATH += \
   BRDFs \
-  BRDFs \
+  BTDFs \
   Cameras \
   GeometricObjects \
   GeometricObjects/BeveledObjects/ \
