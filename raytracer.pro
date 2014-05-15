@@ -94,7 +94,8 @@ HEADERS += \
     Tracers/AreaLighting.h \
     Lights/AreaLight.h \
     BTDFs/BTDF.h \
-    BTDFs/PerfectTransmitter.h
+    BTDFs/PerfectTransmitter.h \
+    Materials/Transparent.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -193,7 +194,8 @@ SOURCES += \
     Tracers/AreaLighting.cpp \
     Lights/AreaLight.cpp \
     BTDFs/BTDF.cpp \
-    BTDFs/PerfectTransmitter.cpp
+    BTDFs/PerfectTransmitter.cpp \
+    Materials/Transparent.cpp
 
 INCLUDEPATH += \
   BRDFs \
