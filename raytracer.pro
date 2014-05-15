@@ -93,7 +93,8 @@ HEADERS += \
     Materials/GlossyReflector.h \
     Tracers/AreaLighting.h \
     Lights/AreaLight.h \
-    BTDFs/BTDF.h
+    BTDFs/BTDF.h \
+    BTDFs/PerfectTransmitter.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -191,7 +192,8 @@ SOURCES += \
     Materials/GlossyReflector.cpp \
     Tracers/AreaLighting.cpp \
     Lights/AreaLight.cpp \
-    BTDFs/BTDF.cpp
+    BTDFs/BTDF.cpp \
+    BTDFs/PerfectTransmitter.cpp
 
 INCLUDEPATH += \
   BRDFs \
