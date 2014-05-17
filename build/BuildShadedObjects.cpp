@@ -30,7 +30,7 @@
 #include <iostream>
 
 void World::build(void) {
-  int num_samples = 16;
+  int num_samples = 9;
 
   vp.set_hres(600);
   vp.set_vres(600);
@@ -46,9 +46,9 @@ void World::build(void) {
   set_ambient_light(ambient_ptr);
 
   Pinhole* pinhole_ptr = new Pinhole;
-  pinhole_ptr->set_eye(-8, 5.5, 40);
-  pinhole_ptr->set_lookat(1, 4, 0);
-  pinhole_ptr->set_view_distance(2400.0);
+  pinhole_ptr->set_eye(-8, 5.5, 20);
+  pinhole_ptr->set_lookat(0, 4.5, 0);
+  pinhole_ptr->set_view_distance(1400.0);
   pinhole_ptr->compute_uvw();
   set_camera(pinhole_ptr);
 
@@ -80,19 +80,21 @@ void World::build(void) {
   add_light(light_ptr3);
 
 
-  // transparent sphere
+  // transparent torus
 
   Transparent* glass_ptr = new Transparent;
   glass_ptr->set_ks(0.2);
   glass_ptr->set_exp(2000.0);
-//  glass_ptr->set_ior(1.1);			// for Figure 27.14(a)
-  glass_ptr->set_ior(1.5);			// for Figure 27.14(b)
+  glass_ptr->set_ior(1.5);
   glass_ptr->set_kr(0.1);
   glass_ptr->set_kt(0.9);
 
-  Sphere* sphere_ptr1 = new Sphere(Point3D(0.0, 4.5, 0.0), 3.0);
-  sphere_ptr1->set_material(glass_ptr);
-  add_object(sphere_ptr1);
+  Instance* torus_ptr2 = new Instance (new Torus(3.0, 0.8));
+  torus_ptr2->set_material(glass_ptr);
+  torus_ptr2->rotate_x(90);
+  torus_ptr2->rotate_y(20);
+  torus_ptr2->translate(0, 4.5, 0);
+  add_object(torus_ptr2);
 
 
   // red sphere
@@ -111,7 +113,7 @@ void World::build(void) {
 
 
 //  Checker3D* checker_ptr = new Checker3D;
-//  checker_ptr->set_size(4);
+//  checker_ptr->set_size(4.0);
 //  checker_ptr->set_color1(0.75);
 //  checker_ptr->set_color2(white);
 
@@ -119,6 +121,7 @@ void World::build(void) {
   sv_matte_ptr->set_ka(0.5);
   sv_matte_ptr->set_kd(0.35);
   sv_matte_ptr->set_cd(0.75);
+
 
   // rectangle
 
