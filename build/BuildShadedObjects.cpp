@@ -35,8 +35,7 @@ void World::build(void) {
   vp.set_hres(600);
   vp.set_vres(400);
   vp.set_samples(num_samples);
-//	vp.set_max_depth(0);			// for Figure 24.6(a)
-  vp.set_max_depth(1);			// for Figure 24.6(b)
+  vp.set_max_depth(10);
 
   tracer_ptr = new Whitted(this);
   background_color = RGBColor(0.15);
@@ -148,7 +147,7 @@ void World::build(void) {
   /*SV_*/Matte* sv_matte_ptr = new /*SV_*/Matte;
   sv_matte_ptr->set_ka(0.30);
   sv_matte_ptr->set_kd(0.9);
-  sv_matte_ptr->set_cd(0.25);
+  sv_matte_ptr->set_cd(1);
 
   Plane* plane_ptr = new Plane(Point3D(0), Normal(0, 1, 0));
   plane_ptr->set_material(sv_matte_ptr);

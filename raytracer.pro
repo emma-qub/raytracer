@@ -2,6 +2,10 @@ HEADERS += \
   BRDFs/BRDF.h \
   BRDFs/GlossySpecular.h \
   BRDFs/Lambertian.h \
+  BRDFs/PerfectSpecular.h \
+  BRDFs/SV_Lambertian.h \
+  BTDFs/BTDF.h \
+  BTDFs/PerfectTransmitter.h \
   Cameras/Camera.h \
   Cameras/Fisheye.h\
 #  Cameras/Orthographic.h \
@@ -16,7 +20,9 @@ HEADERS += \
   GeometricObjects/BeveledObjects/BeveledWedge.h \
   GeometricObjects/CompoundObjects/Box.h \
   GeometricObjects/CompoundObjects/Compound.h \
+  GeometricObjects/CompoundObjects/FlatRimmedBowl.h \
   GeometricObjects/CompoundObjects/Grid.h \
+  GeometricObjects/CompoundObjects/RoundRimmedBowl.h \
   GeometricObjects/CompoundObjects/SolidCone.h \
   GeometricObjects/CompoundObjects/SolidCylinder.h \
   GeometricObjects/CompoundObjects/ThickRing.h \
@@ -48,14 +54,21 @@ HEADERS += \
   GeometricObjects/Triangles/Triangle.h \
   Lights/Ambient.h \
   Lights/AmbientOccluder.h \
+  Lights/AreaLight.h \
   Lights/Directional.h \
   Lights/Light.h \
   Lights/PointLight.h \
   Materials/Emissive.h \
+  Materials/GlossyReflector.h \
   Materials/Material.h \
   Materials/Matte.h \
   Materials/Phong.h \
   Materials/Plastic.h \
+  Materials/Reflective.h \
+  Materials/Transparent.h \
+  Textures/Texture.h \
+  Textures/ConstantColor.h \
+  Tracers/AreaLighting.h \
   Tracers/MultipleObjects.h \
   Tracers/RayCast.h \
   Tracers/Tracer.h \
@@ -84,23 +97,16 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    GeometricObjects/CompoundObjects/FlatRimmedBowl.h \
-    GeometricObjects/CompoundObjects/RoundRimmedBowl.h \
-    Textures/Texture.h \
-    Textures/ConstantColor.h \
-    BRDFs/PerfectSpecular.h \
-    Materials/Reflective.h \
-    Materials/GlossyReflector.h \
-    Tracers/AreaLighting.h \
-    Lights/AreaLight.h \
-    BTDFs/BTDF.h \
-    BTDFs/PerfectTransmitter.h \
-    Materials/Transparent.h
+    Materials/SV_Matte.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
   BRDFs/GlossySpecular.cpp \
   BRDFs/Lambertian.cpp \
+  BRDFs/PerfectSpecular.cpp \
+  BRDFs/SV_Lambertian.cpp \
+  BTDFs/BTDF.cpp \
+  BTDFs/PerfectTransmitter.cpp \
   build/Build2.cpp \
   build/BuildShadedObjects.cpp \
   Cameras/Camera.cpp \
@@ -117,7 +123,9 @@ SOURCES += \
   GeometricObjects/BeveledObjects/BeveledWedge.cpp \
   GeometricObjects/CompoundObjects/Box.cpp \
   GeometricObjects/CompoundObjects/Compound.cpp \
+  GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp \
   GeometricObjects/CompoundObjects/Grid.cpp \
+  GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp \
   GeometricObjects/CompoundObjects/SolidCone.cpp \
   GeometricObjects/CompoundObjects/SolidCylinder.cpp \
   GeometricObjects/CompoundObjects/ThickRing.cpp \
@@ -149,14 +157,18 @@ SOURCES += \
   GeometricObjects/Triangles/Triangle.cpp \
   Lights/Ambient.cpp \
   Lights/AmbientOccluder.cpp \
+  Lights/AreaLight.cpp \
   Lights/Directional.cpp \
   Lights/Light.cpp \
   Lights/PointLight.cpp \
   Materials/Emissive.cpp \
+  Materials/GlossyReflector.cpp \
   Materials/Material.cpp \
   Materials/Matte.cpp \
   Materials/Phong.cpp \
   Materials/Plastic.cpp \
+  Materials/Reflective.cpp \
+  Materials/Transparent.cpp \
   Samplers/Hammersley.cpp \
   Samplers/Jittered.cpp \
   Samplers/MultiJittered.cpp \
@@ -164,6 +176,9 @@ SOURCES += \
   Samplers/PureRandom.cpp \
   Samplers/Regular.cpp \
   Samplers/Sampler.cpp \
+  Textures/Texture.cpp \
+  Textures/ConstantColor.cpp \
+  Tracers/AreaLighting.cpp \
   Tracers/MultipleObjects.cpp \
   Tracers/RayCast.cpp \
   Tracers/SingleSphere.cpp \
@@ -184,18 +199,7 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp \
-    GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp \
-    Textures/Texture.cpp \
-    Textures/ConstantColor.cpp \
-    BRDFs/PerfectSpecular.cpp \
-    Materials/Reflective.cpp \
-    Materials/GlossyReflector.cpp \
-    Tracers/AreaLighting.cpp \
-    Lights/AreaLight.cpp \
-    BTDFs/BTDF.cpp \
-    BTDFs/PerfectTransmitter.cpp \
-    Materials/Transparent.cpp
+    Materials/SV_Matte.cpp
 
 INCLUDEPATH += \
   BRDFs \
