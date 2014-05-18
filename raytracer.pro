@@ -101,7 +101,8 @@ HEADERS += \
     Textures/ImageTexture.h \
     Utilities/Image.h \
     Mappings/Mapping.h \
-    Mappings/SphericalMap.h
+    Mappings/SphericalMap.h \
+    Textures/Checker3D.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -207,7 +208,8 @@ SOURCES += \
     Textures/ImageTexture.cpp \
     Utilities/Image.cpp \
     Mappings/Mapping.cpp \
-    Mappings/SphericalMap.cpp
+    Mappings/SphericalMap.cpp \
+    Textures/Checker3D.cpp
 
 INCLUDEPATH += \
   BRDFs \

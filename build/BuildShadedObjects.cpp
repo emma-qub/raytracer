@@ -30,74 +30,57 @@
 #include "SphericalMap.h"
 #include "ImageTexture.h"
 #include "SV_Matte.h"
+#include "Checker3D.h"
 
 #include <iostream>
 
 void World::build(void) {
-  int num_samples = 1;      	// for Figures 29.19(a) & (b)
-//	int num_samples = 25;      	// for Figure 29.19(c)
+  int num_samples = 16;
 
-  vp.set_hres(300);
-  vp.set_vres(300);
+  vp.set_hres(400);
+  vp.set_vres(400);
   vp.set_samples(num_samples);
-
-  background_color = black;
 
   tracer_ptr = new RayCast(this);
 
-  Pinhole* camera_ptr = new Pinhole;
-  camera_ptr->set_eye(0, 0, 65);
-  camera_ptr->set_lookat(0.0);
-  camera_ptr->set_view_distance(9000.0);			// for Figure 29.19(a)
-//	camera_ptr->set_view_distance(9000.0 * 8.0);	// for Figure 29.19(b)
-//	camera_ptr->set_view_distance(9000.0 * 20.0);	// for Figure 29.19(c)
-  camera_ptr->compute_uvw();
-  set_camera(camera_ptr);
+  Pinhole* pinhole_ptr = new Pinhole;
+  pinhole_ptr->set_eye(1, 2, 5);
+  pinhole_ptr->set_lookat(0, -0.35, 0);
+  pinhole_ptr->set_view_distance(900);
+  pinhole_ptr->compute_uvw();
+  set_camera(pinhole_ptr);
 
+  PointLight* light_ptr1 = new PointLight;
+  light_ptr1->set_location(20, 15, 15);
+  light_ptr1->scale_radiance(3.0);
+  light_ptr1->set_shadows(true);
+  add_light(light_ptr1);
 
-  Directional* light_ptr = new Directional;
-  light_ptr->set_direction(-0.25, 0.4, 1);
-  light_ptr->scale_radiance(2.5);
-  add_light(light_ptr);
+  Phong* phong_ptr = new Phong;
+  phong_ptr->set_ka(0.25);
+  phong_ptr->set_kd(0.5);
+  phong_ptr->set_cd(0.53, 0.67, 0.34);
+  phong_ptr->set_ks(0.1);
+  phong_ptr->set_exp(50.0);
 
+  double inner_radius = 0.9;
+  double outer_radius = 1.0;
 
-  // image:
+  RoundRimmedBowl* bowl_ptr = new RoundRimmedBowl(inner_radius, outer_radius);
+  bowl_ptr->set_material(phong_ptr);
+  add_object(bowl_ptr);
 
-  Image* image_ptr = new Image;
-  image_ptr->read_ppm_file("../raytracer/Resources/Earth.ppm");
-
-
-  // mapping:
-
-  SphericalMap* map_ptr = new SphericalMap;
-
-
-  // image based texture:
-
-  ImageTexture* texture_ptr = new ImageTexture;
-  texture_ptr->set_image(image_ptr);
-  texture_ptr->set_mapping(map_ptr);
-
-
-  // textured material:
+  Checker3D* checker_ptr = new Checker3D;
+  checker_ptr->set_size(1.0);
+  checker_ptr->set_color1(white);
+  checker_ptr->set_color2(0.75);
 
   SV_Matte* sv_matte_ptr = new SV_Matte;
-  sv_matte_ptr->set_ka(0.2);
-  sv_matte_ptr->set_kd(0.8);
-  sv_matte_ptr->set_cd(texture_ptr);
+  sv_matte_ptr->set_ka(0.35);
+  sv_matte_ptr->set_kd(0.85);
+  sv_matte_ptr->set_cd(checker_ptr);
 
-
-  // generic sphere:
-
-  Sphere*	sphere_ptr = new Sphere;
-  sphere_ptr->set_material(sv_matte_ptr);
-
-
-  // rotated sphere
-
-  Instance* earth_ptr = new Instance(sphere_ptr);
-  earth_ptr->rotate_y(-72);
-  earth_ptr->rotate_x(40);
-  earth_ptr->rotate_z(20);
-  add_object(earth_ptr);
+  Plane* plane_ptr1 = new Plane(Point3D(0, -1, 0), Normal(0, 1, 0));
+  plane_ptr1->set_material(sv_matte_ptr->clone());
+  add_object(plane_ptr1);
 }
