@@ -97,7 +97,10 @@ HEADERS += \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
   World/World.h \
-    Materials/SV_Matte.h
+    Materials/SV_Matte.h \
+    Textures/ImageTexture.h \
+    Utilities/Image.h \
+    Mappings/Mapping.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -199,7 +202,10 @@ SOURCES += \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
   World/World.cpp \
-    Materials/SV_Matte.cpp
+    Materials/SV_Matte.cpp \
+    Textures/ImageTexture.cpp \
+    Utilities/Image.cpp \
+    Mappings/Mapping.cpp
 
 INCLUDEPATH += \
   BRDFs \
@@ -212,6 +218,7 @@ INCLUDEPATH += \
   GeometricObjects/Primitives \
   GeometricObjects/Triangles \
   Lights \
+  Mappings \
   Materials \
   Samplers \
   Textures \

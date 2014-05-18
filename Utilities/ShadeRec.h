@@ -33,6 +33,8 @@ public:
   float         t;                // ray parameter
   World&				w;                // World reference
   RGBColor      color;            // only used in chapter 3
+  int           u;                // first coordinate for mapping
+  int           v;                // second coordinate for mapping
 };
 
 #endif

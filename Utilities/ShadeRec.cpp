@@ -21,7 +21,9 @@ ShadeRec::ShadeRec(World& wr):
   depth(0),
   dir(),
   t(0.0),
-  w(wr) {
+  w(wr),
+  u(0),
+  v(0) {
 }
 
 
@@ -37,5 +39,7 @@ ShadeRec::ShadeRec(const ShadeRec& sr):
   depth(sr.depth),
   dir(sr.dir),
   t(sr.t),
-  w(sr.w) {
+  w(sr.w),
+  u(sr.u),
+  v(sr.v) {
 }
