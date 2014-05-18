@@ -27,6 +27,7 @@ public:
   void set_metalic(bool b);
 
   virtual RGBColor shade(ShadeRec& sr);
+  virtual RGBColor area_light_shade(ShadeRec& sr);
 
 private:
   Lambertian* ambient_brdf;
@@ -41,7 +42,7 @@ private:
 // is diffuse reflection
 
 inline void Phong::set_ka(const float ka) {
-  ambient_brdf->set_ka(ka);
+  ambient_brdf->set_kd(ka);
 }
 
 

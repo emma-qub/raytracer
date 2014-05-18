@@ -17,6 +17,7 @@ public:
   void set_cd(Texture* t_ptr);
 
   virtual RGBColor shade(ShadeRec& sr);
+  virtual RGBColor area_light_shade(ShadeRec& sr);
 
 private:
   SV_Lambertian* ambient_brdf;

@@ -19,6 +19,7 @@ public:
   void set_cr(const float c);
   void set_exponent(const float exp);
 
+  virtual RGBColor shade(ShadeRec& sr);
   virtual RGBColor area_light_shade(ShadeRec& sr);
 
 private:

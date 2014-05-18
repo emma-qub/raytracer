@@ -19,6 +19,7 @@ public:
   void set_kt(const float k);
 
   virtual RGBColor shade(ShadeRec& sr);
+  virtual RGBColor area_light_shade(ShadeRec& sr);
 
 private:
   PerfectSpecular* reflective_brdf;

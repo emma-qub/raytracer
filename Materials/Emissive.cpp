@@ -38,10 +38,11 @@ RGBColor Emissive::get_Le(ShadeRec& /*sr*/) const {
 RGBColor Emissive::shade(ShadeRec& sr) {
   return sr.color;
 }
-
+#include <QDebug>
 RGBColor Emissive::area_light_shade(ShadeRec& sr) {
+  //qDebug() << "Emissive::area_light_shade";
   if (-sr.normal * sr.ray.d > 0.0)
-    return (ls * ce);
+    return ls * ce;
   else
-    return (black);
+    return black;
 }

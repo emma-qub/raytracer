@@ -2,16 +2,16 @@
 
 // -------------------------------------------------------------------- default constructor
 
-Tracer::Tracer(void)
-  : world_ptr(NULL)
-{}
+Tracer::Tracer(void):
+  world_ptr(NULL) {
+}
 
 
 // -------------------------------------------------------------------- constructor
 
-Tracer::Tracer(World* _worldPtr)
-  : world_ptr(_worldPtr)
-{}
+Tracer::Tracer(World* _worldPtr):
+  world_ptr(_worldPtr) {
+}
 
 
 
@@ -25,20 +25,17 @@ Tracer::~Tracer(void) {
 
 // -------------------------------------------------------------------- trace_ray
 
-RGBColor
-Tracer::trace_ray(const Ray& /*ray*/) const {
-  return black;
+RGBColor Tracer::trace_ray(const Ray& /*ray*/) const {
+  return yellow;
 }
 
 
 // -------------------------------------------------------------------- trace_ray
 
-RGBColor
-Tracer::trace_ray(const Ray /*ray*/, const int /*depth*/) const {
-  return black;
+RGBColor Tracer::trace_ray(const Ray /*ray*/, const int /*depth*/) const {
+  return yellow;
 }
 
 RGBColor Tracer::trace_ray(const Ray /*ray*/, float& /*tmin*/, const int /*depth*/) const {
-  return black;
+  return yellow;
 }
-

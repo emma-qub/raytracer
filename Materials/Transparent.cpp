@@ -89,3 +89,25 @@ RGBColor Transparent::shade(ShadeRec& sr) {
 
   return L;
 }
+
+RGBColor Transparent::area_light_shade(ShadeRec& sr) {
+  RGBColor L(Phong::shade(sr));
+
+  Vector3D wo = -sr.ray.d;
+  Vector3D wi;
+  RGBColor fr = reflective_brdf->sample_f(sr, wo, wi);     // computes wi
+  Ray reflected_ray(sr.hit_point, wi);
+
+  if (specular_btdf) {
+    L += sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1);
+  } else {    // kr = 1.0
+    Vector3D wt;
+    RGBColor ft = specular_btdf->sample_f(sr, wo, wt);     // computes wt
+    Ray transmutted_ray(sr.hit_point, wt);
+
+    L += fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * std::fabs(sr.normal * wi);
+    L += ft * sr.w.tracer_ptr->trace_ray(transmutted_ray, sr.depth + 1) * std::fabs(sr.normal * wt);
+  }
+
+  return L;
+}

@@ -33,13 +33,18 @@ Material::~Material(void) {
 }
 
 
+RGBColor Material::get_Le(ShadeRec& /*sr*/) {
+  return white;
+}
+
 // ---------------------------------------------------------------- shade
 
 RGBColor Material::shade(ShadeRec& /*sr*/) {
   return black;
 }
-
+#include <QDebug>
 RGBColor Material::area_light_shade(ShadeRec& /*sr*/) {
+  qDebug() << "Material::area_light_shade";
   return black;
 }
 

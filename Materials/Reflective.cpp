@@ -55,8 +55,21 @@ Reflective::~Reflective(void) {
 
 // ---------------------------------------------------------------- shade
 
-RGBColor
-Reflective::shade(ShadeRec& sr) {
+RGBColor Reflective::shade(ShadeRec& sr) {
+  RGBColor L(Phong::shade(sr));       // Direct illumination
+
+  Vector3D wo 			= -sr.ray.d;
+  Vector3D wi;
+  RGBColor fr = reflective_brdf->sample_f(sr, wo, wi);
+  Ray reflected_ray(sr.hit_point, wi);
+
+  L += fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi);
+
+  return L;
+}
+#include <QDebug>
+RGBColor Reflective::area_light_shade(ShadeRec& sr) {
+  //qDebug() << "Reflective::area_light_shade";
   RGBColor L(Phong::shade(sr));       // Direct illumination
 
   Vector3D wo 			= -sr.ray.d;
