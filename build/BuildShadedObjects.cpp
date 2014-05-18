@@ -18,118 +18,178 @@
 #include "Fisheye.h"
 #include "Spherical.h"
 //#include "Orthographic.h"
-#include "Grid.h"
 #include "Whitted.h"
-#include "GlossyReflector.h"
-#include "AreaLighting.h"
-#include "AreaLight.h"
-#include "Emissive.h"
-#include "PerfectTransmitter.h"
-#include "Transparent.h"
-#include "Image.h"
-#include "SphericalMap.h"
-#include "ImageTexture.h"
 #include "SV_Matte.h"
-#include "Checker3D.h"
-#include "PlaneChecker.h"
+#include "Emissive.h"
+#include "AreaLighting.h"
+#include "Transparent.h"
+#include "SingleSphere.h"
+#include "GlossyReflector.h"
 
 #include <iostream>
+#include <QDebug>
 
 void
 World::build(void) {
-  int num_samples = 1;   		// for Figure 18.4(a)
-//	int num_samples = 100;   	// for Figure 18.4(b) & (c)
-
-  Sampler* sampler_ptr = new MultiJittered(num_samples);
+  int num_samples = 100;
 
   vp.set_hres(600);
-  vp.set_vres(600);
-  vp.set_sampler(sampler_ptr);
+  vp.set_vres(400);
+  vp.set_samples(num_samples);
+  vp.set_pixel_size(1.0);
+  vp.set_max_depth(0);
 
-  background_color = RGBColor(0.5);
+  background_color = black;
+  tracer_ptr = new RayCast(this);
 
-  tracer_ptr = new AreaLighting(this);
+  // thin lens camera
 
-  Pinhole* camera = new Pinhole;
-  camera->set_eye(-20, 10, 20);
-  camera->set_lookat(0, 2, 0);
-  camera->set_view_distance(1080);
-  camera->compute_uvw();
-  set_camera(camera);
+  ThinLens* thin_lens_ptr = new ThinLens;
+  thin_lens_ptr->set_eye(100, 100, 50);
+  thin_lens_ptr->set_lookat(0, -10, 0);
+  thin_lens_ptr->set_view_distance(390.0);
+  thin_lens_ptr->set_focal_distance(135.0);
+  thin_lens_ptr->set_lens_radius(5.0);
+  thin_lens_ptr->set_sampler(new MultiJittered(num_samples));
+  thin_lens_ptr->compute_uvw();
+  set_camera(thin_lens_ptr);
 
-
-  Emissive* emissive_ptr = new Emissive;
-  emissive_ptr->scale_radiance(40.0);
-  emissive_ptr->set_ce(white);
-
-
-  // define a rectangle for the rectangular light
-
-  float width = 4.0;				// for Figure 18.4(a) & (b)
-  float height = 4.0;
-//	float width = 2.0;				// for Figure 18.4(c)
-//	float height = 2.0;
-  Point3D center(0.0, 7.0, -7.0);	// center of each area light (rectangular, disk, and spherical)
-  Point3D p0(-0.5 * width, center.y - 0.5 * height, center.z);
-  Vector3D a(width, 0.0, 0.0);
-  Vector3D b(0.0, height, 0.0);
-  Normal normal(0, 0, 1);
-
-  Rectangle* rectangle_ptr = new Rectangle(p0, a, b, normal);
-  rectangle_ptr->set_material(emissive_ptr);
-  rectangle_ptr->set_sampler(sampler_ptr);
-  rectangle_ptr->set_shadows(false);
-  add_object(rectangle_ptr);
+  PointLight* light_ptr2 = new PointLight;
+  light_ptr2->set_location(150, 500, 300);
+  light_ptr2->scale_radiance(3.75);
+  light_ptr2->set_shadows(true);
+  add_light(light_ptr2);
 
 
-  AreaLight* area_light_ptr = new AreaLight;
-  area_light_ptr->set_object(rectangle_ptr);
-  area_light_ptr->set_shadows(true);
-  add_light(area_light_ptr);
+  // city parameters
+
+  float 	a					= 10;   // city block width:  xw extent
+  float 	b   				= 12;	// city block length:  yw extent
+  int 	num_rows			= 10;  	// number of blocks in the xw direction
+  int 	num_columns			= 12; 	// number of blocks in the zw direction
+  float	width				= 7;	// building width: xw extent in range [min, a - offset]
+  float 	length				= 7;	// building length: zw extent in range [min, b - offset]
+  float 	min_size			= 6;	// mininum building extent in xw and yw directions
+  float 	offset				= 1.0;	// half the minimum distance between buildings
+  float 	min_height			= 0.0; 	// minimum building height
+  float 	max_height			= 30; 	// maximum bulding height
+  float 	height;						// the building height in range [min_height, max_height]
+  int		num_park_rows		= 4;  	// number of blocks of park in xw direction
+  int		num_park_columns	= 6;  	// number of blocks of park in xw direction
+  int 	row_test;					// there are no buildings in the park
+  int 	column_test;				// there are no buildings in the park
+  float 	min_color			= 0.1;  // prevents colors that are too dark
+  float 	max_color			= 0.9;	// prevents colors that are too saturated
+
+  set_rand_seed(15);  				// As the buildings' dimensions and colors are random, it's necessary to
+                    // seed rand to keep these quantities the same at each run
+                    // If you leave this out, and change the number of samples per pixel,
+                    // these will change
+
+  // The buildings are stored in a grid for efficiency, but you can render them without the grid
+  // by storing them directly in the world.
+
+  Grid* grid_ptr = new Grid;
+
+  for (int r = 0; r < num_rows; r++)  			// xw direction
+    for (int c = 0; c < num_columns; c++) {		// zw direction
+      // determine if the block is in the park
+
+      if ((r - num_rows / 2) >= 0)
+        row_test = r -  num_rows / 2;
+      else
+        row_test = r -  num_rows / 2 + 1;
+
+      if ((c - num_columns / 2) >= 0)
+        column_test = c - num_columns / 2;
+      else
+        column_test = c - num_columns / 2 + 1;
+
+      if (abs(row_test) >= (num_park_rows / 2) || abs(column_test) >= (num_park_columns / 2)) {
+
+        // because both matte_ptr and reflective_ptr call randf, we have to keep one of
+        // them commented out to keep the boxes and colours the same for a given seed
+
+        Matte* matte_ptr = new Matte;
+        matte_ptr->set_cd(	min_color + rand_float() * (max_color - min_color),
+                  min_color + rand_float() * (max_color - min_color),
+                  min_color + rand_float() * (max_color - min_color));
+        matte_ptr->set_ka(0.4);
+        matte_ptr->set_kd(0.6);
+
+        // block center coordinates
+
+        float xc = a * (r - num_rows / 2.0 + 0.5);
+        float zc = b * (c - num_columns / 2.0 + 0.5);
+
+        width = min_size + rand_float() * (a - 2 * offset - min_size);
+        length = min_size + rand_float() * (b - 2 * offset - min_size);
 
 
-  // Four axis aligned boxes
+        // minimum building coordinates
 
-  float box_width 	= 1.0; 		// x dimension
-  float box_depth 	= 1.0; 		// z dimension
-  float box_height 	= 4.5; 		// y dimension
-  float gap			= 3.0;
+        float xmin = xc - width / 2.0;
+        float ymin = 0.0;
+        float zmin = zc - length / 2.0;
 
-  Matte* matte_ptr1 = new Matte;
-  matte_ptr1->set_ka(0.25);
-  matte_ptr1->set_kd(0.75);
-  matte_ptr1->set_cd(0.4, 0.7, 0.4);     // green
+        // maximum building coordinates
 
-  Box* box_ptr0 = new Box(Point3D(- 1.5 * gap - 2.0 * box_width, 0.0, -0.5 * box_depth),
-              Point3D(-1.5 * gap  - box_width, box_height, 0.5 * box_depth));
-  box_ptr0->set_material(matte_ptr1->clone());
-  add_object(box_ptr0);
-
-  Box* box_ptr1 = new Box(Point3D(- 0.5 * gap - box_width, 0.0, -0.5 * box_depth),
-              Point3D(-0.5 * gap, box_height, 0.5 * box_depth));
-  box_ptr1->set_material(matte_ptr1->clone());
-  add_object(box_ptr1);
-
-  Box* box_ptr2 = new Box(Point3D(0.5 * gap, 0.0, -0.5 * box_depth),
-              Point3D(0.5 * gap + box_width, box_height, 0.5 * box_depth));
-  box_ptr2->set_material(matte_ptr1->clone());
-  add_object(box_ptr2);
-
-  Box* box_ptr3 = new Box(Point3D(1.5 * gap + box_width, 0.0, -0.5 * box_depth),
-              Point3D(1.5 * gap + 2.0 * box_width, box_height, 0.5 * box_depth));
-  box_ptr3->set_material(matte_ptr1->clone());
-  add_object(box_ptr3);
+        height = min_height + rand_float() * (max_height - min_height);
 
 
-  // ground plane
+        // The following is a hack to make the middle row and column of buildings higher
+        // on average than the other buildings.
+        // This only works when there are three rows and columns of buildings
 
-  Matte* matte_ptr2 = new Matte;
-  matte_ptr2->set_ka(0.1);
-  matte_ptr2->set_kd(0.90);
-  matte_ptr2->set_cd(white);
+        if (r == 1 || r == num_rows - 2 || c == 1 || c == num_columns - 2)
+          height *= 1.5;
 
-  Plane* plane_ptr = new Plane(Point3D(0.0), Normal(0, 1, 0));
-  plane_ptr->set_material(matte_ptr2);
+        float xmax = xc + width / 2.0;
+        float ymax = height;
+        float zmax = zc + length / 2.0;
+
+        Box* building_ptr = new  Box(Point3D(xmin, ymin, zmin), Point3D(xmax, ymax, zmax));
+        building_ptr->set_material(matte_ptr);
+        grid_ptr->add_object(building_ptr);
+      }
+    }
+
+  grid_ptr->setup_cells();
+  add_object(grid_ptr);
+
+
+  // render the park with small green checkers
+
+  Checker3D* checker3D_ptr1 = new Checker3D;
+  checker3D_ptr1->set_size(5.0);
+  checker3D_ptr1->set_color1(0.35, 0.75, 0.35);
+  checker3D_ptr1->set_color2(0.3, 0.5, 0.3);
+
+  SV_Matte* sv_matte_ptr1 = new SV_Matte;
+  sv_matte_ptr1->set_ka(0.3);
+  sv_matte_ptr1->set_kd(0.50);
+  sv_matte_ptr1->set_cd(checker3D_ptr1);
+
+  Box* park_ptr = new Box( 	Point3D(-a * num_park_rows / 2, 0.0, -b * num_park_columns / 2),
+                Point3D(a * num_park_rows / 2, 0.1, b * num_park_columns / 2)  );
+  park_ptr->set_material(sv_matte_ptr1->clone());
+  add_object(park_ptr);
+
+
+  // ground plane with checker:
+
+  Checker3D* checker3D_ptr2 = new Checker3D;
+  checker3D_ptr2->set_size(50.0);
+  checker3D_ptr2->set_color1(RGBColor(0.7));
+  checker3D_ptr2->set_color2(RGBColor(1));
+
+  SV_Matte* sv_matte_ptr2 = new SV_Matte;
+  sv_matte_ptr2->set_ka(0.30);
+  sv_matte_ptr2->set_kd(0.40);
+  sv_matte_ptr2->set_cd(checker3D_ptr2);
+
+  Plane* plane_ptr = new Plane(Point3D(0, 0.01, 0), Normal(0, 1, 0));
+  plane_ptr->set_material(sv_matte_ptr2->clone());
   add_object(plane_ptr);
 }
 

@@ -56,7 +56,6 @@ Compound::~Compound(void) {
 
 
 // ---------------------------------------------------------------- add_object
-
 void
 Compound::add_object(GeometricObject* object_ptr) {
   objects.push_back(object_ptr);

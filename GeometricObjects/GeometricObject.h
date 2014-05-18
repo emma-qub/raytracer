@@ -9,6 +9,7 @@ class Material;
 #include "Constants.h"
 #include "BBox.h"
 
+#include <QString>
 
 //----------------------------------------------------------------------------------------------------- Class GeometricObject
 
@@ -33,6 +34,13 @@ public:
   virtual Point3D sample(void);
   virtual Normal get_normal(const Point3D& p);
   virtual float pdf(const ShadeRec& sr);
+
+  virtual QString bbox_str(void) const {
+    BBox bb = get_bounding_box();
+    return QString::number(bb.x0) + " " + QString::number(bb.x1) + " "
+         + QString::number(bb.y0) + " " + QString::number(bb.y1) + " "
+         + QString::number(bb.z0) + " " + QString::number(bb.z1) + " ";
+  }
 
 protected:
   mutable Material* material_ptr;                           // mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const

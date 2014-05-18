@@ -79,7 +79,7 @@ void Triangle::compute_normal(void) {
 }
 
 
-BBox Triangle::get_bounding_box(void) {
+BBox Triangle::get_bounding_box(void) const {
   double delta = 0.000001;
 
   return BBox(min(min(v0.x, v1.x), v2.x) - delta, max(max(v0.x, v1.x), v2.x) + delta,

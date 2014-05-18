@@ -107,7 +107,7 @@ BeveledCylinder& BeveledCylinder::operator= (const BeveledCylinder& rhs)
 BeveledCylinder::~BeveledCylinder (void) {
 }
 
-BBox BeveledCylinder::get_bounding_box(void) {
+BBox BeveledCylinder::get_bounding_box(void) const {
   return bbox;
 }
 

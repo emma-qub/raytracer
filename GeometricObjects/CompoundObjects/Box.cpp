@@ -151,7 +151,7 @@ Box& Box::operator= (const Box& rhs) {
 Box::~Box (void) {
 }
 
-BBox Box::get_bounding_box(void) {
+BBox Box::get_bounding_box(void) const {
   return bbox;
 }
 

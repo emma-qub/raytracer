@@ -62,7 +62,7 @@ class MeshTriangle: public GeometricObject {
     get_normal(void) const;
 
     virtual BBox
-    get_bounding_box(void);
+    get_bounding_box(void) const;
 
   protected:
 

@@ -27,7 +27,7 @@ public:
   virtual BeveledBox& operator= (const BeveledBox& rhs);
   virtual ~BeveledBox(void);
 
-  virtual BBox get_bounding_box(void);
+  virtual BBox get_bounding_box(void) const;
 
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;

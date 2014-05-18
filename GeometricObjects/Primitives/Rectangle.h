@@ -21,7 +21,7 @@ public:
   virtual ~Rectangle(void);
   Rectangle& operator= (const Rectangle& rhs);
 
-  BBox get_bounding_box(void);
+  BBox get_bounding_box(void) const;
 
   virtual bool hit(const Ray& ray, double& t, ShadeRec& s) const;
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;

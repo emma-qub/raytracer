@@ -15,7 +15,7 @@ public:
   virtual BeveledCylinder& operator=(const BeveledCylinder& rhs);
   virtual ~BeveledCylinder(void);
 
-  virtual BBox get_bounding_box(void);
+  virtual BBox get_bounding_box(void) const;
 
   virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
   virtual bool shadow_hit(const Ray& ray, float& tmin) const;

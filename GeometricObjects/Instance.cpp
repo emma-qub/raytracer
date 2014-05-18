@@ -211,7 +211,7 @@ Instance::compute_bounding_box(void) {
 //---------------------------------------------------------------- get_bounding_box
 
 BBox
-Instance::get_bounding_box(void) {
+Instance::get_bounding_box(void) const {
   return bbox;
 }
 

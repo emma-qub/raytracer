@@ -499,7 +499,7 @@ BeveledBox::~BeveledBox (void) {
 
 
 
-BBox BeveledBox::get_bounding_box(void) {
+BBox BeveledBox::get_bounding_box(void) const {
   return bbox;
 }
 

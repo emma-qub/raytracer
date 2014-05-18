@@ -478,7 +478,7 @@ BeveledWedge::~BeveledWedge(void) {
 
 // ------------------------------------------------------------------------------ get_bounding_box
 
-BBox BeveledWedge::get_bounding_box(void) {
+BBox BeveledWedge::get_bounding_box(void) const {
   return bbox;
 }
 

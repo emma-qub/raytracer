@@ -93,7 +93,7 @@ Grid::~Grid(void) {
 }
 
 
-BBox Grid::get_bounding_box(void) {
+BBox Grid::get_bounding_box(void) const {
   return (bbox);
 }
 

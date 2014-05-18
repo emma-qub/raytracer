@@ -34,7 +34,7 @@ public:
   virtual Grid* clone(void) const;
   virtual ~Grid(void);
 
-  virtual BBox get_bounding_box(void);
+  virtual BBox get_bounding_box(void) const;
   void read_flat_triangles(const char* file_name);
   void read_smooth_triangles(char* file_name);
   void tessellate_flat_sphere(const int horizontal_steps, const int vertical_steps);
