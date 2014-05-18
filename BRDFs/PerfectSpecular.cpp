@@ -6,7 +6,7 @@
 PerfectSpecular::PerfectSpecular(void):
   BRDF(),
   kr(0.0),
-  cr(0.0) {
+  cr(1.0) {
 }
 
 
