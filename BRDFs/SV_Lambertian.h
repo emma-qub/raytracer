@@ -15,7 +15,7 @@ public:
 
   void set_ka(const float ka);
   void set_kd(const float kd);
-  void set_cd(const Texture* t_ptr);
+  void set_cd(Texture* t_ptr);
 
   virtual RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
   virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
@@ -34,9 +34,9 @@ inline void SV_Lambertian::set_kd(const float k) {
   kd = k;
 }
 
-inline void SV_Lambertian::set_cd(const Texture* t_ptr) {
+inline void SV_Lambertian::set_cd(Texture* t_ptr) {
   delete cd;
-  cd = t_ptr->clone();
+  cd = t_ptr;
 }
 
 #endif // SV_LAMBERTIAN_H

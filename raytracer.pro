@@ -100,7 +100,8 @@ HEADERS += \
     Materials/SV_Matte.h \
     Textures/ImageTexture.h \
     Utilities/Image.h \
-    Mappings/Mapping.h
+    Mappings/Mapping.h \
+    Mappings/SphericalMap.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -205,7 +206,8 @@ SOURCES += \
     Materials/SV_Matte.cpp \
     Textures/ImageTexture.cpp \
     Utilities/Image.cpp \
-    Mappings/Mapping.cpp
+    Mappings/Mapping.cpp \
+    Mappings/SphericalMap.cpp
 
 INCLUDEPATH += \
   BRDFs \

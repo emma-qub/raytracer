@@ -26,130 +26,78 @@
 #include "Emissive.h"
 #include "PerfectTransmitter.h"
 #include "Transparent.h"
+#include "Image.h"
+#include "SphericalMap.h"
+#include "ImageTexture.h"
+#include "SV_Matte.h"
 
 #include <iostream>
 
 void World::build(void) {
-  int num_samples = 16;
+  int num_samples = 1;      	// for Figures 29.19(a) & (b)
+//	int num_samples = 25;      	// for Figure 29.19(c)
 
-  vp.set_hres(600);
-  vp.set_vres(400);
+  vp.set_hres(300);
+  vp.set_vres(300);
   vp.set_samples(num_samples);
-  vp.set_max_depth(10);
 
-  tracer_ptr = new Whitted(this);
-  background_color = RGBColor(0.15);
+  background_color = black;
 
-  Ambient* ambient_ptr = new Ambient;
-  ambient_ptr->scale_radiance(0.5);
-  set_ambient_light(ambient_ptr);
+  tracer_ptr = new RayCast(this);
 
-
-  Pinhole* pinhole_ptr = new Pinhole;
-  pinhole_ptr->set_eye(75, 40, 100);
-  pinhole_ptr->set_lookat(-10, 39, 0);
-  pinhole_ptr->set_view_distance(360);
-  pinhole_ptr->compute_uvw();
-  set_camera(pinhole_ptr);
+  Pinhole* camera_ptr = new Pinhole;
+  camera_ptr->set_eye(0, 0, 65);
+  camera_ptr->set_lookat(0.0);
+  camera_ptr->set_view_distance(9000.0);			// for Figure 29.19(a)
+//	camera_ptr->set_view_distance(9000.0 * 8.0);	// for Figure 29.19(b)
+//	camera_ptr->set_view_distance(9000.0 * 20.0);	// for Figure 29.19(c)
+  camera_ptr->compute_uvw();
+  set_camera(camera_ptr);
 
 
-  PointLight* light_ptr = new PointLight;
-  light_ptr->set_location(150, 150, 0);
-  light_ptr->scale_radiance(3.0);
-  light_ptr->set_shadows(true);
+  Directional* light_ptr = new Directional;
+  light_ptr->set_direction(-0.25, 0.4, 1);
+  light_ptr->scale_radiance(2.5);
   add_light(light_ptr);
 
-  // yellow-green reflective sphere
 
-  Reflective* reflective_ptr1 = new Reflective;
-  reflective_ptr1->set_ka(0.25);
-  reflective_ptr1->set_kd(0.5);
-  reflective_ptr1->set_cd(0.75, 0.75, 0);    	// yellow
-  reflective_ptr1->set_ks(0.15);
-  reflective_ptr1->set_exp(100.0);
-  reflective_ptr1->set_kr(0.75);
-  reflective_ptr1->set_cr(white); 			// default color
+  // image:
 
-  float radius = 23.0;
-  Sphere* sphere_ptr1 = new Sphere(Point3D(38, radius, -25), radius);
-  sphere_ptr1->set_material(reflective_ptr1);
-  add_object(sphere_ptr1);
+  Image* image_ptr = new Image;
+  image_ptr->read_ppm_file("../raytracer/Resources/Earth.ppm");
 
 
-  // orange non-reflective sphere
+  // mapping:
 
-  Matte* matte_ptr1 = new Matte;
-  matte_ptr1->set_ka(0.45);
-  matte_ptr1->set_kd(0.75);
-  matte_ptr1->set_cd(0.75, 0.25, 0);   // orange
-
-  Sphere* sphere_ptr2 = new Sphere(Point3D(-7, 10, 42), 20);
-  sphere_ptr2->set_material(matte_ptr1);
-  add_object(sphere_ptr2);
+  SphericalMap* map_ptr = new SphericalMap;
 
 
-  // sphere on top of box
+  // image based texture:
 
-  Reflective* reflective_ptr2 = new Reflective;
-  reflective_ptr2->set_ka(0.35);
-  reflective_ptr2->set_kd(0.75);
-  reflective_ptr2->set_cd(black);
-  reflective_ptr2->set_ks(0.0);		// default value
-  reflective_ptr2->set_exp(1.0);		// default value, but irrelevant in this case
-  reflective_ptr2->set_kr(0.75);
-  reflective_ptr2->set_cr(white);
-
-  Sphere* sphere_ptr3 = new Sphere(Point3D(-30, 59, 35), 20);
-  sphere_ptr3->set_material(reflective_ptr2);
-  add_object(sphere_ptr3);
+  ImageTexture* texture_ptr = new ImageTexture;
+  texture_ptr->set_image(image_ptr);
+  texture_ptr->set_mapping(map_ptr);
 
 
-  // cylinder
+  // textured material:
 
-  Reflective* reflective_ptr3 = new Reflective;
-  reflective_ptr3->set_ka(0.35);
-  reflective_ptr3->set_kd(0.5);
-  reflective_ptr3->set_cd(0, 0.5, 0.75);   // cyan
-  reflective_ptr3->set_ks(0.2);
-  reflective_ptr3->set_exp(100.0);
-  reflective_ptr3->set_kr(0.75);
-  reflective_ptr3->set_cr(white);
-
-  double bottom 			= 0.0;
-  double top 				= 85;
-  double cylinder_radius	= 22;
-  SolidCylinder* cylinder_ptr = new SolidCylinder(bottom, top, cylinder_radius);
-  cylinder_ptr->set_material(reflective_ptr3);
-  add_object(cylinder_ptr);
+  SV_Matte* sv_matte_ptr = new SV_Matte;
+  sv_matte_ptr->set_ka(0.2);
+  sv_matte_ptr->set_kd(0.8);
+  sv_matte_ptr->set_cd(texture_ptr);
 
 
-  // box
+  // generic sphere:
 
-  Matte* matte_ptr2 = new Matte;
-  matte_ptr2->set_ka(0.15);
-  matte_ptr2->set_kd(0.5);
-  matte_ptr2->set_cd(0.75, 1.0, 0.75);   // light green
-
-  Box* box_ptr = new Box(Point3D(-35, 0, -110), Point3D(-25, 60, 65));
-  box_ptr->set_material(matte_ptr2);
-  add_object(box_ptr);
+  Sphere*	sphere_ptr = new Sphere;
+  sphere_ptr->set_material(sv_matte_ptr);
 
 
-  // ground plane
+  // rotated sphere
 
-//  PlaneChecker* checker_ptr = new PlaneChecker;
-//  checker_ptr->set_size(20.0);
-//  checker_ptr->set_outline_width(2.0);
-//  checker_ptr->set_color1(white);
-//  checker_ptr->set_color2(white);
-//  checker_ptr->set_outline_color(black);
-
-  /*SV_*/Matte* sv_matte_ptr = new /*SV_*/Matte;
-  sv_matte_ptr->set_ka(0.30);
-  sv_matte_ptr->set_kd(0.9);
-  sv_matte_ptr->set_cd(1);
-
-  Plane* plane_ptr = new Plane(Point3D(0), Normal(0, 1, 0));
-  plane_ptr->set_material(sv_matte_ptr);
-  add_object(plane_ptr);
+  Instance* earth_ptr = new Instance(sphere_ptr);
+  earth_ptr->rotate_y(-72);
+  earth_ptr->rotate_x(40);
+  earth_ptr->rotate_z(20);
+  add_object(earth_ptr);
 }
