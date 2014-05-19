@@ -31,128 +31,92 @@
 
 void
 World::build(void) {
-  vp.set_hres(400);
-  vp.set_vres(400);
-  vp.set_samples(25);
+  int num_samples = 1;
+
+  vp.set_hres(300);
+  vp.set_vres(300);
+  vp.set_samples(num_samples);
 
   tracer_ptr = new RayCast(this);
 
   Pinhole* camera_ptr = new Pinhole;
 
-  // Figure9.10(a)
+  // for Figure 9.11(a)
 
-//  camera_ptr->set_eye(150, 195, 125);
-//  camera_ptr->set_lookat(0, 195, -40);
-//  camera_ptr->set_view_distance(167);
+//  camera_ptr->set_eye(0, 0, 500);
+//  camera_ptr->set_lookat(0);
+//  camera_ptr->set_view_distance(500);
+//  camera_ptr->set_up_vector(1, 1, 0);
 
+  // for Figure 9.11(b)
 
-  // Figure9.10(b)
+//  camera_ptr->set_eye(500, 0, 0);
+//  camera_ptr->set_lookat(0);
+//  camera_ptr->set_view_distance(400);
+//  camera_ptr->set_up_vector(0, 1, -1);
 
-  camera_ptr->set_eye(150, 300, 125);
-  camera_ptr->set_lookat(0, 265, -40);
-  camera_ptr->set_view_distance(167);
+  // for Figure 9.11(c)
 
-
-  // Figure9.10(c)
-
-//  camera_ptr->set_eye(-250, 350, 500);
-//  camera_ptr->set_lookat(-250, 350, 0);
-//  camera_ptr->set_view_distance(280);
+  camera_ptr->set_eye(300, 400, 500);
+  camera_ptr->set_lookat(-20, -30, -50);
+  camera_ptr->set_view_distance(400);
+  camera_ptr->set_roll_angle(145);        // see Exercise 9.6
 
   camera_ptr->compute_uvw();
   set_camera(camera_ptr);
 
 
-  Directional* light_ptr1 = new Directional;
-  light_ptr1->set_direction(150, 200, 65);
-  light_ptr1->scale_radiance(5.0);
+  PointLight* light_ptr1 = new PointLight;
+  light_ptr1->set_location(50, 150, 200);
+  light_ptr1->scale_radiance(6.0);
   light_ptr1->set_shadows(true);
   add_light(light_ptr1);
 
 
-  Matte* matte_ptr1 = new Matte;
-  matte_ptr1->set_cd(0, 0.5, 0.5);     // cyan
-  matte_ptr1->set_ka(0.4);
-  matte_ptr1->set_kd(0.5);
+  // sphere
 
-  Matte* matte_ptr2 = new Matte;
-  matte_ptr2->set_cd(0.8, 0.5, 0);     // orange
-  matte_ptr2->set_ka(0.4);
-  matte_ptr2->set_kd(0.5);
+  Phong* phong_ptr1 = new Phong;
+  phong_ptr1->set_ka(0.5);
+  phong_ptr1->set_kd(0.4);
+  phong_ptr1->set_cd(0.5, 0.6, 0);  	// green
+  phong_ptr1->set_ks(0.05);
+  phong_ptr1->set_exp(25);
 
-  Matte* matte_ptr3 = new Matte;
-  matte_ptr3->set_cd(0.5, 0.6, 0);     // green
-  matte_ptr3->set_ka(0.4);
-  matte_ptr3->set_kd(0.5);
+  Sphere*	sphere_ptr1 = new Sphere(Point3D(-45, 45, 40), 50);
+  sphere_ptr1->set_material(phong_ptr1);
+  add_object(sphere_ptr1);
 
 
-  // construct rows of boxes parallel to the zw axis
+  // box
 
-  Grid* grid_ptr = new Grid;
+  Matte* matte_ptr = new Matte;
+  matte_ptr->set_ka(0.4);
+  matte_ptr->set_kd(0.3);
+  matte_ptr->set_cd(0.8, 0.5, 0);  	// orange
 
-  // first row
-
-  int num_boxes = 40;
-  float wx = 50;
-  float wz = 50;
-  float h = 150;
-  float s = 100;
-
-  for (int j = 0; j < num_boxes; j++) {
-    Box* box_ptr = new Box(	Point3D(-wx, 0, -(j + 1) * wz - j * s),
-                Point3D(0, h, - j * wz - j * s));
-    box_ptr->set_material(matte_ptr2->clone());
-  //	add_object(box_ptr);
-    grid_ptr->add_object(box_ptr);
-  }
+  Box* box_ptr1 = new Box(Point3D(20, -101, -100), Point3D(90, 100, 20));
+  box_ptr1->set_material(matte_ptr);
+  add_object(box_ptr1);
 
 
-  // second row
+  // triangle
 
-  h = 300;
+  Phong*	phong_ptr2 = new Phong;
+  phong_ptr2->set_ka(0.25);
+  phong_ptr2->set_kd(0.5);
+  phong_ptr2->set_cd(0, 0.5, 0.5);     // cyan
+  phong_ptr2->set_ks(0.05);
+  phong_ptr2->set_exp(50);
 
-  for (int j = 0; j < num_boxes; j++) {
-    Box* box_ptr = new Box(	Point3D(-wx -wx - s, 0, -(j + 1) * wz - j * s),
-                Point3D(-wx - s, h, - j * wz - j * s));
-    box_ptr->set_material(matte_ptr1->clone());
-//		add_object(box_ptr);
-    grid_ptr->add_object(box_ptr);
-  }
-
-
-  // third row
-
-  h = 600;
-
-  for (int j = 0; j < num_boxes; j++) {
-    Box* box_ptr = new Box(	Point3D(-wx - 2 * wx - 2 * s, 0, -(j + 1) * wz - j * s),
-                Point3D(-2 * wx - 2 * s, h, - j * wz - j * s));
-    box_ptr->set_material(matte_ptr3->clone());
-//		add_object(box_ptr);
-    grid_ptr->add_object(box_ptr);
-  }
+  Triangle* triangle_ptr1 = new Triangle(Point3D(-110, -85, 80), Point3D(120, 10, 20), Point3D(-40, 50, -30));
+  triangle_ptr1->set_material(phong_ptr2);
+  add_object(triangle_ptr1);
 
 
-  // a column
-
-  h = 150;
-
-  for (int j = 0; j < num_boxes; j++) {
-    Box* box_ptr = new Box(	Point3D(-3 * (wx + s) - (j + 1) * wz - j * s, 0, -wx),
-                Point3D(-3 * (wx + s) - j * wz - j * s, h, 0));
-    box_ptr->set_material(matte_ptr2->clone());
-//		add_object(box_ptr);
-    grid_ptr->add_object(box_ptr);
-  }
-
-  grid_ptr->setup_cells();
-  add_object(grid_ptr);
-
-
-  // ground plane with checker:
+  // ground plane with checker
 
   Checker3D* checker3D_ptr = new Checker3D;
-  checker3D_ptr->set_size(wx);
+  checker3D_ptr->set_size(100);
   checker3D_ptr->set_color1(0.7);
   checker3D_ptr->set_color2(1.0);
 
@@ -161,13 +125,8 @@ World::build(void) {
   sv_matte_ptr->set_kd(0.35);
   sv_matte_ptr->set_cd(checker3D_ptr);
 
-  Plane* plane_ptr = new Plane(Point3D(0, 1, 0), Normal(0, 1, 0));
+  Plane* plane_ptr = new Plane(Point3D(0, -101, 0), Normal(0, 1, 0));
   plane_ptr->set_material(sv_matte_ptr->clone());
   add_object(plane_ptr);
-
-
 }
-
-
-
 
