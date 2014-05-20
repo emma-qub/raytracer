@@ -29,7 +29,7 @@
 #include <iostream>
 #include <QDebug>
 
-std::string path("/home/valentin/Documents/CodeSamples/TextureFiles/ppm/CloudsLowResWithBlack.ppm");
+std::string path("../raytracer/Resources/TextureFiles/ppm/CloudsLowResWithBlack.ppm");
 
 void World::build(void) {
   int num_samples = 16;
