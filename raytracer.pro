@@ -103,7 +103,8 @@ HEADERS += \
     Mappings/Mapping.h \
     Mappings/SphericalMap.h \
     Textures/Checker3D.h \
-    Textures/PlaneChecker.h
+    Textures/PlaneChecker.h \
+    Noises/LatticeNoise.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -211,7 +212,8 @@ SOURCES += \
     Mappings/Mapping.cpp \
     Mappings/SphericalMap.cpp \
     Textures/Checker3D.cpp \
-    Textures/PlaneChecker.cpp
+    Textures/PlaneChecker.cpp \
+    Noises/LatticeNoise.cpp
 
 INCLUDEPATH += \
   BRDFs \
@@ -226,6 +228,7 @@ INCLUDEPATH += \
   Lights \
   Mappings \
   Materials \
+  Noises \
   Samplers \
   Textures \
   Tracers \
