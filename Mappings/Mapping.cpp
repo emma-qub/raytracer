@@ -13,7 +13,7 @@ Mapping::Mapping(void) {}
 
 // ---------------------------------------------------------------- copy constructor
 
-Mapping::Mapping(const Mapping& m) {}
+Mapping::Mapping(const Mapping& /*m*/) {}
 	
 	
 // ---------------------------------------------------------------- assignment operator
