@@ -105,7 +105,8 @@ HEADERS += \
     Textures/Checker3D.h \
     Textures/PlaneChecker.h \
     Noises/LatticeNoise.h \
-    Noises/LinearNoise.h
+    Noises/LinearNoise.h \
+    Noises/CubicNoise.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -215,7 +216,8 @@ SOURCES += \
     Textures/Checker3D.cpp \
     Textures/PlaneChecker.cpp \
     Noises/LatticeNoise.cpp \
-    Noises/LinearNoise.cpp
+    Noises/LinearNoise.cpp \
+    Noises/CubicNoise.cpp
 
 INCLUDEPATH += \
   BRDFs \
