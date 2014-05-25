@@ -25,6 +25,8 @@
 #include "Transparent.h"
 #include "SingleSphere.h"
 #include "GlossyReflector.h"
+#include "CubicNoise.h"
+#include "FBmTexture.h"
 
 #include <iostream>
 #include <QDebug>
@@ -32,85 +34,58 @@
 std::string path("../raytracer/Resources/TextureFiles/ppm/CloudsLowResWithBlack.ppm");
 
 void World::build(void) {
-  int num_samples = 16;
+  int num_samples = 1;
 
   vp.set_hres(600);
-  vp.set_vres(300);
+  vp.set_vres(600);
   vp.set_samples(num_samples);
+  vp.set_gamut_display(true);
 
+  background_color = black;
   tracer_ptr = new RayCast(this);
 
   Pinhole* pinhole_ptr = new Pinhole;
-  pinhole_ptr->set_eye(0, 25, 100);
+  pinhole_ptr->set_eye(0, 0, 100);
   pinhole_ptr->set_lookat(0);
-  pinhole_ptr->set_view_distance(6500);
+  pinhole_ptr->set_view_distance(6000.0);
   pinhole_ptr->compute_uvw();
   set_camera(pinhole_ptr);
 
 
   Directional* light_ptr = new Directional;
-  light_ptr->set_direction(200, 250, 300);
-  light_ptr->set_color(1.0, 0.5, 0.0);  	// orange
-  light_ptr->scale_radiance(3.0);
-  light_ptr->set_shadows(true);    // see Chapter 16
+  light_ptr->set_direction(0, 0, 1);
+  light_ptr->scale_radiance(2.5);
   add_light(light_ptr);
 
+  // noise:
 
-  // four spheres centered on the x axis
+  CubicNoise* noise_ptr = new CubicNoise;
+//  noise_ptr->set_num_octaves(1);				// for Figure 31.21(a)
+//  noise_ptr->set_num_octaves(2);				// for Figure 31.21(b)
+//  noise_ptr->set_num_octaves(3);				// for Figure 31.21(c)
+  noise_ptr->set_num_octaves(8);				// for Figure 31.21(c)
+  noise_ptr->set_gain(0.5);
+  noise_ptr->set_lacunarity(2.0);
 
-  float radius = 1.0;
-  float gap = 0.2;	 // gap between spheres
+  // texture:
 
-  Matte* matte_ptr1 = new Matte;
-  matte_ptr1->set_ka(0.0);
-  matte_ptr1->set_kd(0.75);
-  matte_ptr1->set_cd(1, 0, 0);		// red
-
-  Sphere* sphere_ptr1 = new Sphere(Point3D(-3.0 * radius - 1.5 * gap, 0.0, 0.0), radius);
-  sphere_ptr1->set_material(matte_ptr1);
-  add_object(sphere_ptr1);
-
-
-  Matte* matte_ptr2 = new Matte;
-  matte_ptr2->set_ka(0.0);
-  matte_ptr2->set_kd(0.75);
-  matte_ptr2->set_cd(1, 0.5, 0);		// orange
-
-  Sphere* sphere_ptr2 = new Sphere(Point3D(-radius - 0.5 * gap, 0.0, 0.0), radius);
-  sphere_ptr2->set_material(matte_ptr2);
-  add_object(sphere_ptr2);
+  FBmTexture* texture_ptr = new FBmTexture(noise_ptr);
+  texture_ptr->set_color(white);
+  texture_ptr->set_min_value(0.0);
+  texture_ptr->set_max_value(1.0);
 
 
-  Matte* matte_ptr3 = new Matte;
-  matte_ptr3->set_ka(0.0);
-  matte_ptr3->set_kd(0.75);
-  matte_ptr3->set_cd(1, 1, 0);		// yellow
+  // material:
 
-  Sphere* sphere_ptr3 = new Sphere(Point3D(radius + 0.5 * gap, 0.0, 0.0), radius);
-  sphere_ptr3->set_material(matte_ptr3);
-  add_object(sphere_ptr3);
+  SV_Matte* sv_matte_ptr = new SV_Matte;
+  sv_matte_ptr->set_ka(0.25);
+  sv_matte_ptr->set_kd(0.85);
+  sv_matte_ptr->set_cd(texture_ptr);
 
-
-  Matte* matte_ptr4 = new Matte;
-  matte_ptr4->set_ka(0.0);
-  matte_ptr4->set_kd(0.75);
-  matte_ptr4->set_cd(0, 1, 0);		// green
-
-  Sphere* sphere_ptr4 = new Sphere(Point3D(3.0 * radius + 1.5 * gap, 0.0, 0.0), radius);
-  sphere_ptr4->set_material(matte_ptr4);
-  add_object(sphere_ptr4);
-
-
-  // ground plane
-
-  Matte* matte_ptr5 = new Matte;
-  matte_ptr5->set_ka(0.25);
-  matte_ptr5->set_kd(0.5);
-  matte_ptr5->set_cd(1.0);
-
-  Plane* plane_ptr = new Plane(Point3D(0, -1, 0), Normal(0, 1, 0));
-  plane_ptr->set_material(matte_ptr5);
-  add_object(plane_ptr);
+  Plane* plane_ptr1 = new Plane(Point3D(0.0), Normal(0, 0, 1));
+  plane_ptr1->set_material(sv_matte_ptr->clone());
+  add_object(plane_ptr1);
 }
+
 
 

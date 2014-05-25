@@ -107,7 +107,8 @@ HEADERS += \
     Noises/LatticeNoise.h \
     Noises/LinearNoise.h \
     Noises/CubicNoise.h \
-    Textures/Wood.h
+    Textures/Wood.h \
+    Textures/FBmTexture.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -219,7 +220,8 @@ SOURCES += \
     Noises/LatticeNoise.cpp \
     Noises/LinearNoise.cpp \
     Noises/CubicNoise.cpp \
-    Textures/Wood.cpp
+    Textures/Wood.cpp \
+    Textures/FBmTexture.cpp
 
 INCLUDEPATH += \
   BRDFs \
