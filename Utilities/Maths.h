@@ -40,9 +40,6 @@ rand_float(int l, float h);
 int							// for multi-jittered sampling
 rand_int(int l, int h);
 
-double
-clamp(const double x, const double min, const double max);
-
 int
 SolveQuadric(double c[3], double s[2]);
 
@@ -51,6 +48,27 @@ SolveCubic(double c[4], double s[3]);
 
 int
 SolveQuartic(double c[5], double s[4]);
+
+double
+mod(double a, const double b);
+
+double
+smooth_pulse(double e0, double e1, double e2, double e3, double x);
+
+double
+smooth_pulse_train(double e0, double e1, double e2, double e3, double period, double x);
+
+double
+smooth_step(double a, double b, double x);
+
+RGBColor
+mix_color(const RGBColor& c0, const RGBColor& c1, const double f);
+
+double
+mix_double(const double a, const double b, const double f);
+
+double
+clamp(const double x, const double min, const double max);
 
 
 
