@@ -82,6 +82,8 @@ class Instance: public GeometricObject {
     void
     shear(const Matrix& m);
 
+    void apply_matrix(const Matrix& mat);
+
 
   private:
 

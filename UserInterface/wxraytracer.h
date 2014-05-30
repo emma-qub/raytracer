@@ -38,7 +38,7 @@ class wxraytracerFrame : public wxFrame
 {
 public:
    wxraytracerFrame(const wxPoint& pos, const wxSize& size);
-   
+
    //event handlers
    void OnQuit( wxCommandEvent& event );
    void OnOpenFile( wxCommandEvent& event );
@@ -70,10 +70,10 @@ class RenderCanvas: public wxScrolledWindow
 public:
    RenderCanvas(wxWindow *parent);
    virtual ~RenderCanvas(void);
-    
+
    void SetImage(wxImage& image);
    wxImage GetImage(void);
-   
+
    virtual void OnDraw(wxDC& dc);
    void renderStart(void);
    void renderPause(void);
@@ -92,7 +92,7 @@ private:
    long pixelsRendered;
    long pixelsToRender;
    wxTimer updateTimer;
-   
+
    DECLARE_EVENT_TABLE()
 };
 
@@ -123,10 +123,10 @@ public:
 
 private:
    void NotifyCanvas();
-   
+
    World* world;
    RenderCanvas* canvas;
-   
+
    vector<RenderPixel*> pixels;
    wxStopWatch* timer;
    long lastUpdateTime;

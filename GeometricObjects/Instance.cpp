@@ -485,4 +485,52 @@ Instance::shear(const Matrix& s) {
   forward_matrix = s * forward_matrix;
 }
 
+void Instance::apply_matrix(const Matrix& mat) {
+  // first row
+  double a = mat.m[0][0];
+  double b = mat.m[0][1];
+  double c = mat.m[0][2];
+  double d = mat.m[0][3];
+  // second row
+  double e = mat.m[1][0];
+  double f = mat.m[1][1];
+  double g = mat.m[1][2];
+  double h = mat.m[1][3];
+  // third row
+  double i = mat.m[2][0];
+  double j = mat.m[2][1];
+  double k = mat.m[2][2];
+  double l = mat.m[2][3];
 
+  // determinant
+  double det = a*f*k + b*i*g + c*e*j - a*j*g - b*e*k - c*i*f;
+
+  // inv = 1/det * trans(commat(mat))
+  Matrix inv_mat;
+  // first row
+  inv_mat.m[0][0] = f*k - j*g;
+  inv_mat.m[0][1] = j*e - b*k;
+  inv_mat.m[0][2] = b*g - f*c;
+  inv_mat.m[0][3] = b*k*h + c*f*l + d*j*g - b*g*l - c*j*h - d*f*k;
+  // second row
+  inv_mat.m[1][0] = i*g - e*k;
+  inv_mat.m[1][1] = a*k - i*c;
+  inv_mat.m[1][2] = e*c - a*g;
+  inv_mat.m[1][3] = a*g*l + c*i*h + d*e*k - a*k*h - c*e*l - d*i*g;
+  // third row
+  inv_mat.m[2][0] = e*j - i*f;
+  inv_mat.m[2][1] = i*b - a*j;
+  inv_mat.m[2][2] = a*f - e*b;
+  inv_mat.m[2][3] = a*j*h + b*e*l + d*i*f - a*f*l - b*i*h - d*e*j;
+  // fourth row
+  inv_mat.m[3][0] = 0;
+  inv_mat.m[3][1] = 0;
+  inv_mat.m[3][2] = 0;
+  inv_mat.m[3][3] = det;
+
+  inv_mat = inv_mat / det;
+
+  inv_matrix = inv_matrix * inv_mat;
+
+  forward_matrix = mat * forward_matrix;
+}

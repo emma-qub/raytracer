@@ -22,6 +22,7 @@ HEADERS += \
   GeometricObjects/CompoundObjects/Compound.h \
   GeometricObjects/CompoundObjects/FlatRimmedBowl.h \
   GeometricObjects/CompoundObjects/Grid.h \
+  GeometricObjects/CompoundObjects/LegoPart.h \
   GeometricObjects/CompoundObjects/RoundRimmedBowl.h \
   GeometricObjects/CompoundObjects/SolidCone.h \
   GeometricObjects/CompoundObjects/SolidCylinder.h \
@@ -58,6 +59,8 @@ HEADERS += \
   Lights/Directional.h \
   Lights/Light.h \
   Lights/PointLight.h \
+  Mappings/Mapping.h \
+  Mappings/SphericalMap.h \
   Materials/Emissive.h \
   Materials/GlossyReflector.h \
   Materials/Material.h \
@@ -65,9 +68,18 @@ HEADERS += \
   Materials/Phong.h \
   Materials/Plastic.h \
   Materials/Reflective.h \
+  Materials/SV_Matte.h \
   Materials/Transparent.h \
-  Textures/Texture.h \
+  Noises/LatticeNoise.h \
+  Noises/LinearNoise.h \
+  Noises/CubicNoise.h \
+  Textures/Checker3D.h \
   Textures/ConstantColor.h \
+  Textures/FBmTexture.h \
+  Textures/ImageTexture.h \
+  Textures/PlaneChecker.h \
+  Textures/Texture.h \
+  Textures/Wood.h \
   Tracers/AreaLighting.h \
   Tracers/MultipleObjects.h \
   Tracers/RayCast.h \
@@ -84,6 +96,7 @@ HEADERS += \
   UserInterface/wxraytracer.h \
   Utilities/BBox.h \
   Utilities/Constants.h \
+  Utilities/Image.h \
   Utilities/Maths.h \
   Utilities/Matrix.h \
   Utilities/Mesh.h \
@@ -96,19 +109,7 @@ HEADERS += \
   Utilities/ShadeRec.h \
   Utilities/Vector3D.h \
   World/ViewPlane.h \
-  World/World.h \
-    Materials/SV_Matte.h \
-    Textures/ImageTexture.h \
-    Utilities/Image.h \
-    Mappings/Mapping.h \
-    Mappings/SphericalMap.h \
-    Textures/Checker3D.h \
-    Textures/PlaneChecker.h \
-    Noises/LatticeNoise.h \
-    Noises/LinearNoise.h \
-    Noises/CubicNoise.h \
-    Textures/Wood.h \
-    Textures/FBmTexture.h
+  World/World.h
 
 SOURCES += \
   BRDFs/BRDF.cpp \
@@ -136,6 +137,7 @@ SOURCES += \
   GeometricObjects/CompoundObjects/Compound.cpp \
   GeometricObjects/CompoundObjects/FlatRimmedBowl.cpp \
   GeometricObjects/CompoundObjects/Grid.cpp \
+  GeometricObjects/CompoundObjects/LegoPart.cpp \
   GeometricObjects/CompoundObjects/RoundRimmedBowl.cpp \
   GeometricObjects/CompoundObjects/SolidCone.cpp \
   GeometricObjects/CompoundObjects/SolidCylinder.cpp \
@@ -172,6 +174,8 @@ SOURCES += \
   Lights/Directional.cpp \
   Lights/Light.cpp \
   Lights/PointLight.cpp \
+  Mappings/Mapping.cpp \
+  Mappings/SphericalMap.cpp \
   Materials/Emissive.cpp \
   Materials/GlossyReflector.cpp \
   Materials/Material.cpp \
@@ -179,7 +183,11 @@ SOURCES += \
   Materials/Phong.cpp \
   Materials/Plastic.cpp \
   Materials/Reflective.cpp \
+  Materials/SV_Matte.cpp \
   Materials/Transparent.cpp \
+  Noises/LatticeNoise.cpp \
+  Noises/LinearNoise.cpp \
+  Noises/CubicNoise.cpp \
   Samplers/Hammersley.cpp \
   Samplers/Jittered.cpp \
   Samplers/MultiJittered.cpp \
@@ -187,8 +195,13 @@ SOURCES += \
   Samplers/PureRandom.cpp \
   Samplers/Regular.cpp \
   Samplers/Sampler.cpp \
-  Textures/Texture.cpp \
+  Textures/Checker3D.cpp \
   Textures/ConstantColor.cpp \
+  Textures/FBmTexture.cpp \
+  Textures/ImageTexture.cpp \
+  Textures/PlaneChecker.cpp \
+  Textures/Texture.cpp \
+  Textures/Wood.cpp \
   Tracers/AreaLighting.cpp \
   Tracers/MultipleObjects.cpp \
   Tracers/RayCast.cpp \
@@ -197,6 +210,7 @@ SOURCES += \
   Tracers/Whitted.cpp \
   UserInterface/wxraytracer.cpp \
   Utilities/BBox.cpp \
+  Utilities/Image.cpp \
   Utilities/Maths.cpp \
   Utilities/Matrix.cpp \
   Utilities/Mesh.cpp \
@@ -209,19 +223,7 @@ SOURCES += \
   Utilities/ShadeRec.cpp \
   Utilities/Vector3D.cpp \
   World/ViewPlane.cpp \
-  World/World.cpp \
-    Materials/SV_Matte.cpp \
-    Textures/ImageTexture.cpp \
-    Utilities/Image.cpp \
-    Mappings/Mapping.cpp \
-    Mappings/SphericalMap.cpp \
-    Textures/Checker3D.cpp \
-    Textures/PlaneChecker.cpp \
-    Noises/LatticeNoise.cpp \
-    Noises/LinearNoise.cpp \
-    Noises/CubicNoise.cpp \
-    Textures/Wood.cpp \
-    Textures/FBmTexture.cpp
+  World/World.cpp
 
 INCLUDEPATH += \
   BRDFs \

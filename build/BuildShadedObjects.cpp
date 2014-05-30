@@ -27,6 +27,7 @@
 #include "GlossyReflector.h"
 #include "CubicNoise.h"
 #include "FBmTexture.h"
+#include "LegoPart.h"
 
 #include <iostream>
 #include <QDebug>
@@ -37,55 +38,55 @@ void World::build(void) {
   int num_samples = 1;
 
   vp.set_hres(600);
-  vp.set_vres(600);
+  vp.set_vres(400);
   vp.set_samples(num_samples);
-  vp.set_gamut_display(true);
 
-  background_color = black;
+  background_color = white;
+
   tracer_ptr = new RayCast(this);
 
-  Pinhole* pinhole_ptr = new Pinhole;
-  pinhole_ptr->set_eye(0, 0, 100);
-  pinhole_ptr->set_lookat(0);
-  pinhole_ptr->set_view_distance(6000.0);
-  pinhole_ptr->compute_uvw();
-  set_camera(pinhole_ptr);
+  Pinhole* camera_ptr = new Pinhole;
+
+  // for Figure 16.5(a)
+
+  camera_ptr->set_eye(35, 50, 35);
+  camera_ptr->set_lookat(0, 0, 0);
+  camera_ptr->set_view_distance(350);
+
+  camera_ptr->compute_uvw();
+  set_camera(camera_ptr);
 
 
-  Directional* light_ptr = new Directional;
-  light_ptr->set_direction(0, 0, 1);
-  light_ptr->scale_radiance(2.5);
+  PointLight* light_ptr = new PointLight;
+  light_ptr->set_location(1500, 750, 250);
+  light_ptr->scale_radiance(4.5);
+  light_ptr->set_shadows(true);
   add_light(light_ptr);
 
-  // noise:
 
-  CubicNoise* noise_ptr = new CubicNoise;
-//  noise_ptr->set_num_octaves(1);				// for Figure 31.21(a)
-//  noise_ptr->set_num_octaves(2);				// for Figure 31.21(b)
-//  noise_ptr->set_num_octaves(3);				// for Figure 31.21(c)
-  noise_ptr->set_num_octaves(8);				// for Figure 31.21(c)
-  noise_ptr->set_gain(0.5);
-  noise_ptr->set_lacunarity(2.0);
+  // lego material
 
-  // texture:
+  Matte* matte_ptr3 = new Matte;
+  matte_ptr3->set_cd(0.5, 0.6, 0);     // green
+  matte_ptr3->set_ka(0.4);
+  matte_ptr3->set_kd(0.5);
 
-  FBmTexture* texture_ptr = new FBmTexture(noise_ptr);
-  texture_ptr->set_color(white);
-  texture_ptr->set_min_value(0.0);
-  texture_ptr->set_max_value(1.0);
+  LegoPart* lego = new LegoPart;
+  lego->set_material(matte_ptr3->clone());
+  add_object(lego);
 
+  // ground plane with checker
 
-  // material:
+  Checker3D* checker_ptr = new Checker3D;
+  checker_ptr->set_size(10);
+  checker_ptr->set_color1(0.7);
+  checker_ptr->set_color2(white);
 
-  SV_Matte* sv_matte_ptr = new SV_Matte;
-  sv_matte_ptr->set_ka(0.25);
-  sv_matte_ptr->set_kd(0.85);
-  sv_matte_ptr->set_cd(texture_ptr);
-
-  Plane* plane_ptr1 = new Plane(Point3D(0.0), Normal(0, 0, 1));
-  plane_ptr1->set_material(sv_matte_ptr->clone());
-  add_object(plane_ptr1);
+  SV_Matte* sv_matte_ptr1 = new SV_Matte;
+  sv_matte_ptr1->set_ka(0.15);
+  sv_matte_ptr1->set_kd(1.0);
+  sv_matte_ptr1->set_cd(checker_ptr);
+  Plane* plane_ptr = new Plane(Point3D(0, -10, 0), Normal(0, 1, 0));
+  plane_ptr->set_material(sv_matte_ptr1->clone());
+  add_object(plane_ptr);
 }
-
-
-
