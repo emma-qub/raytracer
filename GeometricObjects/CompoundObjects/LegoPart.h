@@ -31,4 +31,6 @@ inline void LegoPart::setLDrawLibraryPath(const std::string& ldrawLibPath) {
   ldrawLibraryPath = ldrawLibPath;
 }
 
+bool is_back_slash(const char& c);
+
 #endif // LEGOPART_H

@@ -6,8 +6,10 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 #include <QDebug>
+#include <QString>
 
 LegoPart::LegoPart(void):
   Compound(),
@@ -66,6 +68,7 @@ bool LegoPart::shadow_hit(const Ray& ray, float& tmin) const {
 void LegoPart::parseFile(void) {
   Instance* instance = new Instance(parseSubFile(legoFileName));
   instance->rotate_z(180);
+  instance->rotate_y(-90);
   instance->translate(0, 10, 0);
 
   add_object(instance);
@@ -81,15 +84,17 @@ Compound* LegoPart::parseSubFile(const std::string& fileName) {
 
     while (std::getline(file, line)) {
       line = line.substr(0, line.length()-1);
+      if (line.empty())
+        continue;
 
-      int n, color;
+      int n = -1, color;
       std::stringstream sstr;
       sstr << line;
       sstr >> n >> color;
       switch (n) {
       case 1:
       {
-        int x, y, z, a, b, c, d, e, f, g, h, i;
+        float x, y, z, a, b, c, d, e, f, g, h, i;
         Matrix mat;
         std::string subFileName;
         sstr >> x >> y >> z
@@ -113,12 +118,13 @@ Compound* LegoPart::parseSubFile(const std::string& fileName) {
         mat.m[3][1] = 0;
         mat.m[3][2] = 0;
         mat.m[3][3] = 1;
-        if (subFileName[1] == '\\') {
-          subFileName.replace(1, 1, 1, '/');
-        }
+        std::replace_if(subFileName.begin(), subFileName.end(), is_back_slash, '/');
+        std::transform(subFileName.begin(), subFileName.end(), subFileName.begin(), ::tolower);
+        std::cerr << "###" << line << "\n## " << subFileName << std::endl;
+        subFileName = subFileName.substr(0, subFileName.length()-3)+"dat";
         Compound* subPart = parseSubFile(ldrawLibraryPath+"p/"+subFileName);
         if (subPart == NULL) {
-          subPart = parseSubFile(ldrawLibraryPath+"/parts/"+subFileName);
+          subPart = parseSubFile(ldrawLibraryPath+"parts/"+subFileName);
         }
         if (subPart != NULL) {
           Instance* instance = new Instance(subPart);
@@ -163,4 +169,8 @@ Compound* LegoPart::parseSubFile(const std::string& fileName) {
   }
 
   return res;
+}
+
+bool is_back_slash(const char& c) {
+  return c == '\\';
 }

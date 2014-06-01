@@ -71,7 +71,7 @@ void World::build(void) {
   matte_ptr3->set_ka(0.4);
   matte_ptr3->set_kd(0.5);
 
-  LegoPart* lego = new LegoPart;
+  LegoPart* lego = new LegoPart("/home/valentin/Documents/ldraw/parts/62712.dat");
   lego->set_material(matte_ptr3->clone());
   add_object(lego);
 
@@ -86,7 +86,7 @@ void World::build(void) {
   sv_matte_ptr1->set_ka(0.15);
   sv_matte_ptr1->set_kd(1.0);
   sv_matte_ptr1->set_cd(checker_ptr);
-  Plane* plane_ptr = new Plane(Point3D(0, -10, 0), Normal(0, 1, 0));
+  Plane* plane_ptr = new Plane(Point3D(0, -20, 0), Normal(0, 1, 0));
   plane_ptr->set_material(sv_matte_ptr1->clone());
   add_object(plane_ptr);
 }
